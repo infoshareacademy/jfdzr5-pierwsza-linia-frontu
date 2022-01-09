@@ -1,21 +1,21 @@
-.mainpage {
+.dashboard {
   margin: 1rem;
   padding: 0;
   box-sizing: border-box;
 }
 
-.mainpage-icon {
+.dashboard-icon {
   color: var(--second-color);
   font-size: 4rem;
 }
 
-.mainpage-tiles {
+.dashboard-tiles {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   grid-gap: 1rem;
 }
 
-.mainpage-tiles-item {
+.dashboard-tiles-item {
   display: inline-block;
   background: var(--third-color);
   margin: 2rem;
@@ -26,22 +26,22 @@
   border-collapse: collapse;
 }
 
-.mainpage-tiles-item:hover {
+.dashboard-tiles-item:hover {
   cursor: pointer;
   border: 3px solid var(--second-color);
 }
 
-.mainpage-tiles-item h2 {
+.dashboard-tiles-item h2 {
   font-size: 2.5rem;
   color: var(--text-color);
 }
 
-.mainpage-tiles-item p {
-  font-size: 1.5rem;
+.dashboard-tiles-item p {
+  font-size: 2.5rem;
   color: var(--text-color);
 }
 
-.mainpage-tiles hr {
+.dashboard-tiles hr {
   background-color: var(--second-color);
   border-color: var(--second-color);
   width: 98%;
