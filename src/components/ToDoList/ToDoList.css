@@ -1,0 +1,16 @@
+.to-do-list {
+  background-color: var(--third-color);
+}
+
+.to-do-list button {
+  background-color: black;
+  width: 100px;
+  height: 20px;
+}
+.to-do-list p {
+  display: inline-block;
+  color: var(--text-color);
+}
+.added-task {
+  background-color: var(--first-color);
+}
