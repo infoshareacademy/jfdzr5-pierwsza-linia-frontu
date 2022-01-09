@@ -39,11 +39,6 @@ body {
   border: 3px solid var(--second-color);
 }
 
-.icon-paste, .icon-money, .icon-bell-alt, .icon-chart-pie {
-  color: var(--second-color);
-  font-size: 4rem;
-}
-
 .App-tiles-item h2 {
   font-size: 2.5rem;
 }
