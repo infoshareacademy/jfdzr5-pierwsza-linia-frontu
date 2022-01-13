@@ -29,6 +29,12 @@
   display: inline-block;
   color: var(--text-color);
 }
+
+.list-of-task-container {
+  padding: 10px;
+}
 .added-task {
   background-color: var(--first-color);
+  padding: 10px;
+  margin: 20px;
 }
