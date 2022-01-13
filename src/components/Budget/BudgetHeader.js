@@ -1,6 +1,6 @@
 import React from "react";
 
-export class ToggleButton extends React.Component {
+export class MyButton extends React.Component {
     constructor(props) {
         super(props);
         this.state = { chosen: "wydatki" };
