@@ -1,0 +1,12 @@
+.button {
+    color: black;
+    padding: 10px;
+}
+
+.chosen {
+  font-weight: bold ;
+}
+
+.budget-form input, select, option {
+  color: black;
+}
