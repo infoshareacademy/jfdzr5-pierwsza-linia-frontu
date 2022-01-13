@@ -1,9 +1,27 @@
 .to-do-list {
+  color: var(--text-color);
   background-color: var(--third-color);
+  width: 80%;
+  margin: 5px auto;
 }
-
-.to-do-list button {
-  background-color: black;
+.to-do-list-title {
+  font-size: 2.5rem;
+  padding: 20px;
+  text-align: center;
+  margin: 0;
+}
+.to-do-list hr {
+  background-color: var(--second-color);
+  border-color: var(--second-color);
+  width: 98%;
+  height: 0.25rem;
+  margin: 0 auto;
+}
+.form-to-add-task {
+  padding: 10px;
+  text-align: center;
+}
+.to-do-buttons {
   width: 100px;
   height: 20px;
 }
