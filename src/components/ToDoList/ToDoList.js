@@ -12,6 +12,7 @@ const ToDoList = () => {
   const [isAdding, setIsAdding] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [task, setTask] = useState("");
+  let [newValue, setNewValue] = useState("d");
   const handleSubmit = e => {
     e.preventDefault();
 
@@ -24,15 +25,20 @@ const ToDoList = () => {
     setTask("");
   };
 
-  const handleClickEdit = () => {
-    console.log("edit");
+  const handleClickEdit = id => {
     setIsEditing(true);
+    setNewValue(id);
+    // setNewValue(task);
+    console.log("edit");
+    console.log(tasks);
   };
   const handleClickDelete = id => {
     const newArray = tasks.filter(element => element.id !== id);
     setTasks(newArray);
   };
-
+  const handleOnChange = id => {
+    setNewValue();
+  };
   return (
     <div className="to-do-list">
       <h2 className="to-do-list-title">Lista zadań</h2>
@@ -59,11 +65,21 @@ const ToDoList = () => {
       <div className="list-of-task-container">
         {tasks.map(element => (
           <div className="added-task" key={element.id}>
-            <p>{element.task}</p>
+            {element.id !== newValue && <p>{element.task}</p>}
+            {isEditing && element.id === newValue && (
+              <input
+                type="text"
+                value={element.task}
+                onChange={e => {
+                  setNewValue(e.target.value);
+                }}></input>
+            )}
             <label>
               <input type="checkbox" name="" id="" />
             </label>
-            <button className="to-do-buttons" onClick={handleClickEdit}>
+            <button
+              className="to-do-buttons"
+              onClick={() => handleClickEdit(element.id)}>
               {isEditing ? "Zapisz" : "Edytuj"}
             </button>
             <button
