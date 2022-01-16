@@ -6,7 +6,7 @@ import ToDoList from "./components/ToDoList/ToDoList";
 function App() {
   return (
     <>
-      {/* <MainPage /> */}
+      <MainPage />
       <ToDoList />
     </>
   );

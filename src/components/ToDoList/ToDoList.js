@@ -60,23 +60,27 @@ const ToDoList = () => {
     setTaskId("");
     setTasks(newArray);
   };
+  // const test = id => {
+  //   setTaskId(id);
+  // };
   const handleIsChecked = e => {
-    // console.log("klik");
-    // const newArray = tasks.map(element => {
-    //   if (id === element.id) {
-    //     return { ...element, task: newValue2 };
-    //   }
-    //   return element;
-    // });
+    console.log("klik");
+    const newArray = tasks.map(element => {
+      if (e.target.checked && taskID === element.id) {
+        return { ...element, isCheckd: true };
+      } else {
+        return { ...element, isCheckd: false };
+      }
+    });
     // setIsEditing(false);
-    // // setTaskId(id);
-    // // setTasks(newArray);
-    // // return newArray, console.log(newArray);
-    // console.log(newArray);
-    // setTaskId("");
+    // setTaskId(id);
     // setTasks(newArray);
+    // return newArray, console.log(newArray);
+    console.log(newArray);
+    // setTaskId("");
+    setTasks(newArray);
     console.log(e.target.checked);
-    
+    console.log(e);
   };
   return (
     <div className="to-do-list">
@@ -119,6 +123,7 @@ const ToDoList = () => {
                 defaultChecked={element.isCheckd}
                 onChange={
                   handleIsChecked
+                  //  () => test(element.id))
 
                   // e => setIsChecked(e.target.checked)
                 }
