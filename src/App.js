@@ -1,12 +1,12 @@
-import './App.css';
-import MainPage from './components/MainPage/MainPage';
-import Dashboard from './components/Dashboard/Dashboard';
+import { Navigation } from './navigation';
+import { Content } from "./content";
 
 function App() {
   return (
-    <>
-      <MainPage />
-    </>
+      <>
+        <Navigation />
+        <Content />
+      </>
   );
 }
 
