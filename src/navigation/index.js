@@ -5,6 +5,7 @@ import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
+import { Theme } from "../common/theme";
 
 const navItems = [
     { label: 'Home', path: '/'},
@@ -15,7 +16,7 @@ const navItems = [
 ]
 
 export const Navigation = () => {
-    return <AppBar position="static">
+    return <AppBar position="static" theme={ Theme } color="secondary">
         <Container maxWidth="xl">
             <Toolbar disableGutters>
                 <IconButton>
@@ -23,11 +24,12 @@ export const Navigation = () => {
                 </IconButton>
                 {
                     navItems.map(item => (
-                        <Button key={item.label} sx={{my: 2, color: 'white'}} component={Link} to={item.path}>
+                        <Button key={item.label} sx={{my: 2, color: 'inherit'}} component={Link} to={item.path}>
                             {item.label}
                         </Button>
                     ))
                 }
+                 <Button color="inherit">Login</Button>
             </Toolbar>
         </Container>
     </AppBar>
