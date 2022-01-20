@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import AddTaskForm from "./AddTaskForm/AddTaskForm";
 import "./ToDoList.css";
 const ToDoList = () => {
   const [tasks, setTasks] = useState([
@@ -15,6 +16,7 @@ const ToDoList = () => {
   const [task, setTask] = useState("");
   let [taskID, setTaskId] = useState("");
   let [newValue2, setNewValue2] = useState("");
+
   const handleSubmit = e => {
     e.preventDefault();
 
@@ -86,7 +88,9 @@ const ToDoList = () => {
     <div className="to-do-list">
       <h2 className="to-do-list-title">Lista zadań</h2>
       <hr />
-      <form className="form-to-add-task" onSubmit={handleSubmit}>
+
+      <AddTaskForm tasks={tasks} task={task} setTask={setTask} />
+      {/* <form className="form-to-add-task" onSubmit={handleSubmit}>
         <div className="add-task-container">
           <label>
             <input
@@ -104,7 +108,7 @@ const ToDoList = () => {
             dodaj
           </button>
         </div>
-      </form>
+      </form> */}
       <div className="list-of-task-container">
         {tasks.map(element => (
           <div className="added-task" key={element.id}>
@@ -121,19 +125,13 @@ const ToDoList = () => {
               <input
                 type="checkbox"
                 defaultChecked={element.isCheckd}
-                onChange={
-                  handleIsChecked
-                  //  () => test(element.id))
-
-                  // e => setIsChecked(e.target.checked)
-                }
+                onChange={handleIsChecked}
               />
             </label>
             {!save && (
               <button
                 className="to-do-buttons"
                 onClick={() => handleClickEdit(element.id)}>
-                {/* {isEditing ? "Zapisz" : "Edytuj"} */}
                 Edytuj
               </button>
             )}
@@ -141,7 +139,6 @@ const ToDoList = () => {
               <button
                 className="to-do-buttons"
                 onClick={() => handleClickSave(element.id)}>
-                {/* {isEditing ? "Zapisz" : "Edytuj"} */}
                 Zapisz
               </button>
             )}
