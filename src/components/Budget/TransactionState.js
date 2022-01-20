@@ -1,0 +1,10 @@
+// import React, {createContext, useReducer} from 'react';
+
+// const InitialState = {
+//     expensesContainer: [
+
+//     ],
+//     incomeContainer: [
+        
+//     ]
+// }

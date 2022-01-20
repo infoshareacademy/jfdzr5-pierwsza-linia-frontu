@@ -1,15 +1,28 @@
 import './App.css';
 import './components/Budget/Budget.css'
 import MainPage from './components/MainPage/MainPage';
-import { BudgetForm } from './components/Budget/BudgetForm';
+import BudgetFormExpenses from './components/Budget/BudgetFormExpenses';
 import { MyButton } from './components/Budget/BudgetHeader';
+import ExpensesList from './components/Budget/ExpensesList';
+import IncomeList from './components/Budget/IncomeList';
+import { useState } from 'react';
+
 
 function App() {
+  const [expenses, setExpenses] = useState([
+
+  ]);
+  const handleSubmit = (expense) => {
+    console.log(expense)
+    setExpenses([...expenses, expense])
+  }
   return (
     <>
-      <MainPage />
+      {/* <MainPage /> */}
       <MyButton />
-      <BudgetForm />
+      <BudgetFormExpenses onSubmit={handleSubmit} />
+      <ExpensesList expenses={expenses} />
+      <IncomeList />
 
     </>
   );

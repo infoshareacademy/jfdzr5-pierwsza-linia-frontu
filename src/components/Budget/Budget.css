@@ -12,6 +12,6 @@
   font-weight: bold ;
 }
 
-.budget-form input, select, option {
+.budget-form input, select, option, input {
   color: black;
 }
