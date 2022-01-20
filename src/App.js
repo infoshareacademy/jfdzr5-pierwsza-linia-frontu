@@ -1,14 +1,13 @@
-import "./App.css";
-import MainPage from "./components/MainPage/MainPage";
-// import Dashboard from "./components/Dashboard/Dashboard";
-import ToDoList from "./components/ToDoList/ToDoList";
+import { Navigation } from './navigation';
+import { Content } from "./content";
+import './App.css';
 
 function App() {
   return (
-    <>
-      <MainPage />
-      <ToDoList />
-    </>
+      <>
+        <Navigation />
+        <Content />
+      </>
   );
 }
 
