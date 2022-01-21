@@ -7,15 +7,10 @@ import { Theme } from "./common/theme";
 function App() {
   return (
     <>
-<<<<<<< HEAD
-      <Navigation />
-      <Content />
-=======
       <ThemeProvider theme={Theme}>
         <Navigation />
         <Content />
       </ThemeProvider>
->>>>>>> master
     </>
   );
 }
