@@ -1,8 +1,6 @@
-import React, { useState, useContext } from "react";
-//import {GlobalContext} from './GlobalContext';
+import React from "react";
 
 function ExpensesList(props) {
-    //const {expenseTransaction} = useContext(GlobalContext)
     console.log(props)
     return (
         <div className="expenses-container">
@@ -25,21 +23,6 @@ function ExpensesList(props) {
             </ul>
         </div >
     )
-    //     const [expenses, setExpenses] = useState([]);
-
-    //     const addExpenses = expense => {
-    //         const newExpenses = [expense, ...expenses];
-
-    //         setExpenses(newExpenses);
-    //     }
-
-    //     return (
-    //         <div>
-    //             <BudgetFormExpenses onSubmit={addExpenses} />
-    //         </div>
-
-    //     )
-
 
 }
 

@@ -6,23 +6,31 @@ import { MyButton } from './components/Budget/BudgetHeader';
 import ExpensesList from './components/Budget/ExpensesList';
 import IncomeList from './components/Budget/IncomeList';
 import { useState } from 'react';
+import BudgetFormIncomes from './components/Budget/BudgetFormIncomes';
 
 
 function App() {
   const [expenses, setExpenses] = useState([
 
   ]);
-  const handleSubmit = (expense) => {
-    console.log(expense)
+  const handleExpenseSubmit = (expense) => {
     setExpenses([...expenses, expense])
+  }
+
+  const [incomes, setIncomes] = useState([
+
+  ]);
+  const handleIncomesSubmit = (income) => {
+    setIncomes([...incomes, income])
   }
   return (
     <>
       {/* <MainPage /> */}
       <MyButton />
-      <BudgetFormExpenses onSubmit={handleSubmit} />
+      <BudgetFormExpenses onSubmit={handleExpenseSubmit} />
+      <BudgetFormIncomes onSubmit={handleIncomesSubmit} />
       <ExpensesList expenses={expenses} />
-      <IncomeList />
+      <IncomeList incomes={incomes} />
 
     </>
   );
