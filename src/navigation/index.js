@@ -21,7 +21,7 @@ export const Navigation = () => {
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <IconButton>
-            <Avatar alt="home" variant="square" src="" />
+            <Avatar alt="home" variant="square" src="#" />
           </IconButton>
           {navItems.map(item => (
             <Button
