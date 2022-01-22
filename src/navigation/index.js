@@ -11,7 +11,7 @@ const navItems = [
   { label: "Home", path: "/" },
   { label: "Zadania", path: "/tasks" },
   { label: "Budżet", path: "/budget" },
-  { label: "Wydarzenia", path: "/events" },
+  { label: "Kalendarz", path: "/calendar" },
   { label: "Dashboard", path: "/dashboard" },
 ];
 

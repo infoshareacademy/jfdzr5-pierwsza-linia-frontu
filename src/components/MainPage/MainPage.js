@@ -16,7 +16,7 @@ function MainPage() {
                         <p>Zarządzaj domowym budżetem, wprowadź wpływy i wydatki, analizuj strukturę wydatków.</p>
                     </div>
                     <div className="mainpage-tiles-item">
-                        <h2>Wydarzenia</h2>
+                        <h2>Kalendarz</h2>
                         <hr />
                         <p>Dodaj daty, rocznice i terminy, o których już nigdy nie zapomnisz.</p>
                     </div>
