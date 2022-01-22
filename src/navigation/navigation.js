@@ -5,7 +5,7 @@ import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
-import { Theme } from "../common/theme";
+import { Theme } from "../common/theme/theme";
 
 const navItems = [
   { label: "Home", path: "/" },

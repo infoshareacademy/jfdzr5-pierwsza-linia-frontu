@@ -1,5 +1,5 @@
 import Typography from "@mui/material/Typography";
-import {PageWrapper} from "../../common/page-wrapper";
+import {PageWrapper} from "../../common/page-wrapper/page-wrapper";
 
 export const Home = () => {
     return <PageWrapper title="Home App">

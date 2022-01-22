@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-import { Home } from "./home";
+import { Home } from "./home/home";
 import ToDoList from "../components/ToDoList/ToDoList";
 import Calendar from "../components/Calendar/Calendar";
 
