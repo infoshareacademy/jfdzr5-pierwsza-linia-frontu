@@ -30,7 +30,7 @@ const NewEvent = ({ items, setItems }) => {
     setEventId(id);
     items.forEach(element => {
       if (id === element.id) {
-        setTakenValue(element.task);
+        setTakenValue(element.item);
       }
     });
   };
@@ -43,7 +43,7 @@ const NewEvent = ({ items, setItems }) => {
     setSave(false);
     const newArray = items.map(element => {
       if (id === element.id) {
-        return { ...element, task: takenValue };
+        return { ...element, item: takenValue };
       }
       return element;
     });
@@ -75,7 +75,7 @@ const NewEvent = ({ items, setItems }) => {
                 alignSelf: "center",
                 textDecoration: `${element.isChecked ? "line-through" : ""}`,
               }}>
-              {element.task}
+              {element.item}
             </Typography>
           )}
           {isEditing && element.id === eventID && (
