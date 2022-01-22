@@ -109,11 +109,13 @@ const NewTask = ({ tasks, setTasks }) => {
               <Icon>save</Icon>
             </Button>
           )}
-          <Button
-            color="secondary"
-            onClick={() => handleClickDelete(element.id)}>
-            <Icon>delete</Icon>
-          </Button>
+          {!isEditing && (
+            <Button
+              color="secondary"
+              onClick={() => handleClickDelete(element.id)}>
+              <Icon>delete</Icon>
+            </Button>
+          )}
         </NewTaskContainer>
       ))}
     </NewTasksContainer>
