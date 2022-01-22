@@ -57,7 +57,7 @@ const NewTask = ({ tasks, setTasks }) => {
     console.log("klik");
     const newArray = tasks.map(element => {
       if (id === element.id) {
-        return { ...element, isCheckd: element.isCheckd ? false : true };
+        return { ...element, isChecked: element.isChecked ? false : true };
       } else {
         return { ...element };
       }
@@ -73,7 +73,7 @@ const NewTask = ({ tasks, setTasks }) => {
             <Typography
               sx={{
                 alignSelf: "center",
-                textDecoration: `${element.isCheckd ? "line-through" : ""}`,
+                textDecoration: `${element.isChecked ? "line-through" : ""}`,
               }}>
               {element.task}
             </Typography>
@@ -89,7 +89,7 @@ const NewTask = ({ tasks, setTasks }) => {
           )}
           {!isEditing && (
             <Checkbox
-              checked={element.isCheckd}
+              checked={element.isChecked}
               color="secondary"
               type="checkbox"
               onChange={() => handleIsChecked(element.id)}

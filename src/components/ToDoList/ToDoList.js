@@ -8,10 +8,10 @@ import { Typography } from "@mui/material";
 
 const ToDoList = () => {
   const [tasks, setTasks] = useState([
-    { task: "zadanie 1", isCheckd: false, id: 1 },
-    { task: "zadanie 2", isCheckd: true, id: 2 },
-    { task: "zadanie 3", isCheckd: true, id: 3 },
-    { task: "zadanie 4", isCheckd: true, id: 4 },
+    { task: "zadanie 1", isChecked: false, id: 1 },
+    { task: "zadanie 2", isChecked: true, id: 2 },
+    { task: "zadanie 3", isChecked: true, id: 3 },
+    { task: "zadanie 4", isChecked: true, id: 4 },
   ]);
   const [task, setTask] = useState("");
 
