@@ -25,6 +25,7 @@ const AddTaskForm = ({ task, setTask, handleSubmit }) => {
               setTask(e.target.value);
             }}
             value={task}
+            required
           />
           <Button variant="outlined" type="submit" color="primary">
             <Icon>add</Icon>

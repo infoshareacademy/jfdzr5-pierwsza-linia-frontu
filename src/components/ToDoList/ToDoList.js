@@ -17,7 +17,6 @@ const ToDoList = () => {
 
   const handleSubmit = e => {
     e.preventDefault();
-
     const newTask = {
       task: task,
       isCheckd: false,
