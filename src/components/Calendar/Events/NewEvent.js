@@ -4,7 +4,7 @@ import styled from "styled-components";
 import Icon from "@mui/material/Icon";
 import { Button, Input, Typography } from "@mui/material";
 import Checkbox from "@mui/material/Checkbox";
-import { Theme } from "../../../common/theme";
+import { Theme } from "../../../common/theme/theme";
 
 const NewEventsContainer = styled.div`
   padding: 10px;

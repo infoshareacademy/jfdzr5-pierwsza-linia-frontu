@@ -3,7 +3,7 @@ import AddEventForm from "./Events/AddEventForm";
 import NewEvent from "./Events/NewEvent";
 
 import Container from "@mui/material/Container";
-import { Theme } from "../../common/theme";
+import { Theme } from "../../common/theme/theme";
 import { Typography } from "@mui/material";
 
 const CalendarList = () => {
