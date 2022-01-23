@@ -1,10 +1,14 @@
+import { Theme } from "../../../common/theme/theme";
+import styled from "styled-components";
 import { useState } from "react";
 
-import styled from "styled-components";
+import { Box } from "@mui/material";
 import Icon from "@mui/material/Icon";
-import { Button, Input, Typography } from "@mui/material";
-import Checkbox from "@mui/material/Checkbox";
-import { Theme } from "../../../common/theme/theme";
+import { Button } from "@mui/material";
+import { Input } from "@mui/material";
+import { Typography } from "@mui/material";
+import { Checkbox } from "@mui/material";
+
 
 const NewEventsContainer = styled.div`
   padding: 10px;
