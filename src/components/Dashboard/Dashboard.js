@@ -17,8 +17,8 @@ const Tile = styled.div`
     background: ${Theme.palette.secondary.main};
     margin: 2rem;
     padding: 3rem;
-    min-width: 40rem;
-    min-height: 20rem;
+    min-width: 20rem;
+    min-height: 15rem;
     border: 3px solid transparent;
     border-collapse: collapse;
     &:hover {
@@ -39,20 +39,20 @@ const Dashboard = () => {
     return <PageWrapper title="Home App">  
             <TileContainer>
                 <Tile>
-                <GroupIcon sx={{marginLeft: "1rem", fontSize: "4rem"}}/>
-                <Typography variant="h2" sx={{margin: "1rem"}}>Użytkownicy</Typography>
+                <GroupIcon sx={{marginLeft: "1rem", fontSize: "3rem"}}/>
+                <Typography variant="h4" sx={{margin: "1rem"}}>Użytkownicy</Typography>
                 <HorizontalLine />
                 <Typography paragraph="true" sx={{margin:"1rem", fontSize: "3rem"}}>5</Typography>
                 </Tile>
                 <Tile>
-                <ListAltIcon sx={{marginLeft: "1rem", fontSize: "4rem"}}/>
-                <Typography variant="h2" sx={{margin: "1rem"}}>Zadania</Typography>
+                <ListAltIcon sx={{marginLeft: "1rem", fontSize: "3rem"}}/>
+                <Typography variant="h4" sx={{margin: "1rem"}}>Zadania</Typography>
                 <HorizontalLine />
                 <Typography paragraph="true" sx={{margin:"1rem", fontSize: "3rem"}}>23</Typography>
                 </Tile>
                 <Tile>
-                <NotificationsActiveIcon sx={{marginLeft: "1rem", fontSize: "4rem"}}/>
-                <Typography variant="h2" sx={{margin: "1rem"}}>Wydarzenia</Typography>
+                <NotificationsActiveIcon sx={{marginLeft: "1rem", fontSize: "3rem"}}/>
+                <Typography variant="h4" sx={{margin: "1rem"}}>Wydarzenia</Typography>
                 <HorizontalLine />
                 <Typography paragraph="true" sx={{margin:"1rem", fontSize: "3rem"}}>33</Typography>
                 </Tile>
