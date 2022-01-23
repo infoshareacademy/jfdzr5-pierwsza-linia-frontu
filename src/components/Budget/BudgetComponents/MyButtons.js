@@ -2,9 +2,9 @@ import React from "react";
 import BudgetFormExpenses from "./BudgetFormExpenses";
 import BudgetFormIncomes from "./BudgetFormIncomes";
 import ExpensesList from "./ExpensesList";
-import IncomesList from "./IncomeList";
+import IncomesList from "./IncomesList";
 
-export class MyButton extends React.Component {
+export class MyButtons extends React.Component {
     constructor(props) {
         super(props);
 
