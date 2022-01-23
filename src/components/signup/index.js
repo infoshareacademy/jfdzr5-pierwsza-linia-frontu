@@ -1,7 +1,7 @@
 import { TextField } from "@mui/material";
 
 import Typography from "@mui/material/Typography";
-import {PageWrapper} from "../../common/page-wrapper";
+import {PageWrapper} from "../../common/page-wrapper/page-wrapper";
 import { Button } from "@mui/material";
 
 import styled from "styled-components";
