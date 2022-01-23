@@ -1,12 +1,15 @@
 import styled from 'styled-components';
+import { Theme } from "../theme/theme";
 
 const Container = styled.div`
-    margin: 2rem;
-    padding: 0;
-    box-sizing: border-box;
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin: 0;
+    padding: 2rem;
+    box-sizing: border-box;
+    background-color: ${Theme.palette.primary.main};
+    color: ${Theme.palette.secondary.contrastText};
 `;
 
 export const PageWrapper = ({ children }) => (

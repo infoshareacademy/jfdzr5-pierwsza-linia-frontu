@@ -1,9 +1,9 @@
 import { useState } from "react";
 import AddEventForm from "./Events/AddEventForm";
 import NewEvent from "./Events/NewEvent";
+import {PageWrapper} from "../../common/page-wrapper/page-wrapper";
 
 import Container from "@mui/material/Container";
-import { Theme } from "../../common/theme/theme";
 import { Typography } from "@mui/material";
 
 const CalendarList = () => {
@@ -28,25 +28,14 @@ const CalendarList = () => {
   };
 
   return (
-    <Container
-      maxWidth="sm"
-      sx={{
-        backgroundColor: Theme.palette.secondary.main,
-        margin: "0 auto",
-        marginTop: "10px",
-      }}>
-      <Container>
-        <Typography variant="h3" sx={{ textAlign: "center" }}>
-          Lista wydarzeń
-        </Typography>
+    <PageWrapper>
         <AddEventForm
           item={item}
           setItem={setItem}
           handleSubmit={handleSubmit}
         />
         <NewEvent items={items} setItems={setItems} />
-      </Container>
-    </Container>
+    </PageWrapper>
   );
 };
 
