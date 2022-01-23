@@ -1,8 +1,9 @@
-import BudgetFormExpenses from "./BudgetFormExpenses";
-import BudgetFormIncomes from "./BudgetFormIncomes";
-import ExpensesList from "./ExpensesList";
-import IncomesList from "./IncomeList";
+import BudgetFormExpenses from "./BudgetComponents/BudgetFormExpenses";
+import BudgetFormIncomes from "./BudgetComponents/BudgetFormIncomes";
+import ExpensesList from "./BudgetComponents/ExpensesList";
+import IncomesList from "./BudgetComponents/IncomesList";
 import { MyButtons } from "./BudgetComponents/MyButtons";
+import { useState } from "react";
 
 export const Budget = () => {
     const [expenses, setExpenses] = useState([
@@ -23,7 +24,7 @@ export const Budget = () => {
         <>
 
             <MyButtons />
-            <BudgetFormExpenses onSubmit={handleSubmit} />
+            {/* <BudgetFormExpenses onSubmit={handleSubmit} /> */}
             <BudgetFormExpenses onSubmit={handleExpenseSubmit} />
             <BudgetFormIncomes onSubmit={handleIncomesSubmit} />
             <ExpensesList expenses={expenses} />
