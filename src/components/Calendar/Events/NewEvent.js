@@ -1,21 +1,27 @@
+import { Theme } from "../../../common/theme/theme";
+import styled from "styled-components";
 import { useState } from "react";
 
-import styled from "styled-components";
+import { Box } from "@mui/material";
 import Icon from "@mui/material/Icon";
-import { Button, Input, Typography } from "@mui/material";
-import Checkbox from "@mui/material/Checkbox";
-import { Theme } from "../../../common/theme/theme";
+import { Button } from "@mui/material";
+import { Input } from "@mui/material";
+import { Typography } from "@mui/material";
+import { Checkbox } from "@mui/material";
+
 
 const NewEventsContainer = styled.div`
   padding: 10px;
+  color: ${Theme.palette.secondary.contrastText};
 `;
 
 const NewEventContainer = styled.div`
   display: flex;
+  min-height: 1rem;
   margin: 10px;
   padding: 10px;
-  // background-color: ${Theme.palette.primary.main};
   background-color: grey;
+  color: ${Theme.palette.secondary.contrastText};
 `;
 
 const NewEvent = ({ items, setItems }) => {
@@ -48,13 +54,11 @@ const NewEvent = ({ items, setItems }) => {
       return element;
     });
     setIsEditing(false);
-    console.log(newArray);
     setEventId("");
     setItems(newArray);
   };
 
   const handleIsChecked = id => {
-    console.log("klik");
     const newArray = items.map(element => {
       if (id === element.id) {
         return { ...element, isChecked: element.isChecked ? false : true };
@@ -90,27 +94,27 @@ const NewEvent = ({ items, setItems }) => {
           {!isEditing && (
             <Checkbox
               checked={element.isChecked}
-              color="secondary"
               type="checkbox"
               onChange={() => handleIsChecked(element.id)}
+              sx={{color: Theme.palette.secondary.contrastText}}
             />
           )}
           {!save && (
             <Button
-              color="secondary"
+              color="inherit"
               onClick={() => handleClickEdit(element.id)}>
               <Icon>edit</Icon>
             </Button>
           )}
           {save && element.id === eventID && (
             <Button
-              color="secondary"
+              color="inherit"
               onClick={() => handleClickSave(element.id)}>
               <Icon>save</Icon>
             </Button>
           )}
           <Button
-            color="secondary"
+            color="inherit"
             onClick={() => handleClickDelete(element.id)}>
             <Icon>delete</Icon>
           </Button>

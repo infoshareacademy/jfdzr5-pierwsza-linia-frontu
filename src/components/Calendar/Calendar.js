@@ -1,52 +1,43 @@
 import { useState } from "react";
 import AddEventForm from "./Events/AddEventForm";
 import NewEvent from "./Events/NewEvent";
-
-import Container from "@mui/material/Container";
-import { Theme } from "../../common/theme/theme";
-import { Typography } from "@mui/material";
+import { PageWrapper } from "../../common/page-wrapper/page-wrapper";
 
 const CalendarList = () => {
   const [items, setItems] = useState([
-    { item: "Data 1", isChecked: false, id: 1 },
-    { item: "Data 2", isChecked: true, id: 2 },
-    { item: "Data 3", isChecked: true, id: 3 },
-    { item: "Data 4", isChecked: true, id: 4 },
+    { item: "Data 1", alert: false, date: "2022-01-23", id: 1 },
+    { item: "Data 2", alert: false, date: "2022-01-24",id: 2 },
+    { item: "Data 3", alert: true, date: "2022-01-25",id: 3 },
+    { item: "Data 4", alert: true, date: "2022-01-26",id: 4 },
   ]);
-  const [item, setItem] = useState("");
+  const [name, setName] = useState("");
+  const [alert, setAlert] = useState("");
+  const [date, setDate] = useState("");
 
   const handleSubmit = e => {
     e.preventDefault();
 
     const newItem = {
-      item: item,
-      isChecked: false,
-      id: Math.floor(Math.random() * 1000),
+      item: name,
+      alert: alert,
+      date: date,
+      id: Date.now(),
     };
     items.push(newItem);
-    setItem("");
+    setName("");
   };
 
   return (
-    <Container
-      maxWidth="sm"
-      sx={{
-        backgroundColor: Theme.palette.secondary.main,
-        margin: "0 auto",
-        marginTop: "10px",
-      }}>
-      <Container>
-        <Typography variant="h3" sx={{ textAlign: "center" }}>
-          Lista wydarzeń
-        </Typography>
+    <PageWrapper>
         <AddEventForm
-          item={item}
-          setItem={setItem}
+          item={name}
+          setItem={setName}
+          setAlert={setAlert}
+          setDate={setDate}
           handleSubmit={handleSubmit}
         />
         <NewEvent items={items} setItems={setItems} />
-      </Container>
-    </Container>
+    </PageWrapper>
   );
 };
 
