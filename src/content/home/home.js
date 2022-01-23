@@ -18,9 +18,9 @@ const Tile = styled.div`
     display: inline-block;
     background: ${Theme.palette.secondary.main};
     margin: 2rem;
-    padding: 1.5rem;
+    padding: 1rem;
     min-width: 40rem;
-    min-height: 20rem;
+    min-height: 15rem;
     border: 3px solid transparent;
     border-collapse: collapse;
     &:hover {
@@ -39,31 +39,31 @@ const HorizontalLine = styled.hr`
 
 export const Home = () => {
     return <PageWrapper title="Home App">
-            <Typography variant="h2" >Witaj w aplikacji Home Organizer!</Typography>  
+            <Typography variant="h3" >Witaj w aplikacji Home Organizer!</Typography>  
             <TileContainer>
                 <Tile component={Link} to="/tasks">
-                <FormatListNumberedIcon sx={{marginLeft: "1rem", fontSize: "4rem"}}/>
-                <Typography variant="h2" sx={{margin: "1rem"}}>Zadania</Typography>
+                <FormatListNumberedIcon sx={{marginLeft: "1rem", fontSize: "3rem"}}/>
+                <Typography variant="h3" sx={{margin: "1rem"}}>Zadania</Typography>
                 <HorizontalLine />
-                <Typography paragraph="true" sx={{margin:"1rem", fontSize: "1.5rem"}}>Przeglądaj zadania do wykonania, dodaj nowe lub edytuj już istniejące.</Typography>
+                <Typography paragraph="true" sx={{margin:"1rem", fontSize: "1rem"}}>Przeglądaj zadania do wykonania, dodaj nowe lub edytuj już istniejące.</Typography>
                 </Tile>
                 <Tile component={Link} to="/budget">
-                <AccountBalanceWalletIcon sx={{marginLeft: "1rem", fontSize: "4rem"}}/>
-                <Typography variant="h2" sx={{margin: "1rem"}}>Budżet</Typography>
+                <AccountBalanceWalletIcon sx={{marginLeft: "1rem", fontSize: "3rem"}}/>
+                <Typography variant="h3" sx={{margin: "1rem"}}>Budżet</Typography>
                 <HorizontalLine />
-                <Typography paragraph="true" sx={{margin:"1rem", fontSize: "1.5rem"}}>Zarządzaj domowym budżetem, wprowadź wpływy i wydatki, analizuj strukturę wydatków.</Typography>
+                <Typography paragraph="true" sx={{margin:"1rem", fontSize: "1rem"}}>Zarządzaj domowym budżetem, wprowadź wpływy i wydatki, analizuj strukturę wydatków.</Typography>
                 </Tile>
                 <Tile component={Link} to="/calendar">
-                <ScheduleIcon sx={{marginLeft: "1rem", fontSize: "4rem"}}/>
-                <Typography variant="h2" sx={{margin: "1rem"}}>Kalendarz</Typography>
+                <ScheduleIcon sx={{marginLeft: "1rem", fontSize: "3rem"}}/>
+                <Typography variant="h3" sx={{margin: "1rem"}}>Kalendarz</Typography>
                 <HorizontalLine />
-                <Typography paragraph="true" sx={{margin:"1rem", fontSize: "1.5rem"}}>Dodaj daty, rocznice i terminy, o których już nigdy nie zapomnisz.</Typography>
+                <Typography paragraph="true" sx={{margin:"1rem", fontSize: "1rem"}}>Dodaj daty, rocznice i terminy, o których już nigdy nie zapomnisz.</Typography>
                 </Tile>
                 <Tile component={Link} to="/dashboard">
-                <BarChartIcon sx={{marginLeft: "1rem", fontSize: "4rem"}}/>
-                <Typography variant="h2" sx={{margin: "1rem"}}>Dashboard</Typography>
+                <BarChartIcon sx={{marginLeft: "1rem", fontSize: "3rem"}}/>
+                <Typography variant="h3" sx={{margin: "1rem"}}>Dashboard</Typography>
                 <HorizontalLine />
-                <Typography paragraph="true" sx={{margin:"1rem", fontSize: "1.5rem"}}>Sprawdź dane i zasoby aplikacji.</Typography>
+                <Typography paragraph="true" sx={{margin:"1rem", fontSize: "1rem"}}>Sprawdź dane i zasoby aplikacji.</Typography>
                 </Tile>
             </TileContainer>
     </PageWrapper>
