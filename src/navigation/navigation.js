@@ -5,13 +5,13 @@ import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
-import { Theme } from "../common/theme";
+import { Theme } from "../common/theme/theme";
+import logo from './home.png';
 
 const navItems = [
-  { label: "Home", path: "/" },
   { label: "Zadania", path: "/tasks" },
   { label: "Budżet", path: "/budget" },
-  { label: "Wydarzenia", path: "/events" },
+  { label: "Kalendarz", path: "/calendar" },
   { label: "Dashboard", path: "/dashboard" },
 ];
 
@@ -21,7 +21,7 @@ export const Navigation = () => {
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <IconButton>
-            <Avatar alt="home" variant="square" src="#" />
+            <Avatar alt="home" variant="square" src={logo} component={Link} to="/"/>
           </IconButton>
           {navItems.map(item => (
             <Button
