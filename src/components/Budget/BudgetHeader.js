@@ -1,8 +1,13 @@
 import React from "react";
+import BudgetFormExpenses from "./BudgetFormExpenses";
+import BudgetFormIncomes from "./BudgetFormIncomes";
+import ExpensesList from "./ExpensesList";
+import IncomesList from "./IncomeList";
 
 export class MyButton extends React.Component {
     constructor(props) {
         super(props);
+
         this.state = { chosen: "wydatki" };
 
         this.handleClick = this.handleClick.bind(this);
@@ -14,16 +19,24 @@ export class MyButton extends React.Component {
         });
     }
 
+
+
     render() {
         return (
             <>
                 <h1>Budżet domowy</h1>
-                <button className={`button ${this.state.chosen === "wydatki" ? "chosen" : ""}`} onClick={() => this.handleClick("wydatki")}>
-                    Wydatki
-                </button>
-                <button className={`button ${this.state.chosen === "przychody" ? "chosen" : ""}`} onClick={() => this.handleClick("przychody")}>
-                    Przychody
-                </button>
+                <div>
+                    <button className={`button expenses ${this.state.chosen === "wydatki" ? "chosen" : ""}`} onClick={() => this.handleClick("wydatki")}>
+                        Wydatki
+                    </button>
+                    <button className={`button incomes ${this.state.chosen === "przychody" ? "chosen" : ""}`} onClick={() => this.handleClick("przychody")}>
+                        Przychody
+                    </button>
+                </div>
+
+
+
+
 
             </>
         );

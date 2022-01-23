@@ -23,6 +23,9 @@ function App() {
   const handleIncomesSubmit = (income) => {
     setIncomes([...incomes, income])
   }
+
+
+
   return (
     <>
       {/* <MainPage /> */}

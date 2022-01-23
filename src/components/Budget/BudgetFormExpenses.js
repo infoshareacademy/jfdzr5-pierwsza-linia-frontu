@@ -21,43 +21,46 @@ function BudgetFormExpenses(props) {
         })
 
     }
-    return <form className='budget-form' onSubmit={handleSubmit}>
-        <label>Kwota </label>
-        <input
-            type="number"
-            placeholder='Podaj kwotę...'
-            value={amountInput}
-            onChange={handleAmountChange}
-        />
+    return <>
+        <form className='budget-form' onSubmit={handleSubmit}>
+            <label>Kwota </label>
+            <input
+                type="number"
+                placeholder='Podaj kwotę...'
+                value={amountInput}
+                onChange={handleAmountChange}
+            />
 
 
-        <label>Kategoria </label>
-        <select id="Category" value={categoryInput} onChange={handleCategoryChange}
-        >
+            <label>Kategoria </label>
+            <select id="Category" value={categoryInput} onChange={handleCategoryChange}
+            >
 
-            <option>Jedzenie/Napoje</option>
-            <option>Rachunki</option>
-            <option>Rozrywka</option>
-            <option>Zakupy</option>
-            <option>Transport</option>
-            <option>Rodzina</option>
-            <option>Zwierzęta</option>
-            <option>Podróże</option>
-            <option>Inne</option>
+                <option>Jedzenie/Napoje</option>
+                <option>Rachunki</option>
+                <option>Rozrywka</option>
+                <option>Zakupy</option>
+                <option>Transport</option>
+                <option>Rodzina</option>
+                <option>Zwierzęta</option>
+                <option>Podróże</option>
+                <option>Inne</option>
 
-        </select>
+            </select>
 
-        <label htmlFor='Date'>Data </label>
-        <input type='date'
-            value={dateInput}
-            onChange={handleDateChange}
-        />
+            <label htmlFor='Date'>Data </label>
+            <input type='date'
+                value={dateInput}
+                onChange={handleDateChange}
+            />
 
-        <button>Zatwierdź</button>
+            <button>Zatwierdź</button>
 
 
 
-    </form>
+        </form>
+
+    </>
 }
 
 export default BudgetFormExpenses;
