@@ -1,4 +1,6 @@
 import React from "react";
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
 
 function IncomesList(props) {
     return (
@@ -11,9 +13,8 @@ function IncomesList(props) {
                                 <span className="income-amount">{income.amount}</span>
                                 <span className="income-category">{income.category}</span>
                                 <span className="income-date">{income.date}</span>
-                                <button className="delete-btn">
-                                    <i className="fas fa-trash"></i>
-                                </button>
+                                <EditIcon />
+                                <DeleteIcon />
                             </li>
                         )
                     })

@@ -1,4 +1,6 @@
 import React from "react";
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
 
 function ExpensesList(props) {
     console.log(props)
@@ -12,9 +14,8 @@ function ExpensesList(props) {
                                 <span className="expenses-amount">{expense.amount}</span>
                                 <span className="expenses-category">{expense.category}</span>
                                 <span className="expenses-date">{expense.date}</span>
-                                <button className="delete-btn">
-                                    <i className="fas fa-trash"></i>
-                                </button>
+                                <EditIcon />
+                                <DeleteIcon />
                             </li>
                         )
                     })
