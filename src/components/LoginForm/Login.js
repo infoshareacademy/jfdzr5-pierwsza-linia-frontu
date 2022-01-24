@@ -8,13 +8,25 @@ import { Theme } from "../../common/theme/theme";
 import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
 import Link from "@mui/material/Link";
-
-
-
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export const Login = () => {
-  const handleSubmit = () => {};
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+  };
+
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault(navigate("/"));
+  };
   return (
     <Container component="main" maxWidth="sm">
       <Box
@@ -23,8 +35,7 @@ export const Login = () => {
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          background: Theme.palette.secondary.main, 
-  
+          background: Theme.palette.secondary.main,
         }}
       >
         <Avatar sx={{ m: 2, bgcolor: "secondary.main" }}>
@@ -50,7 +61,7 @@ export const Login = () => {
               alignItems: "center",
             }}
             id="email"
-            label= "Adres email"
+            label="Adres email"
             type="email"
             autoComplete="email"
             variant="filled"
@@ -58,6 +69,8 @@ export const Login = () => {
             required
             fullWidth
             name="email"
+            value={email}
+            onChange={handleEmailChange}
           />
           <TextField
             sx={{
@@ -78,11 +91,20 @@ export const Login = () => {
             required
             fullWidth
             name="password"
+            value={password}
+            onChange={handlePasswordChange}
           />
           <Button
             fullWidth
-            sx={{ mt: 3, mb: 5, bgcolor: "primary.contrastText", color: "secondary.contrastText" }}
-            variant="contained" type="submit">
+            sx={{
+              mt: 3,
+              mb: 5,
+              bgcolor: "primary.contrastText",
+              color: "secondary.contrastText",
+            }}
+            variant="contained"
+            type="submit"
+          >
             Zaloguj
           </Button>
           <Grid container>
