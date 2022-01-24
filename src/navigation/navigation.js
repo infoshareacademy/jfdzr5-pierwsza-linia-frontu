@@ -13,7 +13,7 @@ const navItems = [
   { label: "Budżet", path: "/budget" },
   { label: "Kalendarz", path: "/calendar" },
   { label: "Dashboard", path: "/dashboard" },
-  { label: "Login", path: "/signup"},
+  { label: "Login", path: "/login"},
 ];
 export const Navigation = () => {
   return (
