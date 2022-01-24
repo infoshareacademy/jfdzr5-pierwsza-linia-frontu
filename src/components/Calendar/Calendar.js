@@ -10,32 +10,10 @@ const CalendarList = () => {
     { item: "Data 3", alert: true, date: "2022-01-25",id: 3 },
     { item: "Data 4", alert: true, date: "2022-01-26",id: 4 },
   ]);
-  const [name, setName] = useState("");
-  const [alert, setAlert] = useState("");
-  const [date, setDate] = useState("");
-
-  const handleSubmit = e => {
-    e.preventDefault();
-
-    const newItem = {
-      item: name,
-      alert: alert,
-      date: date,
-      id: Date.now(),
-    };
-    items.push(newItem);
-    setName("");
-  };
 
   return (
     <PageWrapper>
-        <AddEventForm
-          item={name}
-          setItem={setName}
-          setAlert={setAlert}
-          setDate={setDate}
-          handleSubmit={handleSubmit}
-        />
+        <AddEventForm/>
         <NewEvent items={items} setItems={setItems} />
     </PageWrapper>
   );
