@@ -29,8 +29,7 @@ function BudgetFormExpenses(props) {
 
     }
     return <>
-        <Box sx={{ padding: "1rem", backgroundColor: Theme.palette.secondary.main }}
-        >
+        <Box sx={{ padding: "1rem", backgroundColor: Theme.palette.secondary.main }}>
             <form className='budget-form' onSubmit={handleSubmit}>
                 <OutlinedInput
                     type="number"
