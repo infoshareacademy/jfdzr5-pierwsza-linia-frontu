@@ -8,6 +8,7 @@ import { PageWrapper } from "../../common/page-wrapper/page-wrapper";
 import { Button } from "@mui/material";
 
 
+
 export const Budget = () => {
     const theme = useTheme();
     console.log(theme)
@@ -41,6 +42,7 @@ export const Budget = () => {
                     sx={{
                         margin: "1rem",
                         height: "3rem",
+                        // tutaj warunek zaznaczenia buttona
                         color: theme.palette.primary,
                         backgroundColor: theme.palette.secondary.contrastText,
                         ":hover": { backgroundColor: theme.palette.primary.contrastText },
@@ -48,9 +50,20 @@ export const Budget = () => {
                     onClick={() => setChosenMoneyOperations("expenses")}>
                     Wydatki
                 </Button>
-                <button className={`button incomes ${chosenMoneyOperations === "incomes" ? "chosen" : ""}`} onClick={() => setChosenMoneyOperations("incomes")}>
+                <Button
+                    type="submit"
+                    variant="outlined"
+                    sx={{
+                        margin: "1rem",
+                        height: "3rem",
+                        // tutaj warunek zaznaczenia buttona
+                        color: theme.palette.primary,
+                        backgroundColor: theme.palette.secondary.contrastText,
+                        ":hover": { backgroundColor: theme.palette.primary.contrastText },
+                    }}
+                    onClick={() => setChosenMoneyOperations("incomes")}>
                     Przychody
-                </button>
+                </Button>
             </div>
             {
                 chosenMoneyOperations === "expenses" ? (
@@ -65,6 +78,8 @@ export const Budget = () => {
                     </>
                 )
             }
+
+            {/* className={`button incomes ${chosenMoneyOperations === "incomes" ? "chosen" : ""}`} */}
 
 
         </PageWrapper>
