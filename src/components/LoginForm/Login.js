@@ -10,6 +10,7 @@ import Button from "@mui/material/Button";
 import Link from "@mui/material/Link";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { PageWrapper } from "../../common/page-wrapper/page-wrapper";
 
 export const Login = () => {
   const [email, setEmail] = useState("");
@@ -28,10 +29,10 @@ export const Login = () => {
     e.preventDefault(navigate("/"));
   };
   return (
+    <PageWrapper>
     <Container component="main" maxWidth="sm">
       <Box
         sx={{
-          marginTop: 20,
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
@@ -117,5 +118,6 @@ export const Login = () => {
         </Box>
       </Box>
     </Container>
+    </PageWrapper>
   );
 };
