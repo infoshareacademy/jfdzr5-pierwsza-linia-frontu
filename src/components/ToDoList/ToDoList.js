@@ -5,6 +5,7 @@ import NewTask from "./Tasks/NewTask";
 import Container from "@mui/material/Container";
 import { Theme } from "../../common/theme";
 import { Typography } from "@mui/material";
+import { PageWrapper } from "../../common/page-wrapper/index";
 
 const ToDoList = () => {
   const [tasks, setTasks] = useState([
@@ -27,7 +28,7 @@ const ToDoList = () => {
   };
 
   return (
-    <Container
+    <PageWrapper
       maxWidth="sm"
       sx={{
         backgroundColor: Theme.palette.secondary.main,
@@ -45,7 +46,7 @@ const ToDoList = () => {
         />
         <NewTask tasks={tasks} setTasks={setTasks} />
       </Container>
-    </Container>
+    </PageWrapper>
   );
 };
 
