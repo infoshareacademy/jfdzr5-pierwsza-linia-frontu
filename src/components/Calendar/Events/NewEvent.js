@@ -1,84 +1,88 @@
+import { Theme } from "../../../common/theme/theme";
+import styled from "styled-components";
 import { useState } from "react";
 
-import styled from "styled-components";
+import { Box } from "@mui/material";
 import Icon from "@mui/material/Icon";
-import { Button, Input, Typography } from "@mui/material";
-import Checkbox from "@mui/material/Checkbox";
-import { Theme } from "../../../common/theme/theme";
+import { Button } from "@mui/material";
+import { Input } from "@mui/material";
+import { Typography } from "@mui/material";
+import { Checkbox } from "@mui/material";
 
-const NewTasksContainer = styled.div`
+
+const NewEventsContainer = styled.div`
   padding: 10px;
+  color: ${Theme.palette.secondary.contrastText};
 `;
 
-const NewTaskContainer = styled.div`
+const NewEventContainer = styled.div`
   display: flex;
+  min-height: 1rem;
   margin: 10px;
   padding: 10px;
-  // background-color: ${Theme.palette.primary.main};
   background-color: grey;
+  color: ${Theme.palette.secondary.contrastText};
 `;
 
-const NewTask = ({ tasks, setTasks }) => {
+const NewEvent = ({ items, setItems }) => {
   const [save, setSave] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
-  const [taskID, setTaskId] = useState("");
+  const [eventID, setEventId] = useState("");
   const [takenValue, setTakenValue] = useState("");
 
   const handleClickEdit = id => {
     setIsEditing(true);
     setSave(true);
-    setTaskId(id);
-    tasks.forEach(element => {
+    setEventId(id);
+    items.forEach(element => {
       if (id === element.id) {
-        setTakenValue(element.task);
+        setTakenValue(element.item);
       }
     });
   };
   const handleClickDelete = id => {
-    const newArray = tasks.filter(element => element.id !== id);
-    setTasks(newArray);
+    const newArray = items.filter(element => element.id !== id);
+    setItems(newArray);
   };
 
   const handleClickSave = id => {
     setSave(false);
-    const newArray = tasks.map(element => {
+    const newArray = items.map(element => {
       if (id === element.id) {
-        return { ...element, task: takenValue };
+        return { ...element, item: takenValue };
       }
       return element;
     });
     setIsEditing(false);
-    console.log(newArray);
-    setTaskId("");
-    setTasks(newArray);
+    setEventId("");
+    setItems(newArray);
   };
 
   const handleIsChecked = id => {
-    console.log("klik");
-    const newArray = tasks.map(element => {
+    const newArray = items.map(element => {
       if (id === element.id) {
         return { ...element, isChecked: element.isChecked ? false : true };
       } else {
         return { ...element };
       }
     });
-    setTasks(newArray);
+    setItems(newArray);
   };
 
   return (
-    <NewTasksContainer>
-      {tasks.map(element => (
-        <NewTaskContainer key={element.id}>
-          {element.id !== taskID && (
+    <NewEventsContainer>
+      {items.map(element => (
+        <NewEventContainer key={element.id}>
+          {element.id !== eventID && (
             <Typography
               sx={{
                 alignSelf: "center",
                 textDecoration: `${element.isChecked ? "line-through" : ""}`,
               }}>
-              {element.task}
+              {element.item}
             </Typography>
           )}
-          {isEditing && element.id === taskID && (
+          {isEditing && element.id === eventID && (
             <Input
               autoFocus
               type="text"
@@ -90,36 +94,34 @@ const NewTask = ({ tasks, setTasks }) => {
           {!isEditing && (
             <Checkbox
               checked={element.isChecked}
-              color="secondary"
               type="checkbox"
               onChange={() => handleIsChecked(element.id)}
+              sx={{color: Theme.palette.secondary.contrastText}}
             />
           )}
           {!save && (
             <Button
-              color="secondary"
+              color="inherit"
               onClick={() => handleClickEdit(element.id)}>
               <Icon>edit</Icon>
             </Button>
           )}
-          {save && element.id === taskID && (
+          {save && element.id === eventID && (
             <Button
-              color="secondary"
+              color="inherit"
               onClick={() => handleClickSave(element.id)}>
               <Icon>save</Icon>
             </Button>
           )}
-          {!isEditing && (
-            <Button
-              color="secondary"
-              onClick={() => handleClickDelete(element.id)}>
-              <Icon>delete</Icon>
-            </Button>
-          )}
-        </NewTaskContainer>
+          <Button
+            color="inherit"
+            onClick={() => handleClickDelete(element.id)}>
+            <Icon>delete</Icon>
+          </Button>
+        </NewEventContainer>
       ))}
-    </NewTasksContainer>
+    </NewEventsContainer>
   );
 };
 
-export default NewTask;
+export default NewEvent;
