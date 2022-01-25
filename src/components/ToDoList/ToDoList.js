@@ -28,23 +28,25 @@ const ToDoList = () => {
   };
 
   return (
-    <PageWrapper
-      maxWidth="sm"
-      sx={{
-        backgroundColor: Theme.palette.secondary.main,
-        margin: "0 auto",
-        marginTop: "10px",
-      }}>
-      <Container>
-        <Typography variant="h3" sx={{ textAlign: "center" }}>
-          Lista zadań
-        </Typography>
-        <AddTaskForm
-          task={task}
-          setTask={setTask}
-          handleSubmit={handleSubmit}
-        />
-        <NewTask tasks={tasks} setTasks={setTasks} />
+    <PageWrapper>
+      <Container
+        maxWidth="sm"
+        sx={{
+          backgroundColor: Theme.palette.secondary.main,
+          margin: "0 auto",
+          marginTop: "10px",
+        }}>
+        <Container>
+          <Typography variant="h3" sx={{ textAlign: "center" }}>
+            Lista zadań
+          </Typography>
+          <AddTaskForm
+            task={task}
+            setTask={setTask}
+            handleSubmit={handleSubmit}
+          />
+          <NewTask tasks={tasks} setTasks={setTasks} />
+        </Container>
       </Container>
     </PageWrapper>
   );
