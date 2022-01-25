@@ -5,7 +5,7 @@ import NewTask from "./Tasks/NewTask";
 import Container from "@mui/material/Container";
 import { Theme } from "../../common/theme/theme";
 import { Typography } from "@mui/material";
-import { PageWrapper } from "../../common/page-wrapper/index";
+import { PageWrapper } from "../../common/page-wrapper/page-wrapper";
 
 const ToDoList = () => {
   const [tasks, setTasks] = useState([
