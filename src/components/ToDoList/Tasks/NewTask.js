@@ -6,7 +6,7 @@ import { Button, Input, Typography } from "@mui/material";
 import Checkbox from "@mui/material/Checkbox";
 import { Theme } from "../../../common/theme/theme";
 
-import { doc, deleteDoc } from "firebase/firestore";
+import { doc, deleteDoc, updateDoc } from "firebase/firestore";
 
 const NewTasksContainer = styled.div`
   padding: 10px;
@@ -44,30 +44,57 @@ const NewTask = ({ tasks, setTasks, db }) => {
     deleteDoc(docRef);
   };
 
-  const handleClickSave = id => {
+  const handleClickSave = async id => {
     setSave(false);
-    const newArray = tasks.map(element => {
-      if (id === element.id) {
-        return { ...element, task: takenValue };
-      }
-      return element;
-    });
+    // const newArray = tasks.map(element => {
+    //   if (id === element.id) {
+    //     return { ...element, task: takenValue };
+    //   }
+    //   return element;
+    // });
     setIsEditing(false);
-    console.log(newArray);
+    // console.log(newArray);
     setTaskId("");
-    setTasks(newArray);
+    // setTasks(newArray);
+
+    const docRef = doc(db, "to-do-list", id);
+    await updateDoc(docRef, {
+      task: takenValue,
+      // isChecked: false,
+    });
   };
 
-  const handleIsChecked = id => {
-    console.log("klik");
-    const newArray = tasks.map(element => {
-      if (id === element.id) {
-        return { ...element, isChecked: element.isChecked ? false : true };
-      } else {
-        return { ...element };
+  const handleIsChecked = async id => {
+    tasks.map(async element => {
+      if (element.isChecked && element.id === id) {
+        const docRef = doc(db, "to-do-list", id);
+        await updateDoc(docRef, {
+          isChecked: false,
+        });
+        console.log(element.isChecked);
+      }
+      if (!element.isChecked && element.id === id) {
+        const docRef = doc(db, "to-do-list", id);
+        await updateDoc(docRef, {
+          isChecked: true,
+        });
+        console.log(element.isChecked);
       }
     });
-    setTasks(newArray);
+
+    // const docRef = doc(db, "to-do-list", id);
+    // await updateDoc(docRef, {
+    //   isChecked: false,
+    // });
+
+    // const newArray = tasks.map(element => {
+    //   if (id === element.id) {
+    //     return { ...element, isChecked: element.isChecked ? false : true };
+    //   } else {
+    //     return { ...element };
+    //   }
+    // });
+    // setTasks(newArray);
   };
 
   return (
@@ -94,7 +121,7 @@ const NewTask = ({ tasks, setTasks, db }) => {
           )}
           {!isEditing && (
             <Checkbox
-              checked={element.isChecked}
+              checked={element.isChecked ? true : false}
               color="secondary"
               type="checkbox"
               onChange={() => handleIsChecked(element.id)}

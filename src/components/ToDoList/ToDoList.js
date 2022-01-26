@@ -37,7 +37,7 @@ const ToDoList = () => {
   console.log(tasks);
   useEffect(() => {
     fetchData();
-  }, [setTasks]);
+  }, []);
   // const fetchData = async doc => {
   //   doc = await getDocs(colRef);
   //   let data = [];
