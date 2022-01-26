@@ -15,13 +15,6 @@ const FormContainer = styled.div`
 const AddTaskForm = ({ task, setTask, colRef }) => {
   const handleSubmit = e => {
     e.preventDefault();
-    // const newTask = {
-    //   task: task,
-    //   isCheckd: false,
-    //   id: Math.floor(Math.random() * 1000),
-    // };
-    // tasks.push(newTask);
-    // setTask("");
     addDoc(colRef, {
       task: task,
       isChecked: false,

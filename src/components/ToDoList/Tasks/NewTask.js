@@ -37,30 +37,19 @@ const NewTask = ({ tasks, setTasks, db }) => {
     });
   };
   const handleClickDelete = id => {
-    // const newArray = tasks.filter(element => element.id !== id);
-    // setTasks(newArray);
-
     const docRef = doc(db, "to-do-list", id);
     deleteDoc(docRef);
   };
 
   const handleClickSave = async id => {
     setSave(false);
-    // const newArray = tasks.map(element => {
-    //   if (id === element.id) {
-    //     return { ...element, task: takenValue };
-    //   }
-    //   return element;
-    // });
+
     setIsEditing(false);
-    // console.log(newArray);
     setTaskId("");
-    // setTasks(newArray);
 
     const docRef = doc(db, "to-do-list", id);
     await updateDoc(docRef, {
       task: takenValue,
-      // isChecked: false,
     });
   };
 
@@ -81,20 +70,6 @@ const NewTask = ({ tasks, setTasks, db }) => {
         console.log(element.isChecked);
       }
     });
-
-    // const docRef = doc(db, "to-do-list", id);
-    // await updateDoc(docRef, {
-    //   isChecked: false,
-    // });
-
-    // const newArray = tasks.map(element => {
-    //   if (id === element.id) {
-    //     return { ...element, isChecked: element.isChecked ? false : true };
-    //   } else {
-    //     return { ...element };
-    //   }
-    // });
-    // setTasks(newArray);
   };
 
   return (
