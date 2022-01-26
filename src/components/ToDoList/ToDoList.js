@@ -12,6 +12,7 @@ import {
   where,
   onSnapshot,
   getDocs,
+  addDoc,
 } from "firebase/firestore";
 import { getFirestore } from "firebase/firestore";
 
@@ -32,20 +33,29 @@ const ToDoList = () => {
   // getDocs(colRef).then(snapshot => {
   //   console.log(snapshot);
   // });
-  useEffect(() => {
-    fetchData();
-  }, []);
-  const fetchData = async doc => {
-    doc = await getDocs(colRef);
-    let data = [];
-    doc.docs.forEach(element => {
-      data.push({ ...element.data(), id: element.id });
-    });
-    setTasks(data);
-  };
-  
   const [tasks, setTasks] = useState([]);
   console.log(tasks);
+  useEffect(() => {
+    fetchData();
+  }, [setTasks]);
+  // const fetchData = async doc => {
+  //   doc = await getDocs(colRef);
+  //   let data = [];
+  //   doc.docs.forEach(element => {
+  //     data.push({ ...element.data(), id: element.id });
+  //   });
+  //   setTasks(data);
+  // };
+  const fetchData = () => {
+    onSnapshot(colRef, doc => {
+      let data = [];
+      doc.docs.forEach(element => {
+        data.push({ ...element.data(), id: element.id });
+      });
+      setTasks(data);
+    });
+  };
+
   // const [tasks, setTasks] = useState([
   //   { task: "zadanie 1", isChecked: false, id: 1 },
   //   { task: "zadanie 2", isChecked: true, id: 2 },
@@ -54,16 +64,21 @@ const ToDoList = () => {
   // ]);
   const [task, setTask] = useState("");
 
-  const handleSubmit = e => {
-    e.preventDefault();
-    const newTask = {
-      task: task,
-      isCheckd: false,
-      id: Math.floor(Math.random() * 1000),
-    };
-    tasks.push(newTask);
-    setTask("");
-  };
+  //   const handleSubmit = e => {
+  //     e.preventDefault();
+  //     // const newTask = {
+  //     //   task: task,
+  //     //   isCheckd: false,
+  //     //   id: Math.floor(Math.random() * 1000),
+  //     // };
+  //     // tasks.push(newTask);
+  //     // setTask("");
+  // addDoc(colRef, {
+  //   task: "",
+  //   isChecked: false
+  // })
+
+  //   };
 
   return (
     <PageWrapper>
@@ -78,12 +93,8 @@ const ToDoList = () => {
           <Typography variant="h3" sx={{ textAlign: "center" }}>
             Lista zadań
           </Typography>
-          <AddTaskForm
-            task={task}
-            setTask={setTask}
-            handleSubmit={handleSubmit}
-          />
-          <NewTask tasks={tasks} setTasks={setTasks} />
+          <AddTaskForm task={task} setTask={setTask} colRef={colRef} />
+          <NewTask tasks={tasks} setTasks={setTasks} db={db} />
         </Container>
       </Container>
     </PageWrapper>

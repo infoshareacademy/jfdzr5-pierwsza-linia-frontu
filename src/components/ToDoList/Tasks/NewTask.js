@@ -6,6 +6,8 @@ import { Button, Input, Typography } from "@mui/material";
 import Checkbox from "@mui/material/Checkbox";
 import { Theme } from "../../../common/theme/theme";
 
+import { doc, deleteDoc } from "firebase/firestore";
+
 const NewTasksContainer = styled.div`
   padding: 10px;
 `;
@@ -18,7 +20,7 @@ const NewTaskContainer = styled.div`
   background-color: grey;
 `;
 
-const NewTask = ({ tasks, setTasks }) => {
+const NewTask = ({ tasks, setTasks, db }) => {
   const [save, setSave] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [taskID, setTaskId] = useState("");
@@ -35,8 +37,11 @@ const NewTask = ({ tasks, setTasks }) => {
     });
   };
   const handleClickDelete = id => {
-    const newArray = tasks.filter(element => element.id !== id);
-    setTasks(newArray);
+    // const newArray = tasks.filter(element => element.id !== id);
+    // setTasks(newArray);
+
+    const docRef = doc(db, "to-do-list", id);
+    deleteDoc(docRef);
   };
 
   const handleClickSave = id => {
