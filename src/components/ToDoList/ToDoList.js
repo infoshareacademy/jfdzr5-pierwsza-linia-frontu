@@ -13,6 +13,7 @@ import {
   onSnapshot,
   getDocs,
   addDoc,
+  orderBy,
 } from "firebase/firestore";
 import { getFirestore } from "firebase/firestore";
 
@@ -30,6 +31,7 @@ const ToDoList = () => {
   //   });
 
   const colRef = collection(db, "to-do-list");
+  const colRefOrdered = query(colRef, orderBy("timeStamp"));
   // getDocs(colRef).then(snapshot => {
   //   console.log(snapshot);
   // });
@@ -47,7 +49,7 @@ const ToDoList = () => {
   //   setTasks(data);
   // };
   const fetchData = () => {
-    onSnapshot(colRef, doc => {
+    onSnapshot(colRefOrdered, doc => {
       let data = [];
       doc.docs.forEach(element => {
         data.push({ ...element.data(), id: element.id });

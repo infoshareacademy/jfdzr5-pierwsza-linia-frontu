@@ -6,7 +6,6 @@ import styled from "styled-components";
 import { Icon } from "@mui/material";
 import { addDoc } from "firebase/firestore";
 
-
 const FormContainer = styled.div`
   color: #fff;
   display: flex;
@@ -26,6 +25,7 @@ const AddTaskForm = ({ task, setTask, colRef }) => {
     addDoc(colRef, {
       task: task,
       isChecked: false,
+      timeStamp: +new Date(),
     });
     setTask("");
   };
