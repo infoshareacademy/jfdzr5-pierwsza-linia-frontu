@@ -1,17 +1,18 @@
 import React, { useState } from 'react';
-import { OutlinedInput } from "@mui/material";
+import { OutlinedInput, Input } from "@mui/material";
 import { Theme } from '../../../common/theme/theme';
 import { FormHelperText } from '@mui/material';
 import MenuItem from '@mui/material/MenuItem';
 import { Button } from "@mui/material";
 import Select from '@mui/material/Select';
 import { Box } from "@mui/material";
+import { InputLabel } from '@mui/material';
 
 
 
 function BudgetFormIncomes(props) {
     const [amountInput, setAmountInput] = useState('');
-    const [categoryInput, setCategoryInput] = useState('Wynagrodzenie');
+    const [categoryInput, setCategoryInput] = useState('');
     const [dateInput, setDateInput] = useState('');
     const handleAmountChange = (event) => setAmountInput(event.target.value);
     const handleCategoryChange = (event) => setCategoryInput(event.target.value);
@@ -44,10 +45,12 @@ function BudgetFormIncomes(props) {
                 <FormHelperText sx={{ margin: ".25rem", height: "1rem", color: Theme.palette.secondary.contrastText }}>Kwota </FormHelperText>
 
 
+
                 <Select
                     id="Category"
                     value={categoryInput}
                     onChange={handleCategoryChange}
+                    label="Category"
                     sx={{
                         height: "3rem",
                         width: "15rem",
@@ -56,8 +59,8 @@ function BudgetFormIncomes(props) {
                     }}
                 >
 
-                    <MenuItem>Wynagrodzenie</MenuItem>
-                    <MenuItem>Inne</MenuItem>
+                    <MenuItem value='Wynagrodzenie'>Wynagrodzenie</MenuItem>
+                    <MenuItem value='Inne'>Inne</MenuItem>
 
                 </Select>
                 <FormHelperText sx={{ margin: ".25rem", height: "1rem", color: Theme.palette.secondary.contrastText }}>Kategoria </FormHelperText>
@@ -74,6 +77,7 @@ function BudgetFormIncomes(props) {
                     }}
                 />
                 <FormHelperText sx={{ margin: ".25rem", height: "1rem", color: Theme.palette.secondary.contrastText }}>Data </FormHelperText>
+
 
 
                 <Button

@@ -43,9 +43,10 @@ export const Budget = () => {
                         margin: "1rem",
                         height: "3rem",
                         // tutaj warunek zaznaczenia buttona
-                        color: theme.palette.primary,
-                        backgroundColor: theme.palette.secondary.contrastText,
-                        ":hover": { backgroundColor: theme.palette.primary.contrastText },
+                        color: `${chosenMoneyOperations === 'expenses' ? theme.palette.primary : 'black'}`,
+                        backgroundColor: `${chosenMoneyOperations === 'incomes' ? theme.palette.secondary.contrastText : 'white'}`,
+                        ":hover": { backgroundColor: theme.palette.primary.contrastText }
+
                     }}
                     onClick={() => setChosenMoneyOperations("expenses")}>
                     Wydatki
@@ -82,6 +83,6 @@ export const Budget = () => {
             {/* className={`button incomes ${chosenMoneyOperations === "incomes" ? "chosen" : ""}`} */}
 
 
-        </PageWrapper>
+        </PageWrapper >
     )
 }

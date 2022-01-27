@@ -11,7 +11,7 @@ import { Box } from "@mui/material";
 
 function BudgetFormExpenses(props) {
     const [amountInput, setAmountInput] = useState('');
-    const [categoryInput, setCategoryInput] = useState('Jedzenie/Napoje');
+    const [categoryInput, setCategoryInput] = useState('');
     const [dateInput, setDateInput] = useState('');
     const handleAmountChange = (event) => setAmountInput(event.target.value);
     const handleCategoryChange = (event) => setCategoryInput(event.target.value);
@@ -55,15 +55,15 @@ function BudgetFormExpenses(props) {
                     }}
                 >
 
-                    <MenuItem>Jedzenie/Napoje</MenuItem>
-                    <MenuItem>Rachunki</MenuItem>
-                    <MenuItem>Rozrywka</MenuItem>
-                    <MenuItem>Zakupy</MenuItem>
-                    <MenuItem>Transport</MenuItem>
-                    <MenuItem>Rodzina</MenuItem>
-                    <MenuItem>Zwierzęta</MenuItem>
-                    <MenuItem>Podróże</MenuItem>
-                    <MenuItem>Inne</MenuItem>
+                    <MenuItem value='Jedzenie/Picie'>Jedzenie/Napoje</MenuItem>
+                    <MenuItem value='Rachunki'>Rachunki</MenuItem>
+                    <MenuItem value='Rozrywka'>Rozrywka</MenuItem>
+                    <MenuItem value='Zakupy'>Zakupy</MenuItem>
+                    <MenuItem value='Transport'>Transport</MenuItem>
+                    <MenuItem value='Rodzina'>Rodzina</MenuItem>
+                    <MenuItem value='Zwierzęta'>Zwierzęta</MenuItem>
+                    <MenuItem value='Podróże'>Podróże</MenuItem>
+                    <MenuItem value='Inne'>Inne</MenuItem>
 
                 </Select>
                 <FormHelperText sx={{ margin: ".25rem", height: "1rem", color: Theme.palette.secondary.contrastText }}>Kategoria </FormHelperText>
