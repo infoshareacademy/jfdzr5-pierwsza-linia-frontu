@@ -13,7 +13,8 @@ const navItems = [
   { label: "Budżet", path: "/budget" },
   { label: "Kalendarz", path: "/calendar" },
   { label: "Dashboard", path: "/dashboard" },
-  { label: "Login", path: "/login"},
+  { label: "Zaloguj", path: "/sign-in"},
+  { label: "Zarejestruj się", path: "/sign-up"},
 ];
 export const Navigation = () => {
   return (
@@ -32,7 +33,7 @@ export const Navigation = () => {
               {item.label}
             </Button>
           ))}
-          {/* <Button color="inherit">Login</Button> */}
+          {/* <Button color="inherit" >Zaloguj</Button> */}
         </Toolbar>
       </Container>
     </AppBar>
