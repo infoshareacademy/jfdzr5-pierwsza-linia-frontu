@@ -6,34 +6,58 @@ import IconButton from "@mui/material/IconButton";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import { Theme } from "../common/theme/theme";
-import logo from './home.png';
+import logo from "./home.png";
+import { getAuth, signOut } from "firebase/auth";
+import { useContext } from "react";
+import { UserContext } from "../userContext/UserContext";
 
 const navItems = [
   { label: "Zadania", path: "/tasks" },
   { label: "Budżet", path: "/budget" },
   { label: "Kalendarz", path: "/calendar" },
   { label: "Dashboard", path: "/dashboard" },
-  { label: "Zaloguj", path: "/sign-in"},
-  { label: "Zarejestruj się", path: "/sign-up"},
 ];
 export const Navigation = () => {
+  const user = useContext(UserContext);
+  const handleSignOutClick = () => {
+    const auth = getAuth();
+    signOut(auth);
+  };
   return (
     <AppBar position="static" theme={Theme} color="secondary">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <IconButton>
-            <Avatar alt="home" variant="square" src={logo} component={Link} to="/"/>
+            <Avatar
+              alt="home"
+              variant="square"
+              src={logo}
+              component={Link}
+              to="/"
+            />
           </IconButton>
-          {navItems.map(item => (
+          {navItems.map((item) => (
             <Button
               key={item.label}
               sx={{ my: 2, color: "inherit" }}
               component={Link}
-              to={item.path}>
+              to={item.path}
+            >
               {item.label}
             </Button>
           ))}
-          {/* <Button color="inherit" >Zaloguj</Button> */}
+          {user ? (
+            <Button sx={{ my: 2, color: "white" }} onClick={handleSignOutClick}>
+              Wyloguj
+            </Button>
+          ) : (
+            <Button
+              sx={{ my: 2, color: "white" }}
+              component={Link}
+              to="/sign-in">
+              Zaloguj
+            </Button>
+          )}
         </Toolbar>
       </Container>
     </AppBar>
