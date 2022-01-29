@@ -6,7 +6,7 @@ import { Box } from "@mui/material";
 import { Button } from "@mui/material";
 import { Checkbox } from "@mui/material";
 import { checkboxClasses } from "@mui/material";
-import { FormControl } from "@mui/material";
+import { FormGroup } from "@mui/material";
 import { FormHelperText } from "@mui/material";
 import { OutlinedInput } from "@mui/material";
 
@@ -46,13 +46,13 @@ const AddEventForm = ({ }) => {
 
   return (
     <Box sx={{padding: "1rem", backgroundColor: Theme.palette.secondary.main}}>
-      <FormControl sx={{display: "flex", flexDirection: "row", justifyContent: "space-between"}}>
+      <FormGroup sx={{display: "flex", flexDirection: "row", justifyContent: "space-between"}}>
         <Box sx={{padding: "1rem"}}>
           <OutlinedInput
             autoFocus
             placeholder="Wprowadź nazwę"
             required
-            value={item}
+            defaultValue={item.name}
             sx={{
               height: "3rem",
               backgroundColor: Theme.palette.secondary.contrastText,
@@ -65,7 +65,7 @@ const AddEventForm = ({ }) => {
           <OutlinedInput
             type="date"
             required
-            value={date}
+            defaultValue={date.date}
             sx={{
               height: "3rem",
               backgroundColor: Theme.palette.secondary.contrastText,
@@ -108,7 +108,7 @@ const AddEventForm = ({ }) => {
           }}
           onClick={handleAdd}>
         Dodaj</Button>
-      </FormControl>
+      </FormGroup>
     </Box>
   );
 };
