@@ -11,6 +11,8 @@ import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { PageWrapper } from "../../common/page-wrapper/page-wrapper";
 
+import {signInWithEmailAndPassword, createUserWithEmailAndPassword, getAuth} from 'firebase/auth'
+
 export const Sign = ({ isSignUp }) => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -31,8 +33,18 @@ export const Sign = ({ isSignUp }) => {
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault(navigate("/"));
-  };
+    e.preventDefault();
+    const auth = getAuth();
+    const method = isSignUp ? createUserWithEmailAndPassword : signInWithEmailAndPassword;
+
+    method(auth, email, password)
+        .then(() => {
+            navigate('/');
+        })
+        .catch(err => {
+            alert(err);
+        })
+}
   return (
     <PageWrapper>
       <Container component="main" maxWidth="sm">
