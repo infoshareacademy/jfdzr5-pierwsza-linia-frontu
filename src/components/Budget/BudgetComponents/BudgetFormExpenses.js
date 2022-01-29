@@ -22,21 +22,25 @@ function BudgetFormExpenses(props) {
 
         props.onSubmit({
             id: Math.floor(Math.random() * 10000),
-            amount: parseInt(amountInput),
+            amount: parseFloat(amountInput),
             category: categoryInput,
             date: dateInput,
         })
-
+        setAmountInput('')
+        setCategoryInput('')
+        setDateInput('')
     }
     return <>
         <Box sx={{ padding: "3rem", backgroundColor: Theme.palette.secondary.main }}>
             <form className='budget-form' onSubmit={handleSubmit}>
                 <OutlinedInput
+                    required
                     type="number"
                     placeholder='Podaj kwotę...'
                     value={amountInput}
                     onChange={handleAmountChange}
                     sx={{
+                        width: '100%',
                         height: "3rem",
                         backgroundColor: Theme.palette.secondary.contrastText,
                         ":hover": { backgroundColor: Theme.palette.primary.contrastText }
@@ -44,6 +48,7 @@ function BudgetFormExpenses(props) {
                 <FormHelperText sx={{ margin: ".25rem", height: "1rem", color: Theme.palette.secondary.contrastText }}>Kwota </FormHelperText>
 
                 <Select
+                    required
                     id="Category"
                     value={categoryInput}
                     onChange={handleCategoryChange}
@@ -70,10 +75,13 @@ function BudgetFormExpenses(props) {
 
 
                 <OutlinedInput
+
+                    required
                     type='date'
                     value={dateInput}
                     onChange={handleDateChange}
                     sx={{
+                        width: '100%',
                         height: "3rem",
                         backgroundColor: Theme.palette.secondary.contrastText,
                         ":hover": { backgroundColor: Theme.palette.primary.contrastText }
@@ -87,11 +95,12 @@ function BudgetFormExpenses(props) {
                     type="submit"
                     variant="outlined"
                     sx={{
-                        margin: "5rem",
+                        marginTop: '2rem',
+                        width: '100%',
                         height: "3rem",
                         color: Theme.palette.primary,
-                        backgroundColor: Theme.palette.secondary.contrastText,
-                        ":hover": { backgroundColor: Theme.palette.primary.contrastText },
+                        backgroundColor: Theme.palette.primary.contrastText,
+
                     }}>Dodaj</Button>
 
 

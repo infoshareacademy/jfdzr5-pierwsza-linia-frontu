@@ -6,7 +6,13 @@ import { useState } from "react";
 import { useTheme } from "@mui/material/styles";
 import { PageWrapper } from "../../common/page-wrapper/page-wrapper";
 import { Button } from "@mui/material";
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+import styled from "styled-components";
 
+const ListContainer = styled.div`
+margin-top: 40px;
+`
 
 
 export const Budget = () => {
@@ -31,6 +37,20 @@ export const Budget = () => {
         "expenses"
     )
 
+    const [expensesFilterValue, setExpensesFilterValue] = useState("Wszystko")
+
+    const handleExpensesFilter = (event) => setExpensesFilterValue(event.target.value);
+
+    const filterExpenses = expenses.filter(element => {
+
+        return expensesFilterValue === "Wszystko" || element.category === expensesFilterValue
+    })
+
+    const handleExpensesDelete = (id) => {
+        const filtered = expenses.filter((item) => item.id !== id)
+        setExpenses(filtered)
+    }
+
     return (
         <PageWrapper>
 
@@ -43,8 +63,7 @@ export const Budget = () => {
                         margin: "1rem",
                         height: "3rem",
                         // tutaj warunek zaznaczenia buttona
-                        color: `${chosenMoneyOperations === 'expenses' ? theme.palette.primary : 'black'}`,
-                        backgroundColor: `${chosenMoneyOperations === 'incomes' ? theme.palette.secondary.contrastText : 'white'}`,
+                        backgroundColor: chosenMoneyOperations === 'expenses' ? theme.palette.primary.contrastText : 'white',
                         ":hover": { backgroundColor: theme.palette.primary.contrastText }
 
                     }}
@@ -70,7 +89,33 @@ export const Budget = () => {
                 chosenMoneyOperations === "expenses" ? (
                     <>
                         <BudgetFormExpenses onSubmit={handleExpenseSubmit} />
-                        <ExpensesList expenses={expenses} />
+                        <ListContainer>
+                            <h3>Pokaż wydatki z kategorii: </h3>
+                            <Select
+                                id="Category"
+                                value={expensesFilterValue}
+                                onChange={handleExpensesFilter}
+                                sx={{
+                                    height: "3rem",
+                                    width: "15rem",
+                                    backgroundColor: theme.palette.secondary.contrastText,
+                                    ":hover": { backgroundColor: theme.palette.primary.contrastText }
+                                }}
+                            >
+                                <MenuItem value="Wszystko">Wszystko</MenuItem>
+                                <MenuItem value='Jedzenie/Picie'>Jedzenie/Napoje</MenuItem>
+                                <MenuItem value='Rachunki'>Rachunki</MenuItem>
+                                <MenuItem value='Rozrywka'>Rozrywka</MenuItem>
+                                <MenuItem value='Zakupy'>Zakupy</MenuItem>
+                                <MenuItem value='Transport'>Transport</MenuItem>
+                                <MenuItem value='Rodzina'>Rodzina</MenuItem>
+                                <MenuItem value='Zwierzęta'>Zwierzęta</MenuItem>
+                                <MenuItem value='Podróże'>Podróże</MenuItem>
+                                <MenuItem value='Inne'>Inne</MenuItem>
+
+                            </Select>
+                        </ListContainer>
+                        <ExpensesList expenses={filterExpenses} onDelete={handleExpensesDelete} />
                     </>
                 ) : (
                     <>
