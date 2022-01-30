@@ -2,6 +2,9 @@ import Input from "@mui/material/Input";
 import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 
+import { Theme } from "../../../common/theme/theme";
+import { OutlinedInput } from "@mui/material";
+
 import styled from "styled-components";
 import { Icon } from "@mui/material";
 import { addDoc } from "firebase/firestore";
@@ -10,6 +13,7 @@ const FormContainer = styled.div`
   color: #fff;
   display: flex;
   justify-content: center;
+  align-items: center;
 `;
 
 const AddTaskForm = ({ task, setTask, colRef }) => {
@@ -26,10 +30,19 @@ const AddTaskForm = ({ task, setTask, colRef }) => {
   return (
     <FormContainer>
       <form onSubmit={handleSubmit}>
-        <Container>
-          <Input
+        <Container
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}>
+          <OutlinedInput
             autoFocus
-            sx={{ color: "#fff", margin: "5px" }}
+            sx={{
+              height: "3rem",
+              backgroundColor: Theme.palette.secondary.contrastText,
+              ":hover": { backgroundColor: Theme.palette.primary.contrastText },
+            }}
             type="text"
             placeholder="wpisz zadanie"
             onChange={e => {
@@ -38,7 +51,18 @@ const AddTaskForm = ({ task, setTask, colRef }) => {
             value={task}
             required
           />
-          <Button variant="outlined" type="submit" color="primary">
+          <Button
+            variant="outlined"
+            type="submit"
+            color="primary"
+            sx={{
+              margin: "1rem",
+              height: "3rem",
+              // border: "none",
+              color: Theme.palette.primary,
+              backgroundColor: Theme.palette.secondary.contrastText,
+              ":hover": { backgroundColor: Theme.palette.primary.contrastText },
+            }}>
             <Icon>add</Icon>
           </Button>
         </Container>

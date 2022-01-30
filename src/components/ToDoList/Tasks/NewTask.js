@@ -39,6 +39,7 @@ const NewTask = ({ tasks, setTasks, db }) => {
   const handleClickDelete = id => {
     const docRef = doc(db, "to-do-list", id);
     deleteDoc(docRef);
+    setSave(false);
   };
 
   const handleClickSave = async id => {
@@ -116,7 +117,7 @@ const NewTask = ({ tasks, setTasks, db }) => {
               <Icon>save</Icon>
             </Button>
           )}
-          {!isEditing && (
+          {isEditing && element.id === taskID && (
             <Button
               color="secondary"
               onClick={() => handleClickDelete(element.id)}>
