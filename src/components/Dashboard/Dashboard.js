@@ -1,16 +1,22 @@
+import { useState } from "react";
+
 import styled from 'styled-components';
-import {PageWrapper} from "../../common/page-wrapper/page-wrapper";
 import { Theme } from "../../common/theme/theme";
+
+import {PageWrapper} from "../../common/page-wrapper/page-wrapper";
+
 import Typography from "@mui/material/Typography";
 import GroupIcon from '@mui/icons-material/Group';
 import ListAltIcon from '@mui/icons-material/ListAlt';
 import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
 
+import { firestore } from "../../firebase";
+import { collection, onSnapshot } from "firebase/firestore";
+
 const TileContainer = styled.div`
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-gap: 1rem;
-`;
+  display: flex;
+  flex-wrap: wrap;
+`
 
 const Tile = styled.div`
     display: inline-block;
@@ -36,25 +42,53 @@ const HorizontalLine = styled.hr`
 `
 
 const Dashboard = () => {
+    const tasksRef = collection(firestore, "to-do-list");
+    const eventsRef = collection(firestore, "calendar");
+
+    const [tasksNumber, setTasksNumber] = useState();
+    const [eventsNumber, setEventsNumber] = useState();
+    
+    let tasksCounter = 0;
+    let eventsCounter = 0;
+
+    const fetchTasks = () => {
+        onSnapshot(tasksRef, doc => {
+          doc.docs.forEach(element => {
+            tasksCounter += 1;
+          });
+          setTasksNumber(tasksCounter);
+        });
+      };
+      const fetchEvents = () => {
+        onSnapshot(eventsRef, doc => {
+          doc.docs.forEach(element => {
+            eventsCounter += 1;
+          });
+          setEventsNumber(eventsCounter);
+        });
+      };
+      fetchTasks();
+      fetchEvents();
+
     return <PageWrapper title="Home App">  
             <TileContainer>
                 <Tile>
                 <GroupIcon sx={{marginLeft: "1rem", fontSize: "3rem"}}/>
                 <Typography variant="h4" sx={{margin: "1rem"}}>Użytkownicy</Typography>
                 <HorizontalLine />
-                <Typography paragraph="true" sx={{margin:"1rem", fontSize: "3rem"}}>5</Typography>
+                <Typography paragraph="true" sx={{margin:"1rem", fontSize: "3rem"}}>-</Typography>
                 </Tile>
                 <Tile>
                 <ListAltIcon sx={{marginLeft: "1rem", fontSize: "3rem"}}/>
                 <Typography variant="h4" sx={{margin: "1rem"}}>Zadania</Typography>
                 <HorizontalLine />
-                <Typography paragraph="true" sx={{margin:"1rem", fontSize: "3rem"}}>23</Typography>
+                <Typography paragraph="true" sx={{margin:"1rem", fontSize: "3rem"}}>{tasksNumber}</Typography>
                 </Tile>
                 <Tile>
                 <NotificationsActiveIcon sx={{marginLeft: "1rem", fontSize: "3rem"}}/>
                 <Typography variant="h4" sx={{margin: "1rem"}}>Wydarzenia</Typography>
                 <HorizontalLine />
-                <Typography paragraph="true" sx={{margin:"1rem", fontSize: "3rem"}}>33</Typography>
+                <Typography paragraph="true" sx={{margin:"1rem", fontSize: "3rem"}}>{eventsNumber}</Typography>
                 </Tile>
             </TileContainer>
     </PageWrapper>
