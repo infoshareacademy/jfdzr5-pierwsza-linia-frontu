@@ -1,52 +1,41 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+
 import AddEventForm from "./Events/AddEventForm";
 import NewEvent from "./Events/NewEvent";
+import { PageWrapper } from "../../common/page-wrapper/page-wrapper";
 
-import Container from "@mui/material/Container";
-import { Theme } from "../../common/theme/theme";
-import { Typography } from "@mui/material";
+import { firestore } from "../../firebase";
+import { collection, query, onSnapshot, orderBy } from "firebase/firestore";
 
 const CalendarList = () => {
-  const [items, setItems] = useState([
-    { item: "Data 1", isChecked: false, id: 1 },
-    { item: "Data 2", isChecked: true, id: 2 },
-    { item: "Data 3", isChecked: true, id: 3 },
-    { item: "Data 4", isChecked: true, id: 4 },
-  ]);
-  const [item, setItem] = useState("");
+  const docRef = collection(firestore, "calendar");
+  const docRefOrdered = query(docRef, orderBy("date"));
 
-  const handleSubmit = e => {
-    e.preventDefault();
+  const [items, setItems] = useState([]);
+  
+  useEffect(() => {
+    fetchData();
+  }, []);
 
-    const newItem = {
-      item: item,
-      isChecked: false,
-      id: Math.floor(Math.random() * 1000),
-    };
-    items.push(newItem);
-    setItem("");
+  const fetchData = () => {
+    onSnapshot(docRefOrdered, doc => {
+      let data = [];
+      doc.docs.forEach(element => {
+        data.push({ ...element.data(), id: element.id });
+      });
+      setItems(data);
+    });
   };
 
+  const [item, setItem] = useState('');
+  const [date, setDate] = useState('');
+  const [alert, setAlert] = useState(true);
+
   return (
-    <Container
-      maxWidth="sm"
-      sx={{
-        backgroundColor: Theme.palette.secondary.main,
-        margin: "0 auto",
-        marginTop: "10px",
-      }}>
-      <Container>
-        <Typography variant="h3" sx={{ textAlign: "center" }}>
-          Lista wydarzeń
-        </Typography>
-        <AddEventForm
-          item={item}
-          setItem={setItem}
-          handleSubmit={handleSubmit}
-        />
-        <NewEvent items={items} setItems={setItems} />
-      </Container>
-    </Container>
+    <PageWrapper>
+        <AddEventForm item={item} setItem={setItem} date={date} setDate={setDate} alert={alert} setAlert={setAlert} docRef={docRef}/>
+        <NewEvent items={items} setItems={setItems} firestore={firestore}/>
+    </PageWrapper>
   );
 };
 

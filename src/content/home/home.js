@@ -1,8 +1,13 @@
 import { Link } from 'react-router-dom';
+
 import styled from 'styled-components';
-import {PageWrapper} from "../../common/page-wrapper/page-wrapper";
 import { Theme } from "../../common/theme/theme";
-import Typography from "@mui/material/Typography";
+
+import {PageWrapper} from "../../common/page-wrapper/page-wrapper";
+
+import { Box } from "@mui/material";
+import { Typography } from "@mui/material";
+
 import FormatListNumberedIcon from '@mui/icons-material/FormatListNumbered';
 import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
 import ScheduleIcon from '@mui/icons-material/Schedule';
@@ -14,21 +19,6 @@ const TileContainer = styled.div`
     grid-gap: 1rem;
 `;
 
-const Tile = styled.div`
-    display: inline-block;
-    background: ${Theme.palette.secondary.main};
-    margin: 2rem;
-    padding: 1.5rem;
-    min-width: 40rem;
-    min-height: 20rem;
-    border: 3px solid transparent;
-    border-collapse: collapse;
-    &:hover {
-        cursor: pointer;
-        border: 3px solid ${Theme.palette.primary.contrastText}
-      }
-`
-
 const HorizontalLine = styled.hr`
     background-color: ${Theme.palette.primary.contrastText};
     border-color: ${Theme.palette.primary.contrastText};
@@ -39,32 +29,90 @@ const HorizontalLine = styled.hr`
 
 export const Home = () => {
     return <PageWrapper title="Home App">
-            <Typography variant="h2" >Witaj w aplikacji Home Organizer!</Typography>  
+            <Typography variant="h4" >Witaj w aplikacji Home Organizer!</Typography>  
             <TileContainer>
-                <Tile component={Link} to="/tasks">
-                <FormatListNumberedIcon sx={{marginLeft: "1rem", fontSize: "4rem"}}/>
-                <Typography variant="h2" sx={{margin: "1rem"}}>Zadania</Typography>
+                <Box
+                component={Link}
+                to="/tasks"
+                sx={{
+                    background: Theme.palette.secondary.main,
+                    margin: "2rem",
+                    padding: "1rem",
+                    minWidth: "40rem",
+                    minHeight: "10rem",
+                    border: "3px solid transparent",
+                    borderCollapse: "collapse",
+                    textDecoration: "none",
+                    color: Theme.palette.secondary.contrastText,
+                    ":hover": {cursor: "pointer", border: `3px solid ${Theme.palette.primary.contrastText}`},
+                }}>
+                <FormatListNumberedIcon sx={{marginLeft: "1rem", fontSize: "3rem"}}/>
+                <Typography variant="h4" sx={{margin: "1rem"}}>Zadania</Typography>
                 <HorizontalLine />
-                <Typography paragraph="true" sx={{margin:"1rem", fontSize: "1.5rem"}}>Przeglądaj zadania do wykonania, dodaj nowe lub edytuj już istniejące.</Typography>
-                </Tile>
-                <Tile component={Link} to="/budget">
-                <AccountBalanceWalletIcon sx={{marginLeft: "1rem", fontSize: "4rem"}}/>
-                <Typography variant="h2" sx={{margin: "1rem"}}>Budżet</Typography>
+                <Typography paragraph="true" sx={{margin:"1rem", fontSize: "1rem"}}>Przeglądaj zadania do wykonania, dodaj nowe lub edytuj już istniejące.</Typography>
+                </Box>
+                <Box
+                component={Link}
+                to="/budget"
+                sx={{
+                    background: Theme.palette.secondary.main,
+                    margin: "2rem",
+                    padding: "1rem",
+                    minWidth: "40rem",
+                    minHeight: "10rem",
+                    border: "3px solid transparent",
+                    borderCollapse: "collapse",
+                    textDecoration: "none",
+                    color: Theme.palette.secondary.contrastText,
+                    ":hover": {cursor: "pointer", border: `3px solid ${Theme.palette.primary.contrastText}`},
+                }}
+                >
+                <AccountBalanceWalletIcon sx={{marginLeft: "1rem", fontSize: "3rem"}}/>
+                <Typography variant="h4" sx={{margin: "1rem"}}>Budżet</Typography>
                 <HorizontalLine />
-                <Typography paragraph="true" sx={{margin:"1rem", fontSize: "1.5rem"}}>Zarządzaj domowym budżetem, wprowadź wpływy i wydatki, analizuj strukturę wydatków.</Typography>
-                </Tile>
-                <Tile component={Link} to="/calendar">
-                <ScheduleIcon sx={{marginLeft: "1rem", fontSize: "4rem"}}/>
-                <Typography variant="h2" sx={{margin: "1rem"}}>Kalendarz</Typography>
+                <Typography paragraph="true" sx={{margin:"1rem", fontSize: "1rem"}}>Zarządzaj domowym budżetem, wprowadź wpływy i wydatki, analizuj strukturę wydatków.</Typography>
+                </Box>
+                <Box
+                component={Link}
+                to="/calendar"
+                sx={{
+                    background: Theme.palette.secondary.main,
+                    margin: "2rem",
+                    padding: "1rem",
+                    minWidth: "40rem",
+                    minHeight: "10rem",
+                    border: "3px solid transparent",
+                    borderCollapse: "collapse",
+                    textDecoration: "none",
+                    color: Theme.palette.secondary.contrastText,
+                    ":hover": {cursor: "pointer", border: `3px solid ${Theme.palette.primary.contrastText}`},
+                }}
+                >
+                <ScheduleIcon sx={{marginLeft: "1rem", fontSize: "3rem"}}/>
+                <Typography variant="h4" sx={{margin: "1rem"}}>Kalendarz</Typography>
                 <HorizontalLine />
-                <Typography paragraph="true" sx={{margin:"1rem", fontSize: "1.5rem"}}>Dodaj daty, rocznice i terminy, o których już nigdy nie zapomnisz.</Typography>
-                </Tile>
-                <Tile component={Link} to="/dashboard">
-                <BarChartIcon sx={{marginLeft: "1rem", fontSize: "4rem"}}/>
-                <Typography variant="h2" sx={{margin: "1rem"}}>Dashboard</Typography>
+                <Typography paragraph="true" sx={{margin:"1rem", fontSize: "1rem"}}>Dodaj daty, rocznice i terminy, o których już nigdy nie zapomnisz.</Typography>
+                </Box>
+                <Box
+                component={Link}
+                to="/dashboard"
+                sx={{
+                    background: Theme.palette.secondary.main,
+                    margin: "2rem",
+                    padding: "1rem",
+                    minWidth: "40rem",
+                    minHeight: "10rem",
+                    border: "3px solid transparent",
+                    borderCollapse: "collapse",
+                    textDecoration: "none",
+                    color: Theme.palette.secondary.contrastText,
+                    ":hover": {cursor: "pointer", border: `3px solid ${Theme.palette.primary.contrastText}`},
+                }}>
+                <BarChartIcon sx={{marginLeft: "1rem", fontSize: "3rem"}}/>
+                <Typography variant="h4" sx={{margin: "1rem"}}>Dashboard</Typography>
                 <HorizontalLine />
-                <Typography paragraph="true" sx={{margin:"1rem", fontSize: "1.5rem"}}>Sprawdź dane i zasoby aplikacji.</Typography>
-                </Tile>
+                <Typography paragraph="true" sx={{margin:"1rem", fontSize: "1rem"}}>Sprawdź dane i zasoby aplikacji.</Typography>
+                </Box>
             </TileContainer>
     </PageWrapper>
 }

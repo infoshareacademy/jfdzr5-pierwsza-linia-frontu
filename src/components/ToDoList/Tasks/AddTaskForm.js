@@ -4,6 +4,7 @@ import Button from "@mui/material/Button";
 
 import styled from "styled-components";
 import { Icon } from "@mui/material";
+import { addDoc } from "firebase/firestore";
 
 const FormContainer = styled.div`
   color: #fff;
@@ -11,7 +12,17 @@ const FormContainer = styled.div`
   justify-content: center;
 `;
 
-const AddTaskForm = ({ task, setTask, handleSubmit }) => {
+const AddTaskForm = ({ task, setTask, colRef }) => {
+  const handleSubmit = e => {
+    e.preventDefault();
+    addDoc(colRef, {
+      task: task,
+      isChecked: false,
+      timeStamp: +new Date(),
+    });
+    setTask("");
+  };
+
   return (
     <FormContainer>
       <form onSubmit={handleSubmit}>
@@ -25,6 +36,7 @@ const AddTaskForm = ({ task, setTask, handleSubmit }) => {
               setTask(e.target.value);
             }}
             value={task}
+            required
           />
           <Button variant="outlined" type="submit" color="primary">
             <Icon>add</Icon>

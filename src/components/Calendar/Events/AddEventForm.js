@@ -1,37 +1,106 @@
-import Input from "@mui/material/Input";
-import Container from "@mui/material/Container";
-import Button from "@mui/material/Button";
+import { Theme } from "../../../common/theme/theme";
 
-import styled from "styled-components";
-import { Icon } from "@mui/material";
+import { Box } from "@mui/material";
+import { Button } from "@mui/material";
+import { Checkbox } from "@mui/material";
+import { checkboxClasses } from "@mui/material";
+import { FormGroup } from "@mui/material";
+import { FormHelperText } from "@mui/material";
+import { OutlinedInput } from "@mui/material";
 
-const FormContainer = styled.div`
-  color: #fff;
-  display: flex;
-  justify-content: center;
-`;
+import { addDoc } from "firebase/firestore"
 
-const AddEventForm = ({ item, setItem, handleSubmit }) => {
+const AddEventForm = ({ item, setItem, alert, setAlert, date, setDate, docRef }) => {
+
+    const handleChangeName = (e) => {
+      setItem(e.target.value);
+    }
+
+    const handleChangeDate = (e) => {
+      setDate(e.target.value);
+    }
+
+    const handleChangeAlert = (e) => {
+      e.target.checked ? setAlert(true) : setAlert(false);
+    }
+
+      const handleSubmit = e => {
+        e.preventDefault();
+        addDoc(docRef, {
+          name: item,
+          date: date,
+          alert: alert,
+          timeStamp: +new Date(),
+        });
+        setItem("");
+      };
+
   return (
-    <FormContainer>
-      <form onSubmit={handleSubmit}>
-        <Container>
-          <Input
+    <Box sx={{backgroundColor: Theme.palette.secondary.main, minWidth: "50vw"}}>
+      <FormGroup sx={{display: "flex", flexDirection: "row", justifyContent: "space-between"}}>
+        <Box sx={{padding: "1rem"}}>
+          <OutlinedInput
             autoFocus
-            sx={{ color: "#fff", margin: "5px" }}
-            type="text"
-            placeholder="Dodaj datę"
-            onChange={e => {
-              setItem(e.target.value);
+            placeholder="Wprowadź nazwę"
+            required
+            defaultValue={item}
+            sx={{
+              height: "3rem",
+              backgroundColor: Theme.palette.secondary.contrastText,
+              ":hover": {backgroundColor: Theme.palette.primary.contrastText}
+              }}
+            onChange={handleChangeName}/>
+          <FormHelperText sx={{margin: ".25rem", height: "1rem", color: Theme.palette.secondary.contrastText}}>Nazwa wydarzenia</FormHelperText>
+        </Box>
+        <Box sx={{padding: "1rem"}}>
+          <OutlinedInput
+            type="date"
+            required
+            defaultValue={date}
+            sx={{
+              height: "3rem",
+              backgroundColor: Theme.palette.secondary.contrastText,
+              ":hover": {backgroundColor: Theme.palette.primary.contrastText}
+              }}
+            onChange={handleChangeDate}/>
+          <FormHelperText sx={{margin: ".25rem", height: "1rem", color: Theme.palette.secondary.contrastText}}>Data</FormHelperText>
+        </Box>
+        <Box sx={{padding: "1rem"}}>
+          <Checkbox
+            defaultChecked
+            value={alert}
+            sx={{
+              '& .MuiSvgIcon-root': { fontSize: "3rem" },
+              [`&, &.${checkboxClasses.checked}`]: {
+              color: Theme.palette.secondary.contrastText},
+              margin: 0,
+              padding: 0,
+              ":hover": {color: Theme.palette.primary.contrastText},
             }}
-            value={item}
-          />
-          <Button variant="outlined" type="submit" color="primary">
-            <Icon>add</Icon>
-          </Button>
-        </Container>
-      </form>
-    </FormContainer>
+            onChange={handleChangeAlert}/>
+          <FormHelperText
+            sx={{
+              margin: ".25rem",
+              height: "1rem",
+              textAlign: "center",
+              color: Theme.palette.secondary.contrastText,
+              }}>
+            Alert</FormHelperText>
+        </Box>
+      <Button
+        type="submit"
+        variant="outlined"
+        sx={{
+          margin: "1rem",
+          height: "3rem",
+          color: Theme.palette.primary,
+          backgroundColor: Theme.palette.secondary.contrastText,
+          ":hover": {backgroundColor: Theme.palette.primary.contrastText},
+          }}
+          onClick={handleSubmit}>
+        Dodaj</Button>
+      </FormGroup>
+    </Box>
   );
 };
 
