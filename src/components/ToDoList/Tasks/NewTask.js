@@ -6,6 +6,8 @@ import { Button, Input, Typography } from "@mui/material";
 import Checkbox from "@mui/material/Checkbox";
 import { Theme } from "../../../common/theme/theme";
 
+import { doc, deleteDoc, updateDoc } from "firebase/firestore";
+
 const NewTasksContainer = styled.div`
   padding: 10px;
 `;
@@ -18,7 +20,7 @@ const NewTaskContainer = styled.div`
   background-color: grey;
 `;
 
-const NewTask = ({ tasks, setTasks }) => {
+const NewTask = ({ tasks, setTasks, db }) => {
   const [save, setSave] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [taskID, setTaskId] = useState("");
@@ -35,34 +37,39 @@ const NewTask = ({ tasks, setTasks }) => {
     });
   };
   const handleClickDelete = id => {
-    const newArray = tasks.filter(element => element.id !== id);
-    setTasks(newArray);
+    const docRef = doc(db, "to-do-list", id);
+    deleteDoc(docRef);
   };
 
-  const handleClickSave = id => {
+  const handleClickSave = async id => {
     setSave(false);
-    const newArray = tasks.map(element => {
-      if (id === element.id) {
-        return { ...element, task: takenValue };
-      }
-      return element;
-    });
+
     setIsEditing(false);
-    console.log(newArray);
     setTaskId("");
-    setTasks(newArray);
+
+    const docRef = doc(db, "to-do-list", id);
+    await updateDoc(docRef, {
+      task: takenValue,
+    });
   };
 
-  const handleIsChecked = id => {
-    console.log("klik");
-    const newArray = tasks.map(element => {
-      if (id === element.id) {
-        return { ...element, isCheckd: element.isCheckd ? false : true };
-      } else {
-        return { ...element };
+  const handleIsChecked = async id => {
+    tasks.map(async element => {
+      if (element.isChecked && element.id === id) {
+        const docRef = doc(db, "to-do-list", id);
+        await updateDoc(docRef, {
+          isChecked: false,
+        });
+        console.log(element.isChecked);
+      }
+      if (!element.isChecked && element.id === id) {
+        const docRef = doc(db, "to-do-list", id);
+        await updateDoc(docRef, {
+          isChecked: true,
+        });
+        console.log(element.isChecked);
       }
     });
-    setTasks(newArray);
   };
 
   return (
@@ -73,7 +80,7 @@ const NewTask = ({ tasks, setTasks }) => {
             <Typography
               sx={{
                 alignSelf: "center",
-                textDecoration: `${element.isCheckd ? "line-through" : ""}`,
+                textDecoration: `${element.isChecked ? "line-through" : ""}`,
               }}>
               {element.task}
             </Typography>
@@ -89,7 +96,7 @@ const NewTask = ({ tasks, setTasks }) => {
           )}
           {!isEditing && (
             <Checkbox
-              checked={element.isCheckd}
+              checked={element.isChecked ? true : false}
               color="secondary"
               type="checkbox"
               onChange={() => handleIsChecked(element.id)}
@@ -109,11 +116,13 @@ const NewTask = ({ tasks, setTasks }) => {
               <Icon>save</Icon>
             </Button>
           )}
-          <Button
-            color="secondary"
-            onClick={() => handleClickDelete(element.id)}>
-            <Icon>delete</Icon>
-          </Button>
+          {!isEditing && (
+            <Button
+              color="secondary"
+              onClick={() => handleClickDelete(element.id)}>
+              <Icon>delete</Icon>
+            </Button>
+          )}
         </NewTaskContainer>
       ))}
     </NewTasksContainer>
