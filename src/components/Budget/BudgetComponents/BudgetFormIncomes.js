@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
-import { OutlinedInput, Input } from "@mui/material";
+import { OutlinedInput } from "@mui/material";
 import { Theme } from '../../../common/theme/theme';
 import { FormHelperText } from '@mui/material';
 import MenuItem from '@mui/material/MenuItem';
 import { Button } from "@mui/material";
 import Select from '@mui/material/Select';
 import { Box } from "@mui/material";
-import { InputLabel } from '@mui/material';
 
 
 
@@ -23,21 +22,25 @@ function BudgetFormIncomes(props) {
 
         props.onSubmit({
             id: Math.floor(Math.random() * 10000),
-            amount: parseInt(amountInput),
+            amount: parseFloat(amountInput),
             category: categoryInput,
             date: dateInput,
         })
-
+        setAmountInput('')
+        setCategoryInput('')
+        setDateInput('')
     }
     return <>
         <Box sx={{ padding: "3rem", backgroundColor: Theme.palette.secondary.main }}>
             <form className='budget-form' onSubmit={handleSubmit}>
                 <OutlinedInput
+                    required
                     type="number"
                     placeholder='Podaj kwotę...'
                     value={amountInput}
                     onChange={handleAmountChange}
                     sx={{
+                        width: "100%",
                         height: "3rem",
                         backgroundColor: Theme.palette.secondary.contrastText,
                         ":hover": { backgroundColor: Theme.palette.primary.contrastText }
@@ -47,10 +50,10 @@ function BudgetFormIncomes(props) {
 
 
                 <Select
+                    required
                     id="Category"
                     value={categoryInput}
                     onChange={handleCategoryChange}
-                    label="Category"
                     sx={{
                         height: "3rem",
                         width: "15rem",
@@ -67,10 +70,12 @@ function BudgetFormIncomes(props) {
 
 
                 <OutlinedInput
+                    required
                     type='date'
                     value={dateInput}
                     onChange={handleDateChange}
                     sx={{
+                        width: "100%",
                         height: "3rem",
                         backgroundColor: Theme.palette.secondary.contrastText,
                         ":hover": { backgroundColor: Theme.palette.primary.contrastText }
@@ -84,11 +89,11 @@ function BudgetFormIncomes(props) {
                     type="submit"
                     variant="outlined"
                     sx={{
-                        margin: "5rem",
+                        marginTop: "2rem",
+                        width: '100%',
                         height: "3rem",
                         color: Theme.palette.primary,
-                        backgroundColor: Theme.palette.secondary.contrastText,
-                        ":hover": { backgroundColor: Theme.palette.primary.contrastText },
+                        backgroundColor: Theme.palette.primary.contrastText,
                     }}
                 >Dodaj</Button>
 

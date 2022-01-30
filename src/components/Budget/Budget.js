@@ -37,6 +37,7 @@ export const Budget = () => {
         "expenses"
     )
 
+
     const [expensesFilterValue, setExpensesFilterValue] = useState("Wszystko")
 
     const handleExpensesFilter = (event) => setExpensesFilterValue(event.target.value);
@@ -46,10 +47,28 @@ export const Budget = () => {
         return expensesFilterValue === "Wszystko" || element.category === expensesFilterValue
     })
 
+    const [incomesFilterValue, setIncomesFilterValue] = useState("Wszystko")
+
+    const handleIncomesFilter = (event) => setIncomesFilterValue(event.target.value);
+
+    const filterIncomes = incomes.filter(element => {
+
+        return incomesFilterValue === "Wszystko" || element.category === incomesFilterValue
+    })
+
+
+
     const handleExpensesDelete = (id) => {
         const filtered = expenses.filter((item) => item.id !== id)
         setExpenses(filtered)
     }
+
+    const handleIncomesDelete = (id) => {
+        const filtered = incomes.filter((item) => item.id !== id)
+        setIncomes(filtered)
+    }
+
+
 
     return (
         <PageWrapper>
@@ -62,7 +81,6 @@ export const Budget = () => {
                     sx={{
                         margin: "1rem",
                         height: "3rem",
-                        // tutaj warunek zaznaczenia buttona
                         backgroundColor: chosenMoneyOperations === 'expenses' ? theme.palette.primary.contrastText : 'white',
                         ":hover": { backgroundColor: theme.palette.primary.contrastText }
 
@@ -76,9 +94,8 @@ export const Budget = () => {
                     sx={{
                         margin: "1rem",
                         height: "3rem",
-                        // tutaj warunek zaznaczenia buttona
                         color: theme.palette.primary,
-                        backgroundColor: theme.palette.secondary.contrastText,
+                        backgroundColor: chosenMoneyOperations === 'incomes' ? theme.palette.primary.contrastText : 'white',
                         ":hover": { backgroundColor: theme.palette.primary.contrastText },
                     }}
                     onClick={() => setChosenMoneyOperations("incomes")}>
@@ -120,12 +137,33 @@ export const Budget = () => {
                 ) : (
                     <>
                         <BudgetFormIncomes onSubmit={handleIncomesSubmit} />
-                        <IncomesList incomes={incomes} />
+                        <ListContainer>
+                            <h3>Pokaż przychody z kategorii: </h3>
+
+                            <Select
+                                id="Category"
+                                value={incomesFilterValue}
+                                onChange={handleIncomesFilter}
+                                label="Category"
+                                sx={{
+                                    height: "3rem",
+                                    width: "15rem",
+                                    backgroundColor: theme.palette.secondary.contrastText,
+                                    ":hover": { backgroundColor: theme.palette.primary.contrastText }
+                                }}
+                            >
+                                <MenuItem value="Wszystko">Wszystko</MenuItem>
+                                <MenuItem value='Wynagrodzenie'>Wynagrodzenie</MenuItem>
+                                <MenuItem value='Inne'>Inne</MenuItem>
+
+                            </Select>
+                        </ListContainer>
+                        <IncomesList incomes={filterIncomes} onDelete={handleIncomesDelete} />
+
                     </>
                 )
             }
 
-            {/* className={`button incomes ${chosenMoneyOperations === "incomes" ? "chosen" : ""}`} */}
 
 
         </PageWrapper >

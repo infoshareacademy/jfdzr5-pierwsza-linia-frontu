@@ -1,6 +1,5 @@
 import React from "react";
 import DeleteIcon from '@mui/icons-material/Delete';
-import { Container } from '@mui/material';
 import styled from 'styled-components';
 import { Theme } from "../../../common/theme/theme";
 import { useState } from 'react';
