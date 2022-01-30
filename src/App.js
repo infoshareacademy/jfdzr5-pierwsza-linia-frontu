@@ -4,6 +4,10 @@ import { ThemeProvider } from "@mui/material/styles";
 import { Theme } from "./common/theme/theme";
 
 function App() {
+
+
+
+
   return (
     <>
       <ThemeProvider theme={Theme}>
