@@ -2,7 +2,7 @@ import { Routes, Route } from "react-router-dom";
 import { Home } from "./home/home";
 import ToDoList from "../components/ToDoList/ToDoList";
 import Calendar from "../components/Calendar/Calendar";
-import { SignIn, SignUp } from "../components/LoginForm;
+import { SignIn, SignUp } from "../components/LoginForm";
 import Dashboard from "../components/Dashboard/Dashboard";
 import { Budget } from '../components/Budget/Budget';
 export const Content = () => (
