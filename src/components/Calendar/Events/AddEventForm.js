@@ -1,28 +1,16 @@
-import {useState} from 'react';
-
 import { Theme } from "../../../common/theme/theme";
 
 import { Box } from "@mui/material";
 import { Button } from "@mui/material";
 import { Checkbox } from "@mui/material";
 import { checkboxClasses } from "@mui/material";
-import { FormControl } from "@mui/material";
+import { FormGroup } from "@mui/material";
 import { FormHelperText } from "@mui/material";
 import { OutlinedInput } from "@mui/material";
 
-import { firestore } from "../../../firebase";
-import { collection, addDoc } from "firebase/firestore"
+import { addDoc } from "firebase/firestore"
 
-const AddEventForm = ({ }) => {
-    const [item, setItem] = useState({
-      name: '',
-    });
-    const [alert, setAlert] = useState({
-      alert: true,
-    });
-    const [date, setDate] = useState({
-      date: '',
-    });
+const AddEventForm = ({ item, setItem, alert, setAlert, date, setDate, docRef }) => {
 
     const handleChangeName = (e) => {
       setItem(e.target.value);
@@ -36,23 +24,26 @@ const AddEventForm = ({ }) => {
       e.target.checked ? setAlert(true) : setAlert(false);
     }
 
-      const handleAdd = async () => {
-        const docRef = await addDoc(collection(firestore, "calendar"), {
+      const handleSubmit = e => {
+        e.preventDefault();
+        addDoc(docRef, {
           name: item,
-          alert: alert,
           date: date,
+          alert: alert,
+          timeStamp: +new Date(),
         });
-      } 
+        setItem("");
+      };
 
   return (
-    <Box sx={{padding: "1rem", backgroundColor: Theme.palette.secondary.main}}>
-      <FormControl sx={{display: "flex", flexDirection: "row", justifyContent: "space-between"}}>
+    <Box sx={{backgroundColor: Theme.palette.secondary.main, minWidth: "50vw"}}>
+      <FormGroup sx={{display: "flex", flexDirection: "row", justifyContent: "space-between"}}>
         <Box sx={{padding: "1rem"}}>
           <OutlinedInput
             autoFocus
             placeholder="Wprowadź nazwę"
             required
-            value={item}
+            defaultValue={item}
             sx={{
               height: "3rem",
               backgroundColor: Theme.palette.secondary.contrastText,
@@ -65,7 +56,7 @@ const AddEventForm = ({ }) => {
           <OutlinedInput
             type="date"
             required
-            value={date}
+            defaultValue={date}
             sx={{
               height: "3rem",
               backgroundColor: Theme.palette.secondary.contrastText,
@@ -106,9 +97,9 @@ const AddEventForm = ({ }) => {
           backgroundColor: Theme.palette.secondary.contrastText,
           ":hover": {backgroundColor: Theme.palette.primary.contrastText},
           }}
-          onClick={handleAdd}>
+          onClick={handleSubmit}>
         Dodaj</Button>
-      </FormControl>
+      </FormGroup>
     </Box>
   );
 };
