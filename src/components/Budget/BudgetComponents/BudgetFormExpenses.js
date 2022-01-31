@@ -40,6 +40,7 @@ function BudgetFormExpenses(props) {
                     placeholder='Podaj kwotę...'
                     value={amountInput}
                     onChange={handleAmountChange}
+                    step="0.01"
                     sx={{
                         width: '100%',
                         height: "3rem",

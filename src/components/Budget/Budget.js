@@ -81,6 +81,7 @@ export const Budget = () => {
                     sx={{
                         margin: "1rem",
                         height: "3rem",
+                        width: "8rem",
                         backgroundColor: chosenMoneyOperations === 'expenses' ? theme.palette.primary.contrastText : 'white',
                         ":hover": { backgroundColor: theme.palette.primary.contrastText }
 
@@ -94,6 +95,7 @@ export const Budget = () => {
                     sx={{
                         margin: "1rem",
                         height: "3rem",
+                        width: "8rem",
                         color: theme.palette.primary,
                         backgroundColor: chosenMoneyOperations === 'incomes' ? theme.palette.primary.contrastText : 'white',
                         ":hover": { backgroundColor: theme.palette.primary.contrastText },
