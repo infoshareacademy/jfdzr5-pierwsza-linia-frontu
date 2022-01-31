@@ -6,6 +6,7 @@ import MenuItem from '@mui/material/MenuItem';
 import { Button } from "@mui/material";
 import Select from '@mui/material/Select';
 import { Box } from "@mui/material";
+import AddIcon from '@mui/icons-material/Add';
 
 
 
@@ -99,9 +100,12 @@ function BudgetFormExpenses(props) {
                         width: '100%',
                         height: "3rem",
                         color: Theme.palette.primary,
-                        backgroundColor: Theme.palette.primary.contrastText,
+                        backgroundColor: Theme.palette.secondary.contrastText,
+                        ":hover": { backgroundColor: Theme.palette.primary.contrastText },
 
-                    }}>Dodaj</Button>
+                    }}>
+                    <AddIcon></AddIcon>
+                </Button>
 
 
 
