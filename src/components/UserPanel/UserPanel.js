@@ -41,7 +41,7 @@ export const UserPanel = () => {
         <Typography variant="h3" sx={{ textAlign: "center" }}>
           Panel użytkownika
         </Typography>
-        <UserDetails userData={userData} />
+        <UserDetails userData={userData} db={db} />
       </Container>
     </PageWrapper>
   );
