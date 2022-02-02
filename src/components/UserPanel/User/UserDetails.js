@@ -14,8 +14,12 @@ import { PageWrapper } from "../../../common/page-wrapper/page-wrapper";
 import { Box } from "@mui/system";
 import styled from "styled-components";
 
-import { doc, deleteDoc, updateDoc } from "firebase/firestore";
+import { doc, deleteDoc, updateDoc, onSnapshot } from "firebase/firestore";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useState } from "react";
+
+import { useContext } from "react";
+import { UserContext } from "../../../userContext/UserContext";
 
 const DetailsContainer = styled.div`
   color: #fff;
@@ -30,6 +34,25 @@ const DetailsContainer = styled.div`
 `;
 
 export const UserDetails = ({ userData, db }) => {
+  const user = useContext(UserContext);
+  //   console.log(user);
+  const [uid, setUid] = useState("");
+  const [userEmail, setUserEmail] = useState("");
+  const auth = getAuth();
+  onAuthStateChanged(auth, user => {
+    if (user) {
+      // User is signed in, see docs for a list of available properties
+      // https://firebase.google.com/docs/reference/js/firebase.User
+      setUid(user.uid);
+      setUserEmail(user.email);
+      console.log(uid);
+      // ...
+    } else {
+      // User is signed out
+      // ...
+    }
+  });
+
   const [save, setSave] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [taskID, setTaskId] = useState("");
@@ -178,7 +201,7 @@ export const UserDetails = ({ userData, db }) => {
               <TextField
                 fullWidth
                 label="Email"
-                value={`mail`}
+                value={userEmail}
                 InputProps={{
                   readOnly: true,
                 }}
