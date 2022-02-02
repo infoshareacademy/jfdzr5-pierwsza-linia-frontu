@@ -66,6 +66,7 @@ export const UserDetails = ({ userData, db }) => {
   const handleClickEdit = e => {
     // setIsEditing(true);
     // setSave(true);
+    handleClickCancel();
     userData.map(element => {
       switch (e.target.value) {
         case element.telephone:
@@ -173,9 +174,15 @@ export const UserDetails = ({ userData, db }) => {
     // setSave(false);
     setTaskId("");
   };
+  const handleOnClick = e => {
+    e.preventDefault();
+    if (e.target === e.currentTarget) {
+      handleClickCancel();
+    }
+  };
 
   return (
-    <Container>
+    <Container onClick={handleOnClick}>
       <FormGroup sx={{ margin: "10px", padding: "10px" }}>
         {userData.map(element => (
           <>
@@ -212,10 +219,8 @@ export const UserDetails = ({ userData, db }) => {
                   label="Nr telefonu"
                   value={`${element.telephone}`}
                   onClick={handleClickEdit}
-                  type="number"
                 />
               )}
-
               {telephoneEdit && (
                 <>
                   <TextField

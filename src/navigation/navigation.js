@@ -16,7 +16,7 @@ const navItems = [
   { label: "Budżet", path: "/budget" },
   { label: "Kalendarz", path: "/calendar" },
   { label: "Dashboard", path: "/dashboard" },
-  { label: "Panel użytkownika", path: "/user-panel" },
+  // { label: "Panel użytkownika", path: "/user-panel" },
 ];
 export const Navigation = () => {
   const user = useContext(UserContext);
@@ -56,6 +56,14 @@ export const Navigation = () => {
               component={Link}
               to="/sign-in">
               Zaloguj
+            </Button>
+          )}
+          {user && (
+            <Button
+              sx={{ my: 2, color: "white" }}
+              component={Link}
+              to="/user-panel">
+              Panel użytkownika
             </Button>
           )}
         </Toolbar>
