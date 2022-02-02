@@ -66,6 +66,7 @@ export const UserDetails = ({ userData, db }) => {
   const handleClickEdit = e => {
     // setIsEditing(true);
     // setSave(true);
+    console.log(e);
     handleClickCancel();
     userData.map(element => {
       switch (e.target.value) {
@@ -184,232 +185,255 @@ export const UserDetails = ({ userData, db }) => {
   return (
     <Container onClick={handleOnClick}>
       <FormGroup sx={{ margin: "10px", padding: "10px" }}>
-        {userData.map(element => (
-          <>
-            <Typography variant="h5">Dane użytkownika</Typography>
-            <DetailsContainer>
-              <TextField
-                sx={{ cursor: "default" }}
-                fullWidth
-                label="Imie"
-                value={`${element.name}`}
-                InputProps={{
-                  readOnly: true,
-                }}
-              />
-              <TextField
-                fullWidth
-                label="Nazwisko"
-                value={`${element.surname}`}
-                InputProps={{
-                  readOnly: true,
-                }}
-              />
-              <TextField
-                fullWidth
-                label="Email"
-                value={userEmail}
-                InputProps={{
-                  readOnly: true,
-                }}
-              />
-              {!telephoneEdit && (
-                <TextField
-                  fullWidth
-                  label="Nr telefonu"
-                  value={`${element.telephone}`}
-                  onClick={handleClickEdit}
-                />
-              )}
-              {telephoneEdit && (
-                <>
+        {userData.map(
+          element =>
+            element.uid === uid && (
+              <>
+                <Typography variant="h5">Dane użytkownika</Typography>
+                <DetailsContainer>
                   <TextField
-                    autoFocus
+                    sx={{ cursor: "default" }}
                     fullWidth
-                    label="Nr telefonu"
-                    value={takenValue}
-                    onChange={e => setTakenValue(e.target.value)}
+                    label="Imie"
+                    value={`${element.name}`}
+                    InputProps={{
+                      readOnly: true,
+                    }}
                   />
-
-                  <Button
-                    sx={{
-                      color: Theme.palette.secondary.contrastText,
-                      ":hover": { color: Theme.palette.primary.contrastText },
-                    }}
-                    color="secondary"
-                    onClick={() => handleClickSave(element.id)}>
-                    <Icon>save</Icon>
-                  </Button>
-                  <Button
-                    sx={{
-                      color: Theme.palette.secondary.contrastText,
-                      ":hover": { color: Theme.palette.primary.contrastText },
-                    }}
-                    color="secondary"
-                    onClick={() => handleClickCancel(element.id)}>
-                    <Icon>cancel</Icon>
-                  </Button>
-                </>
-              )}
-            </DetailsContainer>
-
-            <Typography variant="h5">Adres</Typography>
-            <DetailsContainer style={{ flexWrap: "wrap" }}>
-              {!streetEdit && (
-                <TextField
-                  fullWidth
-                  label="Ulica"
-                  value={`${element.street}`}
-                  onClick={handleClickEdit}
-                />
-              )}
-              {streetEdit && (
-                <>
                   <TextField
-                    autoFocus
                     fullWidth
-                    label="Ulica"
-                    value={takenValue}
-                    onChange={e => setTakenValue(e.target.value)}
+                    label="Nazwisko"
+                    value={`${element.surname}`}
+                    InputProps={{
+                      readOnly: true,
+                    }}
                   />
-
-                  <Button
-                    sx={{
-                      color: Theme.palette.secondary.contrastText,
-                      ":hover": { color: Theme.palette.primary.contrastText },
-                    }}
-                    color="secondary"
-                    onClick={() => handleClickSave(element.id)}>
-                    <Icon>save</Icon>
-                  </Button>
-                  <Button
-                    sx={{
-                      color: Theme.palette.secondary.contrastText,
-                      ":hover": { color: Theme.palette.primary.contrastText },
-                    }}
-                    color="secondary"
-                    onClick={() => handleClickCancel(element.id)}>
-                    <Icon>cancel</Icon>
-                  </Button>
-                </>
-              )}
-              {!houseNumberEdit && (
-                <TextField
-                  fullWidth
-                  label="Nr dom/mieszkania"
-                  value={`${element.houseNumber}`}
-                  onClick={handleClickEdit}
-                />
-              )}
-              {houseNumberEdit && (
-                <>
                   <TextField
-                    autoFocus
                     fullWidth
-                    label="Nr dom/mieszkania"
-                    value={takenValue}
-                    onChange={e => setTakenValue(e.target.value)}
+                    label="Email"
+                    value={userEmail}
+                    InputProps={{
+                      readOnly: true,
+                    }}
                   />
+                  {!telephoneEdit && (
+                    <TextField
+                      fullWidth
+                      label="Nr telefonu"
+                      value={`${element.telephone}`}
+                      onClick={handleClickEdit}
+                    />
+                  )}
+                  {telephoneEdit && (
+                    <>
+                      <TextField
+                        autoFocus
+                        fullWidth
+                        label="Nr telefonu"
+                        value={takenValue}
+                        onChange={e => setTakenValue(e.target.value)}
+                      />
 
-                  <Button
-                    sx={{
-                      color: Theme.palette.secondary.contrastText,
-                      ":hover": { color: Theme.palette.primary.contrastText },
-                    }}
-                    color="secondary"
-                    onClick={() => handleClickSave(element.id)}>
-                    <Icon>save</Icon>
-                  </Button>
-                  <Button
-                    sx={{
-                      color: Theme.palette.secondary.contrastText,
-                      ":hover": { color: Theme.palette.primary.contrastText },
-                    }}
-                    color="secondary"
-                    onClick={() => handleClickCancel(element.id)}>
-                    <Icon>cancel</Icon>
-                  </Button>
-                </>
-              )}
-              {!cityEdit && (
-                <TextField
-                  fullWidth
-                  label="Miejscowość"
-                  value={`${element.city}`}
-                  onClick={handleClickEdit}
-                />
-              )}
-              {cityEdit && (
-                <>
-                  <TextField
-                    autoFocus
-                    fullWidth
-                    label="Miejscowość"
-                    value={takenValue}
-                    onChange={e => setTakenValue(e.target.value)}
-                  />
+                      <Button
+                        sx={{
+                          color: Theme.palette.secondary.contrastText,
+                          ":hover": {
+                            color: Theme.palette.primary.contrastText,
+                          },
+                        }}
+                        color="secondary"
+                        onClick={() => handleClickSave(element.id)}>
+                        <Icon>save</Icon>
+                      </Button>
+                      <Button
+                        sx={{
+                          color: Theme.palette.secondary.contrastText,
+                          ":hover": {
+                            color: Theme.palette.primary.contrastText,
+                          },
+                        }}
+                        color="secondary"
+                        onClick={() => handleClickCancel(element.id)}>
+                        <Icon>cancel</Icon>
+                      </Button>
+                    </>
+                  )}
+                </DetailsContainer>
 
-                  <Button
-                    sx={{
-                      color: Theme.palette.secondary.contrastText,
-                      ":hover": { color: Theme.palette.primary.contrastText },
-                    }}
-                    color="secondary"
-                    onClick={() => handleClickSave(element.id)}>
-                    <Icon>save</Icon>
-                  </Button>
-                  <Button
-                    sx={{
-                      color: Theme.palette.secondary.contrastText,
-                      ":hover": { color: Theme.palette.primary.contrastText },
-                    }}
-                    color="secondary"
-                    onClick={() => handleClickCancel(element.id)}>
-                    <Icon>cancel</Icon>
-                  </Button>
-                </>
-              )}
-              {!postCodeEdit && (
-                <TextField
-                  fullWidth
-                  label="Kod pocztowy"
-                  value={`${element.postcode}`}
-                  onClick={handleClickEdit}
-                />
-              )}
-              {postCodeEdit && (
-                <>
-                  <TextField
-                    autoFocus
-                    fullWidth
-                    label="Kod pocztowy"
-                    value={takenValue}
-                    onChange={e => setTakenValue(e.target.value)}
-                  />
+                <Typography variant="h5">Adres</Typography>
+                <DetailsContainer style={{ flexWrap: "wrap" }}>
+                  {!streetEdit && (
+                    <TextField
+                      fullWidth
+                      label="Ulica"
+                      value={element.street || " "}
+                      onClick={handleClickEdit}
+                    />
+                  )}
+                  {streetEdit && (
+                    <>
+                      <TextField
+                        autoFocus
+                        fullWidth
+                        label="Ulica"
+                        value={takenValue}
+                        onChange={e => setTakenValue(e.target.value)}
+                      />
 
-                  <Button
-                    sx={{
-                      color: Theme.palette.secondary.contrastText,
-                      ":hover": { color: Theme.palette.primary.contrastText },
-                    }}
-                    color="secondary"
-                    onClick={() => handleClickSave(element.id)}>
-                    <Icon>save</Icon>
-                  </Button>
-                  <Button
-                    sx={{
-                      color: Theme.palette.secondary.contrastText,
-                      ":hover": { color: Theme.palette.primary.contrastText },
-                    }}
-                    color="secondary"
-                    onClick={() => handleClickCancel(element.id)}>
-                    <Icon>cancel</Icon>
-                  </Button>
-                </>
-              )}
-            </DetailsContainer>
-          </>
-        ))}
+                      <Button
+                        sx={{
+                          color: Theme.palette.secondary.contrastText,
+                          ":hover": {
+                            color: Theme.palette.primary.contrastText,
+                          },
+                        }}
+                        color="secondary"
+                        onClick={() => handleClickSave(element.id)}>
+                        <Icon>save</Icon>
+                      </Button>
+                      <Button
+                        sx={{
+                          color: Theme.palette.secondary.contrastText,
+                          ":hover": {
+                            color: Theme.palette.primary.contrastText,
+                          },
+                        }}
+                        color="secondary"
+                        onClick={() => handleClickCancel(element.id)}>
+                        <Icon>cancel</Icon>
+                      </Button>
+                    </>
+                  )}
+                  {!houseNumberEdit && (
+                    <TextField
+                      fullWidth
+                      label="Nr dom/mieszkania"
+                      value={element.houseNumber || ""}
+                      onClick={handleClickEdit}
+                    />
+                  )}
+                  {houseNumberEdit && (
+                    <>
+                      <TextField
+                        autoFocus
+                        fullWidth
+                        label="Nr dom/mieszkania"
+                        value={takenValue}
+                        onChange={e => setTakenValue(e.target.value)}
+                      />
+
+                      <Button
+                        sx={{
+                          color: Theme.palette.secondary.contrastText,
+                          ":hover": {
+                            color: Theme.palette.primary.contrastText,
+                          },
+                        }}
+                        color="secondary"
+                        onClick={() => handleClickSave(element.id)}>
+                        <Icon>save</Icon>
+                      </Button>
+                      <Button
+                        sx={{
+                          color: Theme.palette.secondary.contrastText,
+                          ":hover": {
+                            color: Theme.palette.primary.contrastText,
+                          },
+                        }}
+                        color="secondary"
+                        onClick={() => handleClickCancel(element.id)}>
+                        <Icon>cancel</Icon>
+                      </Button>
+                    </>
+                  )}
+                  {!cityEdit && (
+                    <TextField
+                      fullWidth
+                      label="Miejscowość"
+                      value={element.city || ""}
+                      onClick={handleClickEdit}
+                    />
+                  )}
+                  {cityEdit && (
+                    <>
+                      <TextField
+                        autoFocus
+                        fullWidth
+                        label="Miejscowość"
+                        value={takenValue}
+                        onChange={e => setTakenValue(e.target.value)}
+                      />
+
+                      <Button
+                        sx={{
+                          color: Theme.palette.secondary.contrastText,
+                          ":hover": {
+                            color: Theme.palette.primary.contrastText,
+                          },
+                        }}
+                        color="secondary"
+                        onClick={() => handleClickSave(element.id)}>
+                        <Icon>save</Icon>
+                      </Button>
+                      <Button
+                        sx={{
+                          color: Theme.palette.secondary.contrastText,
+                          ":hover": {
+                            color: Theme.palette.primary.contrastText,
+                          },
+                        }}
+                        color="secondary"
+                        onClick={() => handleClickCancel(element.id)}>
+                        <Icon>cancel</Icon>
+                      </Button>
+                    </>
+                  )}
+                  {!postCodeEdit && (
+                    <TextField
+                      fullWidth
+                      label="Kod pocztowy"
+                      value={element.postcode || ""}
+                      onClick={handleClickEdit}
+                    />
+                  )}
+                  {postCodeEdit && (
+                    <>
+                      <TextField
+                        autoFocus
+                        fullWidth
+                        label="Kod pocztowy"
+                        value={takenValue}
+                        onChange={e => setTakenValue(e.target.value)}
+                      />
+
+                      <Button
+                        sx={{
+                          color: Theme.palette.secondary.contrastText,
+                          ":hover": {
+                            color: Theme.palette.primary.contrastText,
+                          },
+                        }}
+                        color="secondary"
+                        onClick={() => handleClickSave(element.id)}>
+                        <Icon>save</Icon>
+                      </Button>
+                      <Button
+                        sx={{
+                          color: Theme.palette.secondary.contrastText,
+                          ":hover": {
+                            color: Theme.palette.primary.contrastText,
+                          },
+                        }}
+                        color="secondary"
+                        onClick={() => handleClickCancel(element.id)}>
+                        <Icon>cancel</Icon>
+                      </Button>
+                    </>
+                  )}
+                </DetailsContainer>
+              </>
+            )
+        )}
       </FormGroup>
     </Container>
   );
