@@ -22,7 +22,6 @@ function BudgetFormExpenses(props) {
         event.preventDefault();
 
         props.onSubmit({
-            id: Math.floor(Math.random() * 10000),
             amount: parseFloat(amountInput),
             category: categoryInput,
             date: dateInput,
