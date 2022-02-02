@@ -16,6 +16,7 @@ const navItems = [
   { label: "Budżet", path: "/budget" },
   { label: "Kalendarz", path: "/calendar" },
   { label: "Dashboard", path: "/dashboard" },
+  { label: "Panel użytkownika", path: "/user-panel" },
 ];
 export const Navigation = () => {
   const user = useContext(UserContext);
@@ -36,13 +37,12 @@ export const Navigation = () => {
               to="/"
             />
           </IconButton>
-          {navItems.map((item) => (
+          {navItems.map(item => (
             <Button
               key={item.label}
               sx={{ my: 2, color: "inherit" }}
               component={Link}
-              to={item.path}
-            >
+              to={item.path}>
               {item.label}
             </Button>
           ))}
