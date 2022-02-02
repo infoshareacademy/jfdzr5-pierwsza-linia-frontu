@@ -42,7 +42,7 @@ export const UserDetails = ({ userData, db }) => {
 
   const handleClickEdit = e => {
     // setIsEditing(true);
-    setSave(true);
+    // setSave(true);
     userData.map(element => {
       switch (e.target.value) {
         case element.telephone:
@@ -82,7 +82,7 @@ export const UserDetails = ({ userData, db }) => {
   //   };
 
   const handleClickSave = async id => {
-    setSave(false);
+    // setSave(false);
 
     setIsEditing(false);
     setTaskId("");
@@ -147,7 +147,7 @@ export const UserDetails = ({ userData, db }) => {
     setHouseNumberEdit(false);
     setCityEdit(false);
     setPostCodeEdit(false);
-    setSave(false);
+    // setSave(false);
     setTaskId("");
   };
 
