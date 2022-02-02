@@ -5,6 +5,7 @@ import Icon from "@mui/material/Icon";
 import { Button, Input, Typography } from "@mui/material";
 import Checkbox from "@mui/material/Checkbox";
 import { Theme } from "../../../common/theme/theme";
+import { checkboxClasses } from "@mui/material";
 
 import { doc, deleteDoc, updateDoc } from "firebase/firestore";
 
@@ -16,8 +17,8 @@ const NewTaskContainer = styled.div`
   display: flex;
   margin: 10px;
   padding: 10px;
-  // background-color: ${Theme.palette.primary.main};
   background-color: grey;
+  // justify-content: space-between;
 `;
 
 const NewTask = ({ tasks, setTasks, db }) => {
@@ -39,6 +40,7 @@ const NewTask = ({ tasks, setTasks, db }) => {
   const handleClickDelete = id => {
     const docRef = doc(db, "to-do-list", id);
     deleteDoc(docRef);
+    setSave(false);
   };
 
   const handleClickSave = async id => {
@@ -72,6 +74,12 @@ const NewTask = ({ tasks, setTasks, db }) => {
     });
   };
 
+  const handleClickCancel = id => {
+    setIsEditing(false);
+    setSave(false);
+    setTaskId("");
+  };
+
   return (
     <NewTasksContainer>
       {tasks.map(element => (
@@ -81,12 +89,14 @@ const NewTask = ({ tasks, setTasks, db }) => {
               sx={{
                 alignSelf: "center",
                 textDecoration: `${element.isChecked ? "line-through" : ""}`,
+                flexGrow: "1",
               }}>
               {element.task}
             </Typography>
           )}
           {isEditing && element.id === taskID && (
             <Input
+              sx={{ flexGrow: "1" }}
               autoFocus
               type="text"
               value={takenValue}
@@ -96,6 +106,18 @@ const NewTask = ({ tasks, setTasks, db }) => {
           )}
           {!isEditing && (
             <Checkbox
+              sx={{
+                marginLeft: "auto",
+                color: Theme.palette.secondary.contrastText,
+                ":hover": { color: Theme.palette.primary.contrastText },
+                justifySelf: "center",
+                [`&, &.${checkboxClasses.checked}`]: {
+                  color: Theme.palette.secondary.contrastText,
+                },
+                alignSelf: "center",
+                padding: ".5rem",
+              }}
+              checked={element.alert ? true : false}
               checked={element.isChecked ? true : false}
               color="secondary"
               type="checkbox"
@@ -104,6 +126,10 @@ const NewTask = ({ tasks, setTasks, db }) => {
           )}
           {!save && (
             <Button
+              sx={{
+                color: Theme.palette.secondary.contrastText,
+                ":hover": { color: Theme.palette.primary.contrastText },
+              }}
               color="secondary"
               onClick={() => handleClickEdit(element.id)}>
               <Icon>edit</Icon>
@@ -111,16 +137,35 @@ const NewTask = ({ tasks, setTasks, db }) => {
           )}
           {save && element.id === taskID && (
             <Button
+              sx={{
+                color: Theme.palette.secondary.contrastText,
+                ":hover": { color: Theme.palette.primary.contrastText },
+              }}
               color="secondary"
               onClick={() => handleClickSave(element.id)}>
               <Icon>save</Icon>
             </Button>
           )}
-          {!isEditing && (
+          {isEditing && element.id === taskID && (
             <Button
+              sx={{
+                color: Theme.palette.secondary.contrastText,
+                ":hover": { color: Theme.palette.primary.contrastText },
+              }}
               color="secondary"
               onClick={() => handleClickDelete(element.id)}>
               <Icon>delete</Icon>
+            </Button>
+          )}
+          {isEditing && element.id === taskID && (
+            <Button
+              sx={{
+                color: Theme.palette.secondary.contrastText,
+                ":hover": { color: Theme.palette.primary.contrastText },
+              }}
+              color="secondary"
+              onClick={() => handleClickCancel(element.id)}>
+              <Icon>cancel</Icon>
             </Button>
           )}
         </NewTaskContainer>
