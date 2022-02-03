@@ -8,6 +8,7 @@ import { OutlinedInput } from "@mui/material";
 import styled from "styled-components";
 import { Icon } from "@mui/material";
 import { addDoc } from "firebase/firestore";
+import { AddButton } from "../buttons/AddButton";
 
 const FormContainer = styled.div`
   color: #fff;
@@ -51,20 +52,7 @@ const AddTaskForm = ({ task, setTask, colRef }) => {
             value={task}
             required
           />
-          <Button
-            variant="outlined"
-            type="submit"
-            color="primary"
-            sx={{
-              margin: "1rem",
-              height: "3rem",
-              // border: "none",
-              color: Theme.palette.primary,
-              backgroundColor: Theme.palette.secondary.contrastText,
-              ":hover": { backgroundColor: Theme.palette.primary.contrastText },
-            }}>
-            <Icon>add</Icon>
-          </Button>
+          <AddButton />
         </Container>
       </form>
     </FormContainer>
