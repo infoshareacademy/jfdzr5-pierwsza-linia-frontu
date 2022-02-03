@@ -20,6 +20,7 @@ import { useState } from "react";
 
 import { useContext } from "react";
 import { UserContext } from "../../../userContext/UserContext";
+import { SaveButton } from "../../ToDoList/buttons/SaveButton";
 
 const DetailsContainer = styled.div`
   color: #fff;
@@ -234,7 +235,7 @@ export const UserDetails = ({ userData, db }) => {
                         onChange={e => setTakenValue(e.target.value)}
                       />
 
-                      <Button
+                      {/* <Button
                         sx={{
                           color: Theme.palette.secondary.contrastText,
                           ":hover": {
@@ -244,7 +245,11 @@ export const UserDetails = ({ userData, db }) => {
                         color="secondary"
                         onClick={() => handleClickSave(element.id)}>
                         <Icon>save</Icon>
-                      </Button>
+                      </Button> */}
+                      <SaveButton
+                        handleClickSave={handleClickSave}
+                        id={element.id}
+                      />
                       <Button
                         sx={{
                           color: Theme.palette.secondary.contrastText,
