@@ -33,7 +33,6 @@ export const UserDetails = ({ userData, db }) => {
       // https://firebase.google.com/docs/reference/js/firebase.User
       setUid(user.uid);
       setUserEmail(user.email);
-      console.log(uid);
       // ...
     } else {
       // User is signed out
@@ -80,7 +79,7 @@ export const UserDetails = ({ userData, db }) => {
   };
 
   const handleClickSave = async id => {
-    setIsEditing(false);
+    setIsEditing(true);
     setTaskId("");
     const docRef = doc(db, "user-data", id);
     switch (true) {
@@ -134,31 +133,42 @@ export const UserDetails = ({ userData, db }) => {
 
   return (
     <Container onClick={handleOnClick}>
-      <FormGroup sx={{ margin: "10px", padding: "10px" }}>
+      <FormGroup key={uid} sx={{ margin: "10px", padding: "10px" }}>
         {userData.map(
           element =>
             element.uid === uid && (
               <>
                 <Typography variant="h5">Dane użytkownika</Typography>
                 <DetailsContainer>
-                  <TextFieldReadOnly value={element.name} label={"Imię"} />
+                  <TextFieldReadOnly
+                    key={element.name}
+                    value={element.name}
+                    label={"Imię"}
+                  />
 
                   <TextFieldReadOnly
+                    key={element.surname}
                     value={element.surname}
                     label={"Nazwisko"}
                   />
 
-                  <TextFieldReadOnly value={userEmail} label={"Email"} />
+                  <TextFieldReadOnly
+                    key={userEmail}
+                    value={userEmail}
+                    label={"Email"}
+                  />
                   {!telephoneEdit && (
                     <TextFieldView
+                      key={element.telephone}
                       label="Nr telefonu"
                       value={element.telephone || ""}
-                      onClick={handleClickEdit}
+                      handleClick={handleClickEdit}
                     />
                   )}
                   {telephoneEdit && (
                     <>
                       <TextField
+                        key={element.telephone}
                         autoFocus
                         fullWidth
                         label="Nr telefonu"
@@ -183,12 +193,13 @@ export const UserDetails = ({ userData, db }) => {
                     <TextFieldView
                       label="Ulica"
                       value={element.street || ""}
-                      onClick={handleClickEdit}
+                      handleClick={handleClickEdit}
                     />
                   )}
                   {streetEdit && (
                     <>
                       <TextField
+                        key={element.street}
                         autoFocus
                         fullWidth
                         label="Ulica"
@@ -208,14 +219,16 @@ export const UserDetails = ({ userData, db }) => {
                   )}
                   {!houseNumberEdit && (
                     <TextFieldView
+                      key={element.houseNumber}
                       label="Nr dom/mieszkania"
                       value={element.houseNumber || ""}
-                      onClick={handleClickEdit}
+                      handleClick={handleClickEdit}
                     />
                   )}
                   {houseNumberEdit && (
                     <>
                       <TextField
+                        key={element.houseNumber}
                         autoFocus
                         fullWidth
                         label="Nr dom/mieszkania"
@@ -235,14 +248,16 @@ export const UserDetails = ({ userData, db }) => {
                   )}
                   {!cityEdit && (
                     <TextFieldView
+                      key={element.city}
                       label="Miejscowość"
                       value={element.city || ""}
-                      onClick={handleClickEdit}
+                      handleClick={handleClickEdit}
                     />
                   )}
                   {cityEdit && (
                     <>
                       <TextField
+                        key={element.city}
                         autoFocus
                         fullWidth
                         label="Miejscowość"
@@ -262,14 +277,16 @@ export const UserDetails = ({ userData, db }) => {
                   )}
                   {!postCodeEdit && (
                     <TextFieldView
+                      key={element.postcode}
                       label="Kod pocztowy"
                       value={element.postcode || ""}
-                      onClick={handleClickEdit}
+                      handleClick={handleClickEdit}
                     />
                   )}
                   {postCodeEdit && (
                     <>
                       <TextField
+                        key={element.postcode}
                         autoFocus
                         fullWidth
                         label="Kod pocztowy"
