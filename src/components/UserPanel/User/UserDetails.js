@@ -3,14 +3,14 @@ import { Container, FormGroup, TextField, Typography } from "@mui/material";
 import styled from "styled-components";
 
 import { doc, deleteDoc, updateDoc, onSnapshot } from "firebase/firestore";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { SaveButton } from "../../ToDoList/buttons/SaveButton";
 import { CancelButton } from "../../ToDoList/buttons/CancelButton";
 import { TextFieldReadOnly } from "../text-field/TextFieldReadOnly";
 import { TextFieldView } from "../text-field/TextFieldView";
-
+import { useContext } from "react";
+import { UserData } from "../../../UserData/UserData";
 const DetailsContainer = styled.div`
   color: #fff;
   display: flex;
@@ -24,21 +24,19 @@ const DetailsContainer = styled.div`
 `;
 
 export const UserDetails = ({ userData, db }) => {
-  const [uid, setUid] = useState("");
-  const [userEmail, setUserEmail] = useState("");
-  const auth = getAuth();
-  onAuthStateChanged(auth, user => {
-    if (user) {
-      // User is signed in, see docs for a list of available properties
-      // https://firebase.google.com/docs/reference/js/firebase.User
-      setUid(user.uid);
-      setUserEmail(user.email);
-      // ...
-    } else {
-      // User is signed out
-      // ...
+  const userDataDetails = useContext(UserData);
+  // console.log(userUID);
+
+  useEffect(() => {
+    // setTest(userUID);
+    if (userDataDetails) {
+      setUid(userDataDetails.uid);
+      setUserEmail(userDataDetails.email);
     }
   });
+
+  const [uid, setUid] = useState("");
+  const [userEmail, setUserEmail] = useState("");
 
   const [save, setSave] = useState(false);
   const [isEditing, setIsEditing] = useState(false);

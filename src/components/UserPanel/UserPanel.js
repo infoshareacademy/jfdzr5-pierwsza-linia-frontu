@@ -14,7 +14,7 @@ export const UserPanel = () => {
   //   const colRefOrdered = query(colRef, orderBy("timeStamp"));
 
   const [userData, setUserData] = useState([]);
-  console.log(userData);
+  // console.log(userData);
   useEffect(() => {
     fetchData();
   }, []);
