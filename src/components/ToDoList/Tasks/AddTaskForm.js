@@ -6,7 +6,6 @@ import { Theme } from "../../../common/theme/theme";
 import { OutlinedInput } from "@mui/material";
 
 import styled from "styled-components";
-import { Icon } from "@mui/material";
 import { addDoc } from "firebase/firestore";
 import { AddButton } from "../buttons/AddButton";
 
