@@ -1,13 +1,16 @@
 import { useState } from "react";
 
 import styled from "styled-components";
-import Icon from "@mui/material/Icon";
-import { Button, Input, Typography } from "@mui/material";
+import { Input, Typography } from "@mui/material";
 import Checkbox from "@mui/material/Checkbox";
 import { Theme } from "../../../common/theme/theme";
 import { checkboxClasses } from "@mui/material";
 
 import { doc, deleteDoc, updateDoc } from "firebase/firestore";
+import { SaveButton } from "../../../common/buttons/SaveButton";
+import { EditButton } from "../../../common/buttons/EditButton";
+import { CancelButton } from "../../../common/buttons/CancelButton";
+import { DeleteButton } from "../../../common/buttons/DeleteButton";
 
 const NewTasksContainer = styled.div`
   padding: 10px;
@@ -125,48 +128,22 @@ const NewTask = ({ tasks, setTasks, db }) => {
             />
           )}
           {!save && (
-            <Button
-              sx={{
-                color: Theme.palette.secondary.contrastText,
-                ":hover": { color: Theme.palette.primary.contrastText },
-              }}
-              color="secondary"
-              onClick={() => handleClickEdit(element.id)}>
-              <Icon>edit</Icon>
-            </Button>
+            <EditButton handleClickEdit={handleClickEdit} id={element.id} />
           )}
           {save && element.id === taskID && (
-            <Button
-              sx={{
-                color: Theme.palette.secondary.contrastText,
-                ":hover": { color: Theme.palette.primary.contrastText },
-              }}
-              color="secondary"
-              onClick={() => handleClickSave(element.id)}>
-              <Icon>save</Icon>
-            </Button>
+            <SaveButton handleClickSave={handleClickSave} id={element.id} />
           )}
           {isEditing && element.id === taskID && (
-            <Button
-              sx={{
-                color: Theme.palette.secondary.contrastText,
-                ":hover": { color: Theme.palette.primary.contrastText },
-              }}
-              color="secondary"
-              onClick={() => handleClickDelete(element.id)}>
-              <Icon>delete</Icon>
-            </Button>
+            <DeleteButton
+              handleClickDelete={handleClickDelete}
+              id={element.id}
+            />
           )}
           {isEditing && element.id === taskID && (
-            <Button
-              sx={{
-                color: Theme.palette.secondary.contrastText,
-                ":hover": { color: Theme.palette.primary.contrastText },
-              }}
-              color="secondary"
-              onClick={() => handleClickCancel(element.id)}>
-              <Icon>cancel</Icon>
-            </Button>
+            <CancelButton
+              handleClickCancel={handleClickCancel}
+              id={element.id}
+            />
           )}
         </NewTaskContainer>
       ))}
