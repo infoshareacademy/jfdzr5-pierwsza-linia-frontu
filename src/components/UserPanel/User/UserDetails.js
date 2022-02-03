@@ -21,6 +21,7 @@ import { useState } from "react";
 import { useContext } from "react";
 import { UserContext } from "../../../userContext/UserContext";
 import { SaveButton } from "../../ToDoList/buttons/SaveButton";
+import { CancelButton } from "../../ToDoList/buttons/CancelButton";
 
 const DetailsContainer = styled.div`
   color: #fff;
@@ -234,33 +235,14 @@ export const UserDetails = ({ userData, db }) => {
                         value={takenValue}
                         onChange={e => setTakenValue(e.target.value)}
                       />
-
-                      {/* <Button
-                        sx={{
-                          color: Theme.palette.secondary.contrastText,
-                          ":hover": {
-                            color: Theme.palette.primary.contrastText,
-                          },
-                        }}
-                        color="secondary"
-                        onClick={() => handleClickSave(element.id)}>
-                        <Icon>save</Icon>
-                      </Button> */}
                       <SaveButton
                         handleClickSave={handleClickSave}
                         id={element.id}
                       />
-                      <Button
-                        sx={{
-                          color: Theme.palette.secondary.contrastText,
-                          ":hover": {
-                            color: Theme.palette.primary.contrastText,
-                          },
-                        }}
-                        color="secondary"
-                        onClick={() => handleClickCancel(element.id)}>
-                        <Icon>cancel</Icon>
-                      </Button>
+                      <CancelButton
+                        handleClickCancel={handleClickCancel}
+                        id={element.id}
+                      />
                     </>
                   )}
                 </DetailsContainer>
@@ -285,28 +267,14 @@ export const UserDetails = ({ userData, db }) => {
                         onChange={e => setTakenValue(e.target.value)}
                       />
 
-                      <Button
-                        sx={{
-                          color: Theme.palette.secondary.contrastText,
-                          ":hover": {
-                            color: Theme.palette.primary.contrastText,
-                          },
-                        }}
-                        color="secondary"
-                        onClick={() => handleClickSave(element.id)}>
-                        <Icon>save</Icon>
-                      </Button>
-                      <Button
-                        sx={{
-                          color: Theme.palette.secondary.contrastText,
-                          ":hover": {
-                            color: Theme.palette.primary.contrastText,
-                          },
-                        }}
-                        color="secondary"
-                        onClick={() => handleClickCancel(element.id)}>
-                        <Icon>cancel</Icon>
-                      </Button>
+                      <SaveButton
+                        handleClickSave={handleClickSave}
+                        id={element.id}
+                      />
+                      <CancelButton
+                        handleClickCancel={handleClickCancel}
+                        id={element.id}
+                      />
                     </>
                   )}
                   {!houseNumberEdit && (
@@ -327,28 +295,14 @@ export const UserDetails = ({ userData, db }) => {
                         onChange={e => setTakenValue(e.target.value)}
                       />
 
-                      <Button
-                        sx={{
-                          color: Theme.palette.secondary.contrastText,
-                          ":hover": {
-                            color: Theme.palette.primary.contrastText,
-                          },
-                        }}
-                        color="secondary"
-                        onClick={() => handleClickSave(element.id)}>
-                        <Icon>save</Icon>
-                      </Button>
-                      <Button
-                        sx={{
-                          color: Theme.palette.secondary.contrastText,
-                          ":hover": {
-                            color: Theme.palette.primary.contrastText,
-                          },
-                        }}
-                        color="secondary"
-                        onClick={() => handleClickCancel(element.id)}>
-                        <Icon>cancel</Icon>
-                      </Button>
+                      <SaveButton
+                        handleClickSave={handleClickSave}
+                        id={element.id}
+                      />
+                      <CancelButton
+                        handleClickCancel={handleClickCancel}
+                        id={element.id}
+                      />
                     </>
                   )}
                   {!cityEdit && (
@@ -369,28 +323,14 @@ export const UserDetails = ({ userData, db }) => {
                         onChange={e => setTakenValue(e.target.value)}
                       />
 
-                      <Button
-                        sx={{
-                          color: Theme.palette.secondary.contrastText,
-                          ":hover": {
-                            color: Theme.palette.primary.contrastText,
-                          },
-                        }}
-                        color="secondary"
-                        onClick={() => handleClickSave(element.id)}>
-                        <Icon>save</Icon>
-                      </Button>
-                      <Button
-                        sx={{
-                          color: Theme.palette.secondary.contrastText,
-                          ":hover": {
-                            color: Theme.palette.primary.contrastText,
-                          },
-                        }}
-                        color="secondary"
-                        onClick={() => handleClickCancel(element.id)}>
-                        <Icon>cancel</Icon>
-                      </Button>
+                      <SaveButton
+                        handleClickSave={handleClickSave}
+                        id={element.id}
+                      />
+                      <CancelButton
+                        handleClickCancel={handleClickCancel}
+                        id={element.id}
+                      />
                     </>
                   )}
                   {!postCodeEdit && (
@@ -411,28 +351,14 @@ export const UserDetails = ({ userData, db }) => {
                         onChange={e => setTakenValue(e.target.value)}
                       />
 
-                      <Button
-                        sx={{
-                          color: Theme.palette.secondary.contrastText,
-                          ":hover": {
-                            color: Theme.palette.primary.contrastText,
-                          },
-                        }}
-                        color="secondary"
-                        onClick={() => handleClickSave(element.id)}>
-                        <Icon>save</Icon>
-                      </Button>
-                      <Button
-                        sx={{
-                          color: Theme.palette.secondary.contrastText,
-                          ":hover": {
-                            color: Theme.palette.primary.contrastText,
-                          },
-                        }}
-                        color="secondary"
-                        onClick={() => handleClickCancel(element.id)}>
-                        <Icon>cancel</Icon>
-                      </Button>
+                      <SaveButton
+                        handleClickSave={handleClickSave}
+                        id={element.id}
+                      />
+                      <CancelButton
+                        handleClickCancel={handleClickCancel}
+                        id={element.id}
+                      />
                     </>
                   )}
                 </DetailsContainer>
