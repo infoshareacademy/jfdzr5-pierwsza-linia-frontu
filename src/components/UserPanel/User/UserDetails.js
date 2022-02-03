@@ -1,27 +1,15 @@
-import {
-  Button,
-  Container,
-  FormGroup,
-  Icon,
-  Input,
-  OutlinedInput,
-  TextField,
-  Typography,
-} from "@mui/material";
-import { Theme } from "../../../common/theme/theme";
+import { Container, FormGroup, TextField, Typography } from "@mui/material";
 
-import { PageWrapper } from "../../../common/page-wrapper/page-wrapper";
-import { Box } from "@mui/system";
 import styled from "styled-components";
 
 import { doc, deleteDoc, updateDoc, onSnapshot } from "firebase/firestore";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useState } from "react";
 
-import { useContext } from "react";
-import { UserContext } from "../../../userContext/UserContext";
 import { SaveButton } from "../../ToDoList/buttons/SaveButton";
 import { CancelButton } from "../../ToDoList/buttons/CancelButton";
+import { TextFieldReadOnly } from "../text-field/TextFieldReadOnly";
+import { TextFieldView } from "../text-field/TextFieldView";
 
 const DetailsContainer = styled.div`
   color: #fff;
@@ -36,8 +24,6 @@ const DetailsContainer = styled.div`
 `;
 
 export const UserDetails = ({ userData, db }) => {
-  const user = useContext(UserContext);
-  //   console.log(user);
   const [uid, setUid] = useState("");
   const [userEmail, setUserEmail] = useState("");
   const auth = getAuth();
@@ -66,9 +52,6 @@ export const UserDetails = ({ userData, db }) => {
   const [postCodeEdit, setPostCodeEdit] = useState(false);
 
   const handleClickEdit = e => {
-    // setIsEditing(true);
-    // setSave(true);
-    console.log(e);
     handleClickCancel();
     userData.map(element => {
       switch (e.target.value) {
@@ -96,24 +79,9 @@ export const UserDetails = ({ userData, db }) => {
     });
   };
 
-  //     userData.forEach(element => {
-  //       if (id === element.id) {
-  //         setTakenValue(element.task);
-  //       }
-  //     });
-  //   };
-  //   const handleClickDelete = id => {
-  //     const docRef = doc(db, "to-do-list", id);
-  //     deleteDoc(docRef);
-  //     setSave(false);
-  //   };
-
   const handleClickSave = async id => {
-    // setSave(false);
-
     setIsEditing(false);
     setTaskId("");
-    console.log(id);
     const docRef = doc(db, "user-data", id);
     switch (true) {
       case telephoneEdit:
@@ -149,32 +117,12 @@ export const UserDetails = ({ userData, db }) => {
     }
   };
 
-  //   const handleIsChecked = async id => {
-  //     userData.map(async element => {
-  //       if (element.isChecked && element.id === id) {
-  //         const docRef = doc(db, "to-do-list", id);
-  //         await updateDoc(docRef, {
-  //           isChecked: false,
-  //         });
-  //         console.log(element.isChecked);
-  //       }
-  //       if (!element.isChecked && element.id === id) {
-  //         const docRef = doc(db, "to-do-list", id);
-  //         await updateDoc(docRef, {
-  //           isChecked: true,
-  //         });
-  //         console.log(element.isChecked);
-  //       }
-  //     });
-  //   };
-
   const handleClickCancel = id => {
     setTelephoneEdit(false);
     setStreetEdit(false);
     setHouseNumberEdit(false);
     setCityEdit(false);
     setPostCodeEdit(false);
-    // setSave(false);
     setTaskId("");
   };
   const handleOnClick = e => {
@@ -193,36 +141,18 @@ export const UserDetails = ({ userData, db }) => {
               <>
                 <Typography variant="h5">Dane użytkownika</Typography>
                 <DetailsContainer>
-                  <TextField
-                    sx={{ cursor: "default" }}
-                    fullWidth
-                    label="Imie"
-                    value={`${element.name}`}
-                    InputProps={{
-                      readOnly: true,
-                    }}
+                  <TextFieldReadOnly value={element.name} label={"Imię"} />
+
+                  <TextFieldReadOnly
+                    value={element.surname}
+                    label={"Nazwisko"}
                   />
-                  <TextField
-                    fullWidth
-                    label="Nazwisko"
-                    value={`${element.surname}`}
-                    InputProps={{
-                      readOnly: true,
-                    }}
-                  />
-                  <TextField
-                    fullWidth
-                    label="Email"
-                    value={userEmail}
-                    InputProps={{
-                      readOnly: true,
-                    }}
-                  />
+
+                  <TextFieldReadOnly value={userEmail} label={"Email"} />
                   {!telephoneEdit && (
-                    <TextField
-                      fullWidth
+                    <TextFieldView
                       label="Nr telefonu"
-                      value={`${element.telephone}`}
+                      value={element.telephone || ""}
                       onClick={handleClickEdit}
                     />
                   )}
@@ -250,10 +180,9 @@ export const UserDetails = ({ userData, db }) => {
                 <Typography variant="h5">Adres</Typography>
                 <DetailsContainer style={{ flexWrap: "wrap" }}>
                   {!streetEdit && (
-                    <TextField
-                      fullWidth
+                    <TextFieldView
                       label="Ulica"
-                      value={element.street || " "}
+                      value={element.street || ""}
                       onClick={handleClickEdit}
                     />
                   )}
@@ -278,8 +207,7 @@ export const UserDetails = ({ userData, db }) => {
                     </>
                   )}
                   {!houseNumberEdit && (
-                    <TextField
-                      fullWidth
+                    <TextFieldView
                       label="Nr dom/mieszkania"
                       value={element.houseNumber || ""}
                       onClick={handleClickEdit}
@@ -306,8 +234,7 @@ export const UserDetails = ({ userData, db }) => {
                     </>
                   )}
                   {!cityEdit && (
-                    <TextField
-                      fullWidth
+                    <TextFieldView
                       label="Miejscowość"
                       value={element.city || ""}
                       onClick={handleClickEdit}
@@ -334,8 +261,7 @@ export const UserDetails = ({ userData, db }) => {
                     </>
                   )}
                   {!postCodeEdit && (
-                    <TextField
-                      fullWidth
+                    <TextFieldView
                       label="Kod pocztowy"
                       value={element.postcode || ""}
                       onClick={handleClickEdit}
