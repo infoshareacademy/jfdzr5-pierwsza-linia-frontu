@@ -46,6 +46,14 @@ export const Navigation = () => {
               {item.label}
             </Button>
           ))}
+          {user && (
+            <Button
+              sx={{ my: 2, color: "white" }}
+              component={Link}
+              to="/user-panel">
+              Panel użytkownika
+            </Button>
+          )}
           {user ? (
             <Button sx={{ my: 2, color: "white" }} onClick={handleSignOutClick}>
               Wyloguj
@@ -56,14 +64,6 @@ export const Navigation = () => {
               component={Link}
               to="/sign-in">
               Zaloguj
-            </Button>
-          )}
-          {user && (
-            <Button
-              sx={{ my: 2, color: "white" }}
-              component={Link}
-              to="/user-panel">
-              Panel użytkownika
             </Button>
           )}
         </Toolbar>
