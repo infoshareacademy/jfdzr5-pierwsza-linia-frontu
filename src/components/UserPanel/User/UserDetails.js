@@ -11,6 +11,7 @@ import { TextFieldReadOnly } from "../text-field/TextFieldReadOnly";
 import { TextFieldView } from "../text-field/TextFieldView";
 import { useContext } from "react";
 import { UserData } from "../../../UserData/UserData";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 const DetailsContainer = styled.div`
   color: #fff;
   display: flex;
@@ -24,17 +25,28 @@ const DetailsContainer = styled.div`
 `;
 
 export const UserDetails = ({ userData, db }) => {
-  const userDataDetails = useContext(UserData);
-  // console.log(userUID);
+  // const userDataDetails = useContext(UserData);
+  // // console.log(userUID);
 
-  useEffect(() => {
-    // setTest(userUID);
-    if (userDataDetails) {
-      setUid(userDataDetails.uid);
-      setUserEmail(userDataDetails.email);
+  // useEffect(() => {
+  //   // setTest(userUID);
+  //   if (userDataDetails) {
+  //     setUid(userDataDetails.uid);
+  //     setUserEmail(userDataDetails.email);
+  //   }
+  // });
+  const auth = getAuth();
+  onAuthStateChanged(auth, user => {
+    if (user) {
+      // User is signed in, see docs for a list of available properties
+      // https://firebase.google.com/docs/reference/js/firebase.User
+      setUid(user.uid);
+      // ...
+    } else {
+      // User is signed out
+      // ...
     }
   });
-
   const [uid, setUid] = useState("");
   const [userEmail, setUserEmail] = useState("");
 

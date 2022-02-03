@@ -7,7 +7,7 @@ import TextField from "@mui/material/TextField";
 import { Theme } from "../../common/theme/theme";
 import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { PageWrapper } from "../../common/page-wrapper/page-wrapper";
 
@@ -16,6 +16,9 @@ import {
   createUserWithEmailAndPassword,
   getAuth,
 } from "firebase/auth";
+import { getFirestore, collection, addDoc } from "firebase/firestore";
+import { useContext } from "react";
+import { UserData } from "../../UserData/UserData";
 
 export const Sign = ({ isSignUp }) => {
   const [name, setName] = useState("");
@@ -25,23 +28,34 @@ export const Sign = ({ isSignUp }) => {
 
   const navigate = useNavigate();
 
-  const handleNameChange = (e) => {
+  const handleNameChange = e => {
     setName(e.target.value);
   };
 
-  const handleSurnameChange = (e) => {
+  const handleSurnameChange = e => {
     setSurname(e.target.value);
   };
 
-  const handleEmailChange = (e) => {
+  const handleEmailChange = e => {
     setEmail(e.target.value);
   };
 
-  const handlePasswordChange = (e) => {
+  const handlePasswordChange = e => {
     setPassword(e.target.value);
   };
 
-  const handleSubmit = (e) => {
+  const db = getFirestore();
+  const colRef = collection(db, "user-data");
+  const userDataDetails = useContext(UserData);
+
+  const [uid, setUid] = useState("");
+  useEffect(() => {
+    if (userDataDetails) {
+      setUid(userDataDetails.uid);
+    }
+  });
+
+  const handleSubmit = e => {
     e.preventDefault();
     const auth = getAuth();
     const method = isSignUp
@@ -52,9 +66,21 @@ export const Sign = ({ isSignUp }) => {
       .then(() => {
         navigate("/");
       })
-      .catch((err) => {
+      .catch(err => {
         alert(err);
       });
+    if (isSignUp) {
+      addDoc(colRef, {
+        name: name,
+        surname: surname,
+        telephone: "",
+        city: "",
+        street: "",
+        houseNumber: "",
+        postcode: "",
+        uid: uid,
+      });
+    }
   };
   return (
     <PageWrapper>
@@ -65,8 +91,7 @@ export const Sign = ({ isSignUp }) => {
             flexDirection: "column",
             alignItems: "center",
             background: Theme.palette.secondary.main,
-          }}
-        >
+          }}>
           <Avatar sx={{ m: 2, bgcolor: "secondary.main" }}>
             <Icon>lock</Icon>
           </Avatar>
@@ -78,8 +103,7 @@ export const Sign = ({ isSignUp }) => {
             component="form"
             onSubmit={handleSubmit}
             noValidate
-            sx={{ mt: 3, height: 500 }}
-          >
+            sx={{ mt: 3, height: 500 }}>
             {isSignUp && (
               <TextField
                 sx={{
@@ -182,8 +206,7 @@ export const Sign = ({ isSignUp }) => {
                 ":hover": { bgcolor: Theme.palette.primary.contrastText },
               }}
               bgcolor="secondary"
-              type="submit"
-            >
+              type="submit">
               {isSignUp ? "Zarejestruj się" : "Zaloguj"}
             </Button>
 
@@ -196,8 +219,7 @@ export const Sign = ({ isSignUp }) => {
                         textDecoration: "none",
                         color: "white",
                         underline: "none",
-                      }}
-                    >
+                      }}>
                       Masz już konto? Zaloguj się
                     </Typography>
                   )}
@@ -207,8 +229,7 @@ export const Sign = ({ isSignUp }) => {
                         textDecoration: "none",
                         color: "white",
                         underline: "none",
-                      }}
-                    >
+                      }}>
                       Nie masz konta? Zarejestruj się!
                     </Typography>
                   )}
