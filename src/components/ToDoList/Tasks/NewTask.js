@@ -47,6 +47,7 @@ const NewTask = ({ tasks, setTasks, db }) => {
     const docRef = doc(db, "to-do-list", id);
     deleteDoc(docRef);
     setSave(false);
+    setIsEditing(false);
   };
 
   const handleClickSave = async id => {
