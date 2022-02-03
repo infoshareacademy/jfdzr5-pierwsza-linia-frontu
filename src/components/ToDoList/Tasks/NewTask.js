@@ -7,10 +7,13 @@ import { Theme } from "../../../common/theme/theme";
 import { checkboxClasses } from "@mui/material";
 
 import { doc, deleteDoc, updateDoc } from "firebase/firestore";
-import { SaveButton } from "../../../common/buttons/SaveButton";
-import { EditButton } from "../../../common/buttons/EditButton";
-import { CancelButton } from "../../../common/buttons/CancelButton";
-import { DeleteButton } from "../../../common/buttons/DeleteButton";
+// import { SaveButton } from "../../../common/buttons/SaveButton";
+// import { EditButton } from "../../../common/buttons/EditButton";
+// import { CancelButton } from "../../../common/buttons/CancelButton";
+import { DeleteButton } from "../buttons/DeleteButton";
+import { SaveButton } from "../buttons/SaveButton";
+import { EditButton } from "../buttons/EditButton";
+import { CancelButton } from "../buttons/CancelButton";
 
 const NewTasksContainer = styled.div`
   padding: 10px;
