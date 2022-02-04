@@ -15,6 +15,7 @@ import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   getAuth,
+  onAuthStateChanged,
 } from "firebase/auth";
 import { getFirestore, collection, addDoc } from "firebase/firestore";
 import { useContext } from "react";
@@ -46,15 +47,22 @@ export const Sign = ({ isSignUp }) => {
 
   const db = getFirestore();
   const colRef = collection(db, "user-data");
-  const userDataDetails = useContext(UserData);
 
-  const [uid, setUid] = useState("");
-  useEffect(() => {
-    if (userDataDetails) {
-      setUid(userDataDetails.uid);
+  const creatueUserDocument = () => {
+    if (isSignUp) {
+      addDoc(colRef, {
+        name: name,
+        surname: surname,
+        email: email,
+        telephone: "",
+        city: "",
+        street: "",
+        houseNumber: "",
+        postcode: "",
+        uid: "",
+      });
     }
-  });
-
+  };
   const handleSubmit = e => {
     e.preventDefault();
     const auth = getAuth();
@@ -69,18 +77,7 @@ export const Sign = ({ isSignUp }) => {
       .catch(err => {
         alert(err);
       });
-    if (isSignUp) {
-      addDoc(colRef, {
-        name: name,
-        surname: surname,
-        telephone: "",
-        city: "",
-        street: "",
-        houseNumber: "",
-        postcode: "",
-        uid: uid,
-      });
-    }
+    creatueUserDocument();
   };
   return (
     <PageWrapper>

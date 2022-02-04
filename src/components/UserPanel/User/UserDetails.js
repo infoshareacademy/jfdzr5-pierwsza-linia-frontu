@@ -25,22 +25,13 @@ const DetailsContainer = styled.div`
 `;
 
 export const UserDetails = ({ userData, db }) => {
-  // const userDataDetails = useContext(UserData);
-  // // console.log(userUID);
-
-  // useEffect(() => {
-  //   // setTest(userUID);
-  //   if (userDataDetails) {
-  //     setUid(userDataDetails.uid);
-  //     setUserEmail(userDataDetails.email);
-  //   }
-  // });
   const auth = getAuth();
   onAuthStateChanged(auth, user => {
     if (user) {
       // User is signed in, see docs for a list of available properties
       // https://firebase.google.com/docs/reference/js/firebase.User
       setUid(user.uid);
+      setUserEmail(user.email);
       // ...
     } else {
       // User is signed out
@@ -62,6 +53,7 @@ export const UserDetails = ({ userData, db }) => {
 
   const handleClickEdit = e => {
     handleClickCancel();
+    console.log(e);
     userData.map(element => {
       switch (e.target.value) {
         case element.telephone:
@@ -80,6 +72,64 @@ export const UserDetails = ({ userData, db }) => {
           setTakenValue(element.city);
           setCityEdit(true);
           break;
+        case element.postcode:
+          setTakenValue(element.postcode);
+          setPostCodeEdit(true);
+          break;
+      }
+    });
+    if (!e.target.value) {
+      setTakenValue("d");
+    }
+  };
+  const handleClickEditTelephone = e => {
+    handleClickCancel();
+    userData.map(element => {
+      switch (e.target.value) {
+        case element.telephone:
+          setTakenValue(element.telephone);
+          setTelephoneEdit(true);
+          break;
+      }
+    });
+  };
+  const handleClickEditStreet = e => {
+    handleClickCancel();
+    userData.map(element => {
+      switch (e.target.value) {
+        case element.street:
+          setTakenValue(element.street);
+          setStreetEdit(true);
+          break;
+      }
+    });
+  };
+  const handleClickEditHouseNumber = e => {
+    handleClickCancel();
+    userData.map(element => {
+      switch (e.target.value) {
+        case element.houseNumber:
+          setTakenValue(element.houseNumber);
+          setHouseNumberEdit(true);
+          break;
+      }
+    });
+  };
+  const handleClickEditCity = e => {
+    handleClickCancel();
+    userData.map(element => {
+      switch (e.target.value) {
+        case element.city:
+          setTakenValue(element.city);
+          setCityEdit(true);
+          break;
+      }
+    });
+  };
+  const handleClickEditPostcode = e => {
+    handleClickCancel();
+    userData.map(element => {
+      switch (e.target.value) {
         case element.postcode:
           setTakenValue(element.postcode);
           setPostCodeEdit(true);
@@ -143,42 +193,31 @@ export const UserDetails = ({ userData, db }) => {
 
   return (
     <Container onClick={handleOnClick}>
-      <FormGroup key={uid} sx={{ margin: "10px", padding: "10px" }}>
+      <FormGroup sx={{ margin: "10px", padding: "10px" }}>
         {userData.map(
           element =>
-            element.uid === uid && (
+            element.email === userEmail && (
               <>
                 <Typography variant="h5">Dane użytkownika</Typography>
                 <DetailsContainer>
-                  <TextFieldReadOnly
-                    key={element.name}
-                    value={element.name}
-                    label={"Imię"}
-                  />
+                  <TextFieldReadOnly value={element.name} label={"Imię"} />
 
                   <TextFieldReadOnly
-                    key={element.surname}
                     value={element.surname}
                     label={"Nazwisko"}
                   />
 
-                  <TextFieldReadOnly
-                    key={userEmail}
-                    value={userEmail}
-                    label={"Email"}
-                  />
+                  <TextFieldReadOnly value={userEmail} label={"Email"} />
                   {!telephoneEdit && (
                     <TextFieldView
-                      key={element.telephone}
                       label="Nr telefonu"
-                      value={element.telephone || ""}
-                      handleClick={handleClickEdit}
+                      value={element.telephone}
+                      handleClick={handleClickEditTelephone}
                     />
                   )}
                   {telephoneEdit && (
                     <>
                       <TextField
-                        key={element.telephone}
                         autoFocus
                         fullWidth
                         label="Nr telefonu"
@@ -202,14 +241,13 @@ export const UserDetails = ({ userData, db }) => {
                   {!streetEdit && (
                     <TextFieldView
                       label="Ulica"
-                      value={element.street || ""}
-                      handleClick={handleClickEdit}
+                      value={element.street}
+                      handleClick={handleClickEditStreet}
                     />
                   )}
                   {streetEdit && (
                     <>
                       <TextField
-                        key={element.street}
                         autoFocus
                         fullWidth
                         label="Ulica"
@@ -229,16 +267,14 @@ export const UserDetails = ({ userData, db }) => {
                   )}
                   {!houseNumberEdit && (
                     <TextFieldView
-                      key={element.houseNumber}
                       label="Nr dom/mieszkania"
-                      value={element.houseNumber || ""}
-                      handleClick={handleClickEdit}
+                      value={element.houseNumber}
+                      handleClick={handleClickEditHouseNumber}
                     />
                   )}
                   {houseNumberEdit && (
                     <>
                       <TextField
-                        key={element.houseNumber}
                         autoFocus
                         fullWidth
                         label="Nr dom/mieszkania"
@@ -258,16 +294,14 @@ export const UserDetails = ({ userData, db }) => {
                   )}
                   {!cityEdit && (
                     <TextFieldView
-                      key={element.city}
                       label="Miejscowość"
-                      value={element.city || ""}
-                      handleClick={handleClickEdit}
+                      value={element.city}
+                      handleClick={handleClickEditCity}
                     />
                   )}
                   {cityEdit && (
                     <>
                       <TextField
-                        key={element.city}
                         autoFocus
                         fullWidth
                         label="Miejscowość"
@@ -287,16 +321,14 @@ export const UserDetails = ({ userData, db }) => {
                   )}
                   {!postCodeEdit && (
                     <TextFieldView
-                      key={element.postcode}
                       label="Kod pocztowy"
-                      value={element.postcode || ""}
-                      handleClick={handleClickEdit}
+                      value={element.postcode}
+                      handleClick={handleClickEditPostcode}
                     />
                   )}
                   {postCodeEdit && (
                     <>
                       <TextField
-                        key={element.postcode}
                         autoFocus
                         fullWidth
                         label="Kod pocztowy"
