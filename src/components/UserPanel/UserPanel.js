@@ -3,7 +3,7 @@ import { PageWrapper } from "../../common/page-wrapper/page-wrapper";
 import { Theme } from "../../common/theme/theme";
 import { useState, useEffect } from "react";
 
-import { collection, query, onSnapshot, orderBy } from "firebase/firestore";
+import { collection, onSnapshot } from "firebase/firestore";
 import { getFirestore } from "firebase/firestore";
 import { UserDetails } from "./User/UserDetails";
 
@@ -11,10 +11,8 @@ export const UserPanel = () => {
   //firestore
   const db = getFirestore();
   const colRef = collection(db, "user-data");
-  //   const colRefOrdered = query(colRef, orderBy("timeStamp"));
 
   const [userData, setUserData] = useState([]);
-  // console.log(userData);
   useEffect(() => {
     fetchData();
   }, []);
