@@ -15,7 +15,6 @@ function BudgetFormIncomes(props) {
     const [categoryInput, setCategoryInput] = useState('');
     const [dateInput, setDateInput] = useState('');
     const handleAmountChange = (event) => {
-        console.log(event.target.value)
         setAmountInput(event.target.value.replace(",", "."));
     }
     const handleCategoryChange = (event) => setCategoryInput(event.target.value);

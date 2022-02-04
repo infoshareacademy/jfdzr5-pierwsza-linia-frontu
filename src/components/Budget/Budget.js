@@ -11,6 +11,7 @@ import MenuItem from '@mui/material/MenuItem';
 import styled from "styled-components";
 import { firestore } from "../../firebase";
 import { collection, onSnapshot, addDoc, deleteDoc, doc } from "firebase/firestore";
+import { Typography } from "@mui/material";
 
 
 const ListContainer = styled.div`
@@ -92,7 +93,7 @@ export const Budget = () => {
     return (
         <PageWrapper>
 
-            <h1>Budżet domowy</h1>
+            <Typography variant="h3" sx={{ textAlign: "center", marginBottom: "40px" }}>Budżet domowy</Typography>
             <div>
                 <Button
                     type="submit"

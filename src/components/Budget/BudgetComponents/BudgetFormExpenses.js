@@ -14,7 +14,9 @@ function BudgetFormExpenses(props) {
     const [amountInput, setAmountInput] = useState('');
     const [categoryInput, setCategoryInput] = useState('');
     const [dateInput, setDateInput] = useState('');
-    const handleAmountChange = (event) => setAmountInput(event.target.value);
+    const handleAmountChange = (event) => {
+        setAmountInput(event.target.value.replace(",", "."));
+    }
     const handleCategoryChange = (event) => setCategoryInput(event.target.value);
     const handleDateChange = (event) => setDateInput(event.target.value);
 
@@ -35,11 +37,10 @@ function BudgetFormExpenses(props) {
             <form className='budget-form' onSubmit={handleSubmit}>
                 <OutlinedInput
                     required
-                    type="number"
+                    inputProps={{ pattern: "[0-9]+(.|,)[0-9]{0,2}", title: "podaj liczbę z maks. 2 cyframi po przecinku " }}
                     placeholder='Podaj kwotę...'
                     value={amountInput}
                     onChange={handleAmountChange}
-                    step="0.01"
                     sx={{
                         width: '100%',
                         height: "3rem",
