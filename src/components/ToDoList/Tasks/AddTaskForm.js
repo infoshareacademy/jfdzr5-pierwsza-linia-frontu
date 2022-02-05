@@ -8,6 +8,9 @@ import { OutlinedInput } from "@mui/material";
 import styled from "styled-components";
 import { addDoc } from "firebase/firestore";
 import { AddButton } from "../buttons/AddButton";
+import { useContext } from "react";
+import { UserData } from "../../../UserData/UserData";
+import { useState, useEffect } from "react";
 
 const FormContainer = styled.div`
   color: #fff;
@@ -17,12 +20,28 @@ const FormContainer = styled.div`
 `;
 
 const AddTaskForm = ({ task, setTask, colRef }) => {
+  //get user uid and email from use context
+  const [uid, setUid] = useState("");
+  const [userEmail, setUserEmail] = useState("");
+  const userDetailsData = useContext(UserData);
+
+  useEffect(() => {
+    console.log(userDetailsData);
+    if (userDetailsData) {
+      setUid(userDetailsData.uid);
+      setUserEmail(userDetailsData.email);
+      console.log(uid);
+      console.log(userEmail);
+    }
+  });
+
   const handleSubmit = e => {
     e.preventDefault();
     addDoc(colRef, {
       task: task,
       isChecked: false,
       timeStamp: +new Date(),
+      uid: uid,
     });
     setTask("");
   };
