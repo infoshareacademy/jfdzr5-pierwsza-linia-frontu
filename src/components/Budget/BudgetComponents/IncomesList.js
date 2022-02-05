@@ -31,9 +31,9 @@ function IncomesList(props) {
                         return <NewIncomeContainer>
 
                             <ListItem className="incomes" key={income.id}>
-                                <ListItemElement>{income.amount} zł</ListItemElement>
-                                <ListItemElement>{income.category}</ListItemElement>
-                                <ListItemElement>{income.date}</ListItemElement>
+                                <ListItemElement style={{ width: "8rem" }}>{income.amount} zł</ListItemElement>
+                                <ListItemElement style={{ width: "8rem" }}>{income.category}</ListItemElement>
+                                <ListItemElement style={{ width: "7rem" }}>{income.date}</ListItemElement>
 
                                 <DeleteIcon onClick={() => props.onDelete(income.id)} />
                             </ListItem>

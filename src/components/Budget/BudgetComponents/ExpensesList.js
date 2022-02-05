@@ -31,9 +31,9 @@ function ExpensesList(props) {
                         return <NewExpenseContainer>
 
                             <ListItem className="expenses" key={expense.id}>
-                                <ListItemElement>{expense.amount} zł </ListItemElement>
-                                <ListItemElement>{expense.category}</ListItemElement>
-                                <ListItemElement>{expense.date}</ListItemElement>
+                                <ListItemElement style={{ width: "9rem" }}>{expense.amount} zł </ListItemElement>
+                                <ListItemElement style={{ width: "9rem" }}>{expense.category}</ListItemElement>
+                                <ListItemElement style={{ width: "7rem" }}>{expense.date}</ListItemElement>
 
                                 <DeleteIcon onClick={() => props.onDelete(expense.id)} />
                             </ListItem>

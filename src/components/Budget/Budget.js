@@ -2,13 +2,17 @@ import BudgetFormExpenses from "./BudgetComponents/BudgetFormExpenses";
 import BudgetFormIncomes from "./BudgetComponents/BudgetFormIncomes";
 import ExpensesList from "./BudgetComponents/ExpensesList";
 import IncomesList from "./BudgetComponents/IncomesList";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useTheme } from "@mui/material/styles";
 import { PageWrapper } from "../../common/page-wrapper/page-wrapper";
 import { Button } from "@mui/material";
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import styled from "styled-components";
+import { firestore } from "../../firebase";
+import { collection, onSnapshot, addDoc, deleteDoc, doc } from "firebase/firestore";
+import { Typography } from "@mui/material";
+
 
 const ListContainer = styled.div`
 margin-top: 40px;
@@ -17,28 +21,45 @@ margin-top: 40px;
 
 export const Budget = () => {
     const theme = useTheme();
-    console.log(theme)
+    const expensesColRef = collection(firestore, "budget-expenses");
+    const incomesColRef = collection(firestore, "budget-incomes");
 
-    const [expenses, setExpenses] = useState([
-
-    ]);
-    const handleExpenseSubmit = (expense) => {
-        setExpenses([...expenses, expense])
-    }
-
-    const [incomes, setIncomes] = useState([
-
-    ]);
-    const handleIncomesSubmit = (income) => {
-        setIncomes([...incomes, income])
-    }
-
-    const [chosenMoneyOperations, setChosenMoneyOperations] = useState(
-        "expenses"
-    )
-
-
+    const [expenses, setExpenses] = useState([]);
+    const [incomes, setIncomes] = useState([]);
+    const [chosenMoneyOperations, setChosenMoneyOperations] = useState("expenses")
     const [expensesFilterValue, setExpensesFilterValue] = useState("Wszystko")
+    const [incomesFilterValue, setIncomesFilterValue] = useState("Wszystko")
+
+
+    useEffect(() => {
+        fetchData();
+    }, []);
+
+    const fetchData = () => {
+        onSnapshot(expensesColRef, doc => {
+            let data = [];
+            doc.docs.forEach(element => {
+                data.push({ ...element.data(), id: element.id });
+            });
+            setExpenses(data);
+        });
+        onSnapshot(incomesColRef, doc => {
+            let data = [];
+            doc.docs.forEach(element => {
+                data.push({ ...element.data(), id: element.id });
+            });
+            setIncomes(data);
+        });
+    };
+
+    const handleExpenseSubmit = (expense) => {
+        addDoc(expensesColRef, expense);
+    }
+
+    const handleIncomesSubmit = (income) => {
+        addDoc(incomesColRef, income);
+
+    }
 
     const handleExpensesFilter = (event) => setExpensesFilterValue(event.target.value);
 
@@ -47,7 +68,6 @@ export const Budget = () => {
         return expensesFilterValue === "Wszystko" || element.category === expensesFilterValue
     })
 
-    const [incomesFilterValue, setIncomesFilterValue] = useState("Wszystko")
 
     const handleIncomesFilter = (event) => setIncomesFilterValue(event.target.value);
 
@@ -59,13 +79,13 @@ export const Budget = () => {
 
 
     const handleExpensesDelete = (id) => {
-        const filtered = expenses.filter((item) => item.id !== id)
-        setExpenses(filtered)
+        deleteDoc(doc(firestore, "budget-expenses", id));
+
     }
 
     const handleIncomesDelete = (id) => {
-        const filtered = incomes.filter((item) => item.id !== id)
-        setIncomes(filtered)
+        deleteDoc(doc(firestore, "budget-incomes", id));
+
     }
 
 
@@ -73,7 +93,7 @@ export const Budget = () => {
     return (
         <PageWrapper>
 
-            <h1>Budżet domowy</h1>
+            <Typography variant="h3" sx={{ textAlign: "center", marginBottom: "40px" }}>Budżet domowy</Typography>
             <div>
                 <Button
                     type="submit"
@@ -81,6 +101,7 @@ export const Budget = () => {
                     sx={{
                         margin: "1rem",
                         height: "3rem",
+                        width: "8rem",
                         backgroundColor: chosenMoneyOperations === 'expenses' ? theme.palette.primary.contrastText : 'white',
                         ":hover": { backgroundColor: theme.palette.primary.contrastText }
 
@@ -94,6 +115,7 @@ export const Budget = () => {
                     sx={{
                         margin: "1rem",
                         height: "3rem",
+                        width: "8rem",
                         color: theme.palette.primary,
                         backgroundColor: chosenMoneyOperations === 'incomes' ? theme.palette.primary.contrastText : 'white',
                         ":hover": { backgroundColor: theme.palette.primary.contrastText },
