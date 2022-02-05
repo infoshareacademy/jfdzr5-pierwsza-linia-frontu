@@ -6,6 +6,7 @@ import MenuItem from '@mui/material/MenuItem';
 import { Button } from "@mui/material";
 import Select from '@mui/material/Select';
 import { Box } from "@mui/material";
+import AddIcon from '@mui/icons-material/Add';
 
 
 
@@ -13,7 +14,9 @@ function BudgetFormExpenses(props) {
     const [amountInput, setAmountInput] = useState('');
     const [categoryInput, setCategoryInput] = useState('');
     const [dateInput, setDateInput] = useState('');
-    const handleAmountChange = (event) => setAmountInput(event.target.value);
+    const handleAmountChange = (event) => {
+        setAmountInput(event.target.value.replace(",", "."));
+    }
     const handleCategoryChange = (event) => setCategoryInput(event.target.value);
     const handleDateChange = (event) => setDateInput(event.target.value);
 
@@ -21,7 +24,6 @@ function BudgetFormExpenses(props) {
         event.preventDefault();
 
         props.onSubmit({
-            id: Math.floor(Math.random() * 10000),
             amount: parseFloat(amountInput),
             category: categoryInput,
             date: dateInput,
@@ -35,7 +37,7 @@ function BudgetFormExpenses(props) {
             <form className='budget-form' onSubmit={handleSubmit}>
                 <OutlinedInput
                     required
-                    type="number"
+                    inputProps={{ pattern: "[0-9]+(.|,)[0-9]{0,2}", title: "podaj liczbę z maks. 2 cyframi po przecinku " }}
                     placeholder='Podaj kwotę...'
                     value={amountInput}
                     onChange={handleAmountChange}
@@ -99,9 +101,12 @@ function BudgetFormExpenses(props) {
                         width: '100%',
                         height: "3rem",
                         color: Theme.palette.primary,
-                        backgroundColor: Theme.palette.primary.contrastText,
+                        backgroundColor: Theme.palette.secondary.contrastText,
+                        ":hover": { backgroundColor: Theme.palette.primary.contrastText },
 
-                    }}>Dodaj</Button>
+                    }}>
+                    <AddIcon></AddIcon>
+                </Button>
 
 
 
