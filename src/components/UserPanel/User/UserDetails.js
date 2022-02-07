@@ -9,6 +9,7 @@ import { SaveButton } from "../../ToDoList/buttons/SaveButton";
 import { CancelButton } from "../../ToDoList/buttons/CancelButton";
 import { TextFieldReadOnly } from "../text-field/TextFieldReadOnly";
 import { TextFieldView } from "../text-field/TextFieldView";
+import { EditTextField } from "../text-field/EditTextField";
 import { useContext } from "react";
 import { UserData } from "../../../UserData/UserData";
 
@@ -178,12 +179,15 @@ export const UserDetails = ({ userData, db }) => {
                   )}
                   {telephoneEdit && (
                     <>
-                      <TextField
-                        autoFocus
-                        fullWidth
-                        label="Nr telefonu"
+                      <EditTextField
                         value={takenValue}
                         onChange={e => setTakenValue(e.target.value)}
+                        label="Nr telefonu"
+                        // autoFocus
+                        // fullWidth
+                        // label="Nr telefonu"
+                        // value={takenValue}
+                        // onChange={e => setTakenValue(e.target.value)}
                       />
                       <SaveButton
                         handleClickSave={handleClickSave}
@@ -208,12 +212,15 @@ export const UserDetails = ({ userData, db }) => {
                   )}
                   {streetEdit && (
                     <>
-                      <TextField
-                        autoFocus
-                        fullWidth
-                        label="Ulica"
+                      <EditTextField
                         value={takenValue}
                         onChange={e => setTakenValue(e.target.value)}
+                        label="Ulica"
+                        // autoFocus
+                        // fullWidth
+                        // label="Ulica"
+                        // value={takenValue}
+                        // onChange={e => setTakenValue(e.target.value)}
                       />
 
                       <SaveButton
@@ -235,12 +242,10 @@ export const UserDetails = ({ userData, db }) => {
                   )}
                   {houseNumberEdit && (
                     <>
-                      <TextField
-                        autoFocus
-                        fullWidth
-                        label="Nr dom/mieszkania"
+                      <EditTextField
                         value={takenValue}
                         onChange={e => setTakenValue(e.target.value)}
+                        label="Nr dom/mieszkania"
                       />
 
                       <SaveButton
@@ -262,12 +267,10 @@ export const UserDetails = ({ userData, db }) => {
                   )}
                   {cityEdit && (
                     <>
-                      <TextField
-                        autoFocus
-                        fullWidth
-                        label="Miejscowość"
+                      <EditTextField
                         value={takenValue}
                         onChange={e => setTakenValue(e.target.value)}
+                        label="Miejscowość"
                       />
 
                       <SaveButton
@@ -289,12 +292,10 @@ export const UserDetails = ({ userData, db }) => {
                   )}
                   {postCodeEdit && (
                     <>
-                      <TextField
-                        autoFocus
-                        fullWidth
-                        label="Kod pocztowy"
+                      <EditTextField
                         value={takenValue}
                         onChange={e => setTakenValue(e.target.value)}
+                        label="Kod pocztowy"
                       />
 
                       <SaveButton

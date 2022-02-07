@@ -9,6 +9,7 @@ export const TextFieldReadOnly = ({ value, label }) => {
       InputProps={{
         readOnly: true,
       }}
+      disabled
     />
   );
 };
