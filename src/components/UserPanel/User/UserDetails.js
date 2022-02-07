@@ -1,4 +1,11 @@
-import { Container, FormGroup, TextField, Typography } from "@mui/material";
+import {
+  Avatar,
+  Button,
+  Container,
+  FormGroup,
+  TextField,
+  Typography,
+} from "@mui/material";
 
 import styled from "styled-components";
 
@@ -12,6 +19,7 @@ import { TextFieldView } from "../text-field/TextFieldView";
 import { EditTextField } from "../text-field/EditTextField";
 import { useContext } from "react";
 import { UserContext } from "../../../userContext/UserContext";
+import { UserAvatar } from "./UserAvatar";
 
 const DetailsContainer = styled.div`
   color: #fff;
@@ -24,6 +32,12 @@ const DetailsContainer = styled.div`
   background-color: grey;
   // justify-content: space-between;
 `;
+const AvatarContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
 
 export const UserDetails = ({ userData, db }) => {
   const { userUID, userEmail } = useContext(UserContext);
@@ -34,8 +48,6 @@ export const UserDetails = ({ userData, db }) => {
     if (userUID) {
       setUid(userUID);
       setEmail(userEmail);
-      // console.log(uid);
-      // console.log(userEmail);
     }
   }, [userEmail, userUID]);
 
@@ -146,10 +158,10 @@ export const UserDetails = ({ userData, db }) => {
     setPostCodeEdit(false);
   };
   const handleOnClick = e => {
-    e.preventDefault();
-    if (e.target === e.currentTarget) {
-      handleClickCancel();
-    }
+    // e.preventDefault();
+    // if (e.target === e.currentTarget) {
+    //   handleClickCancel();
+    // }
   };
 
   return (
@@ -159,10 +171,12 @@ export const UserDetails = ({ userData, db }) => {
           element =>
             element.email === email && (
               <>
+                <AvatarContainer>
+                  <UserAvatar />
+                </AvatarContainer>
                 <Typography variant="h5">Dane użytkownika</Typography>
                 <DetailsContainer>
                   <TextFieldReadOnly value={element.name} label={"Imię"} />
-
                   <TextFieldReadOnly
                     value={element.surname}
                     label={"Nazwisko"}
@@ -199,7 +213,6 @@ export const UserDetails = ({ userData, db }) => {
                     </>
                   )}
                 </DetailsContainer>
-
                 <Typography variant="h5">Adres</Typography>
                 <DetailsContainer style={{ flexWrap: "wrap" }}>
                   {!streetEdit && (
