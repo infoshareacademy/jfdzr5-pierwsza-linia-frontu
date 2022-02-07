@@ -17,7 +17,7 @@ const CssTextField = styled(TextField)({
       color: "white",
     },
     "&:hover fieldset": {
-      borderColor: Theme.palette.primary.contrastText,
+      borderColor: "#000",
     },
     "&.Mui-focused fieldset": {},
   },
@@ -31,6 +31,14 @@ export const TextFieldView = ({ label, value, handleClick }) => {
       label={label}
       value={value}
       onClick={handleClick}
+      sx={{
+        // backgroundColor: Theme.palette.secondary.contrastText,
+        borderRadius: "5px",
+        ":hover": {
+          backgroundColor: Theme.palette.primary.contrastText,
+          border: "none",
+        },
+      }}
     />
   );
 };

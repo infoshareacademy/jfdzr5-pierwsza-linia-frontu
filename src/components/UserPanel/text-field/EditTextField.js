@@ -12,10 +12,7 @@ const CssTextField = styled(TextField)({
     backgroundColor: "#fff",
     borderRadius: "5px",
   },
-  "& label.Mui-focused": {
-    color: "#000",
-    margin: "5px",
-  },
+  "& label.Mui-focused": {},
   "& .MuiInput-underline:after": {
     borderColor: "green",
     color: "white",
