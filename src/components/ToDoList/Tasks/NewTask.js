@@ -7,16 +7,14 @@ import { Theme } from "../../../common/theme/theme";
 import { checkboxClasses } from "@mui/material";
 
 import { doc, deleteDoc, updateDoc } from "firebase/firestore";
-// import { SaveButton } from "../../../common/buttons/SaveButton";
-// import { EditButton } from "../../../common/buttons/EditButton";
-// import { CancelButton } from "../../../common/buttons/CancelButton";
+
 import { DeleteButton } from "../buttons/DeleteButton";
 import { SaveButton } from "../buttons/SaveButton";
 import { EditButton } from "../buttons/EditButton";
 import { CancelButton } from "../buttons/CancelButton";
 
 import { useContext } from "react";
-import { UserData } from "../../../UserData/UserData";
+import { UserContext } from "../../../userContext/UserContext";
 
 const NewTasksContainer = styled.div`
   padding: 10px;
@@ -91,16 +89,13 @@ const NewTask = ({ tasks, setTasks, db }) => {
   };
   //get user uid and email from use context
   const [uid, setUid] = useState("");
-  const [userEmail, setUserEmail] = useState("");
-  const userDetailsData = useContext(UserData);
+  const [email, setEmail] = useState("");
+  const { userUID, userEmail } = useContext(UserContext);
 
   useEffect(() => {
-    console.log(userDetailsData);
-    if (userDetailsData) {
-      setUid(userDetailsData.uid);
-      setUserEmail(userDetailsData.email);
-      console.log(uid);
-      console.log(userEmail);
+    if (userUID) {
+      setUid(userUID);
+      setEmail(userEmail);
     }
   });
 

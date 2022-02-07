@@ -19,7 +19,7 @@ const navItems = [
   // { label: "Panel użytkownika", path: "/user-panel" },
 ];
 export const Navigation = () => {
-  const user = useContext(UserContext);
+  const { user } = useContext(UserContext);
   const handleSignOutClick = () => {
     const auth = getAuth();
     signOut(auth);

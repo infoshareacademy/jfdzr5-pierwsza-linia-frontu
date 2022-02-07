@@ -11,7 +11,7 @@ import { TextFieldReadOnly } from "../text-field/TextFieldReadOnly";
 import { TextFieldView } from "../text-field/TextFieldView";
 import { EditTextField } from "../text-field/EditTextField";
 import { useContext } from "react";
-import { UserData } from "../../../UserData/UserData";
+import { UserContext } from "../../../userContext/UserContext";
 
 const DetailsContainer = styled.div`
   color: #fff;
@@ -26,19 +26,18 @@ const DetailsContainer = styled.div`
 `;
 
 export const UserDetails = ({ userData, db }) => {
-  const userDetailsData = useContext(UserData);
+  const { userUID, userEmail } = useContext(UserContext);
   //get user uid and email from use context
   const [uid, setUid] = useState("");
-  const [userEmail, setUserEmail] = useState("");
+  const [email, setEmail] = useState("");
   useEffect(() => {
-    console.log(userDetailsData);
-    if (userDetailsData) {
-      setUid(userDetailsData.uid);
-      setUserEmail(userDetailsData.email);
-      console.log(uid);
-      console.log(userEmail);
+    if (userUID) {
+      setUid(userUID);
+      setEmail(userEmail);
+      // console.log(uid);
+      // console.log(userEmail);
     }
-  });
+  }, [userEmail, userUID]);
 
   const [takenValue, setTakenValue] = useState("");
   const [telephoneEdit, setTelephoneEdit] = useState(false);
@@ -158,7 +157,7 @@ export const UserDetails = ({ userData, db }) => {
       <FormGroup sx={{ margin: "10px", padding: "10px" }}>
         {userData.map(
           element =>
-            element.email === userEmail && (
+            element.email === email && (
               <>
                 <Typography variant="h5">Dane użytkownika</Typography>
                 <DetailsContainer>
@@ -169,7 +168,7 @@ export const UserDetails = ({ userData, db }) => {
                     label={"Nazwisko"}
                   />
 
-                  <TextFieldReadOnly value={userEmail} label={"Email"} />
+                  <TextFieldReadOnly value={email} label={"Email"} />
                   {!telephoneEdit && (
                     <TextFieldView
                       label="Nr telefonu"
