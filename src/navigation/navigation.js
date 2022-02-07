@@ -40,7 +40,17 @@ export const Navigation = () => {
           {navItems.map(item => (
             <Button
               key={item.label}
-              sx={{ my: 2, color: "inherit" }}
+              sx={{
+                my: 2,
+                color: "inherit",
+                border: `2px solid ${Theme.palette.secondary.main}`,
+                transition: "all",
+                transitionDuration: "0.4s",
+                ":hover": {
+                  color: Theme.palette.primary.contrastText,
+                  border: `2px solid ${Theme.palette.primary.contrastText}`,
+                },
+              }}
               component={Link}
               to={item.path}>
               {item.label}
