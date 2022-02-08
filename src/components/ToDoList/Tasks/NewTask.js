@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
 import styled from "styled-components";
-import { Input, Typography } from "@mui/material";
+import { Alert, Icon, Input, Typography } from "@mui/material";
 import Checkbox from "@mui/material/Checkbox";
 import { Theme } from "../../../common/theme/theme";
 import { checkboxClasses } from "@mui/material";
@@ -15,6 +15,13 @@ import { CancelButton } from "../buttons/CancelButton";
 
 import { useContext } from "react";
 import { UserContext } from "../../../userContext/UserContext";
+
+import Button from "@mui/material/Button";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
 
 const NewTasksContainer = styled.div`
   padding: 10px;
@@ -32,6 +39,7 @@ const NewTask = ({ tasks, setTasks, db }) => {
   const [save, setSave] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [taskID, setTaskId] = useState("");
+  const [taskIDDelete, setTaskIDDelete] = useState("");
   const [takenValue, setTakenValue] = useState("");
 
   const handleClickEdit = id => {
@@ -43,12 +51,6 @@ const NewTask = ({ tasks, setTasks, db }) => {
         setTakenValue(element.task);
       }
     });
-  };
-  const handleClickDelete = id => {
-    const docRef = doc(db, "to-do-list", id);
-    deleteDoc(docRef);
-    // setSave(false);
-    // setIsEditing(false);
   };
 
   const handleClickSave = async id => {
@@ -70,14 +72,12 @@ const NewTask = ({ tasks, setTasks, db }) => {
         await updateDoc(docRef, {
           isChecked: false,
         });
-        console.log(element.isChecked);
       }
       if (!element.isChecked && element.id === id) {
         const docRef = doc(db, "to-do-list", id);
         await updateDoc(docRef, {
           isChecked: true,
         });
-        console.log(element.isChecked);
       }
     });
   };
@@ -87,20 +87,49 @@ const NewTask = ({ tasks, setTasks, db }) => {
     setSave(false);
     setTaskId("");
   };
+
   //get user uid and email from use context
   const [uid, setUid] = useState("");
-  const [email, setEmail] = useState("");
   const { userUID, userEmail } = useContext(UserContext);
 
   useEffect(() => {
     if (userUID) {
       setUid(userUID);
-      setEmail(userEmail);
     }
   });
 
+  const [open, setOpen] = useState(false);
+
+  const handleClickOpen = id => {
+    setOpen(true);
+    setTaskIDDelete(id);
+  };
+
+  const handleDeleteTask = () => {
+    setOpen(false);
+    const docRef = doc(db, "to-do-list", taskIDDelete);
+    deleteDoc(docRef);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   return (
     <NewTasksContainer>
+      <div>
+        <Dialog
+          open={open}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description">
+          <DialogTitle id="alert-dialog-title">Czy usunąć zadanie?</DialogTitle>
+          <DialogActions>
+            <Button onClick={handleClose}>Nie</Button>
+            <Button onClick={handleDeleteTask} autoFocus>
+              Tak
+            </Button>
+          </DialogActions>
+        </Dialog>
+      </div>
       {tasks.map(
         element =>
           element.uid === uid && (
@@ -158,11 +187,7 @@ const NewTask = ({ tasks, setTasks, db }) => {
               {save && element.id === taskID && (
                 <SaveButton handleClickSave={handleClickSave} id={element.id} />
               )}
-
-              <DeleteButton
-                handleClickDelete={handleClickDelete}
-                id={element.id}
-              />
+              <DeleteButton handleClickOpen={handleClickOpen} id={element.id} />
             </NewTaskContainer>
           )
       )}

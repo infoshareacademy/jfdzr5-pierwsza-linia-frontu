@@ -17,7 +17,6 @@ const ToDoList = () => {
   const colRefOrdered = query(colRef, orderBy("timeStamp"));
 
   const [tasks, setTasks] = useState([]);
-  console.log(tasks);
   useEffect(() => {
     fetchData();
   }, []);
