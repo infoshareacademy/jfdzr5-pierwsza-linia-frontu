@@ -10,6 +10,15 @@ import logo from "./home.png";
 import { getAuth, signOut } from "firebase/auth";
 import { useContext } from "react";
 import { UserContext } from "../userContext/UserContext";
+import { NavigationButton } from "./NavigationButton";
+import styled from "@emotion/styled";
+
+const ButtonsContainer = styled.div`
+  flex-grow: 1;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+`;
 
 const navItems = [
   { label: "Zadania", path: "/tasks" },
@@ -19,7 +28,7 @@ const navItems = [
   // { label: "Panel użytkownika", path: "/user-panel" },
 ];
 export const Navigation = () => {
-  const { user } = useContext(UserContext);
+  const { user, avatarUrl } = useContext(UserContext);
   const handleSignOutClick = () => {
     const auth = getAuth();
     signOut(auth);
@@ -37,44 +46,69 @@ export const Navigation = () => {
               to="/"
             />
           </IconButton>
-          {navItems.map(item => (
-            <Button
-              key={item.label}
-              sx={{
-                my: 2,
-                color: "inherit",
-                border: `2px solid ${Theme.palette.secondary.main}`,
-                transition: "all",
-                transitionDuration: "0.4s",
-                ":hover": {
-                  color: Theme.palette.primary.contrastText,
-                  border: `2px solid ${Theme.palette.primary.contrastText}`,
-                },
-              }}
-              component={Link}
-              to={item.path}>
-              {item.label}
-            </Button>
-          ))}
-          {user && (
-            <Button
-              sx={{ my: 2, color: "white" }}
-              component={Link}
-              to="/user-panel">
-              Panel użytkownika
-            </Button>
+          {navItems.map(
+            item => user && <NavigationButton to={item.path} item={item} />
           )}
           {user ? (
-            <Button sx={{ my: 2, color: "white" }} onClick={handleSignOutClick}>
-              Wyloguj
-            </Button>
+            <ButtonsContainer>
+              <Avatar variant="square" src={avatarUrl} alt="avatar" />
+              <Button
+                sx={{
+                  my: 2,
+                  color: "inherit",
+                  border: `2px solid ${Theme.palette.secondary.main}`,
+                  borderRadius: "0px",
+                  transition: "all",
+                  transitionDuration: "0.4s",
+                  ":hover": {
+                    color: Theme.palette.primary.contrastText,
+                    border: `2px solid ${Theme.palette.primary.contrastText}`,
+                    borderRadius: "none",
+                  },
+                }}
+                component={Link}
+                to="/user-panel">
+                Panel użytkownika
+              </Button>
+              <Button
+                sx={{
+                  my: 2,
+                  color: "inherit",
+                  border: `2px solid ${Theme.palette.secondary.main}`,
+                  borderRadius: "0px",
+                  transition: "all",
+                  transitionDuration: "0.4s",
+                  ":hover": {
+                    color: Theme.palette.primary.contrastText,
+                    border: `2px solid ${Theme.palette.primary.contrastText}`,
+                    borderRadius: "none",
+                  },
+                }}
+                onClick={handleSignOutClick}>
+                Wyloguj
+              </Button>
+            </ButtonsContainer>
           ) : (
-            <Button
-              sx={{ my: 2, color: "white" }}
-              component={Link}
-              to="/sign-in">
-              Zaloguj
-            </Button>
+            <ButtonsContainer>
+              <Button
+                sx={{
+                  my: 2,
+                  color: "inherit",
+                  border: `2px solid ${Theme.palette.secondary.main}`,
+                  borderRadius: "0px",
+                  transition: "all",
+                  transitionDuration: "0.4s",
+                  ":hover": {
+                    color: Theme.palette.primary.contrastText,
+                    border: `2px solid ${Theme.palette.primary.contrastText}`,
+                    borderRadius: "none",
+                  },
+                }}
+                component={Link}
+                to="/sign-in">
+                Zaloguj
+              </Button>
+            </ButtonsContainer>
           )}
         </Toolbar>
       </Container>
