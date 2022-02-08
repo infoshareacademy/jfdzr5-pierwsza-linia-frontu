@@ -56,7 +56,11 @@ export const Navigation = () => {
                 variant="square"
                 src={avatarUrl}
                 alt="avatar"
-                sx={{ marginRight: "10px" }}
+                sx={{
+                  marginRight: "10px",
+                  backgroundColor: "black",
+                  padding: "1px",
+                }}
               />
               <Button
                 sx={{
