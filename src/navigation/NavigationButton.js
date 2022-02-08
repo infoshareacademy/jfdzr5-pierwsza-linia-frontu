@@ -7,12 +7,13 @@ export const NavigationButton = ({ to, item }) => {
     <Button
       key={item.label}
       sx={{
+        margin: "2px",
         my: 2,
         color: "inherit",
         border: `2px solid ${Theme.palette.secondary.main}`,
         borderRadius: "0px",
         transition: "all",
-        transitionDuration: "0.4s",
+        transitionDuration: "0.3s",
         ":hover": {
           color: Theme.palette.primary.contrastText,
           border: `2px solid ${Theme.palette.primary.contrastText}`,
