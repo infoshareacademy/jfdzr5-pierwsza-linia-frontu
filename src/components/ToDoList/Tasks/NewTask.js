@@ -47,8 +47,8 @@ const NewTask = ({ tasks, setTasks, db }) => {
   const handleClickDelete = id => {
     const docRef = doc(db, "to-do-list", id);
     deleteDoc(docRef);
-    setSave(false);
-    setIsEditing(false);
+    // setSave(false);
+    // setIsEditing(false);
   };
 
   const handleClickSave = async id => {
@@ -127,37 +127,27 @@ const NewTask = ({ tasks, setTasks, db }) => {
                     setTakenValue(e.target.value);
                   }}></Input>
               )}
-              {!isEditing && (
-                <Checkbox
-                  sx={{
-                    marginLeft: "auto",
+              <Checkbox
+                sx={{
+                  marginLeft: "auto",
+                  color: Theme.palette.secondary.contrastText,
+                  ":hover": { color: Theme.palette.primary.contrastText },
+                  justifySelf: "center",
+                  [`&, &.${checkboxClasses.checked}`]: {
                     color: Theme.palette.secondary.contrastText,
-                    ":hover": { color: Theme.palette.primary.contrastText },
-                    justifySelf: "center",
-                    [`&, &.${checkboxClasses.checked}`]: {
-                      color: Theme.palette.secondary.contrastText,
-                    },
-                    alignSelf: "center",
-                    padding: ".5rem",
-                  }}
-                  checked={element.alert ? true : false}
-                  checked={element.isChecked ? true : false}
-                  color="secondary"
-                  type="checkbox"
-                  onChange={() => handleIsChecked(element.id)}
-                />
-              )}
-              {!save && (
+                  },
+                  alignSelf: "center",
+                  padding: ".5rem",
+                }}
+                checked={element.alert ? true : false}
+                checked={element.isChecked ? true : false}
+                color="secondary"
+                type="checkbox"
+                onChange={() => handleIsChecked(element.id)}
+              />
+
+              {element.id !== taskID && (
                 <EditButton handleClickEdit={handleClickEdit} id={element.id} />
-              )}
-              {save && element.id === taskID && (
-                <SaveButton handleClickSave={handleClickSave} id={element.id} />
-              )}
-              {isEditing && element.id === taskID && (
-                <DeleteButton
-                  handleClickDelete={handleClickDelete}
-                  id={element.id}
-                />
               )}
               {isEditing && element.id === taskID && (
                 <CancelButton
@@ -165,6 +155,14 @@ const NewTask = ({ tasks, setTasks, db }) => {
                   id={element.id}
                 />
               )}
+              {save && element.id === taskID && (
+                <SaveButton handleClickSave={handleClickSave} id={element.id} />
+              )}
+
+              <DeleteButton
+                handleClickDelete={handleClickDelete}
+                id={element.id}
+              />
             </NewTaskContainer>
           )
       )}
