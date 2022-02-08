@@ -50,7 +50,12 @@ export const UserAvatar = () => {
   return (
     <>
       <Avatar
-        sx={{ width: "200px", height: "200px" }}
+        sx={{
+          width: "200px",
+          height: "200px",
+          backgroundColor: "black",
+          padding: "2px",
+        }}
         variant="square"
         src={avatarUrl}
         alt="avatar"
