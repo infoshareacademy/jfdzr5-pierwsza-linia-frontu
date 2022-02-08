@@ -18,6 +18,7 @@ const ButtonsContainer = styled.div`
   display: flex;
   justify-content: flex-end;
   align-items: center;
+  flex-wrap: wrap;
 `;
 
 const navItems = [
@@ -36,7 +37,7 @@ export const Navigation = () => {
   return (
     <AppBar position="static" theme={Theme} color="secondary">
       <Container maxWidth="xl">
-        <Toolbar disableGutters>
+        <Toolbar sx={{ flexWrap: "wrap" }} disableGutters>
           <IconButton>
             <Avatar
               alt="home"
