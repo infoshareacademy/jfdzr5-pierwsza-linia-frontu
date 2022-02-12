@@ -12,6 +12,7 @@ import styled from "styled-components";
 import { firestore } from "../../firebase";
 import { collection, onSnapshot, addDoc, deleteDoc, doc } from "firebase/firestore";
 import { Typography } from "@mui/material";
+import Box from '@mui/material/Box';
 
 
 const ListContainer = styled.div`
@@ -88,104 +89,117 @@ export const Budget = () => {
 
     }
 
-
+    const expensesSum = filterExpenses.reduce(function (prev, curr) {
+        return prev + curr.amount
+    }, 0);
 
     return (
         <PageWrapper>
 
+
             <Typography variant="h3" sx={{ textAlign: "center", marginBottom: "40px" }}>Budżet domowy</Typography>
-            <div>
-                <Button
-                    type="submit"
-                    variant="outlined"
-                    sx={{
-                        margin: "1rem",
-                        height: "3rem",
-                        width: "8rem",
-                        backgroundColor: chosenMoneyOperations === 'expenses' ? theme.palette.primary.contrastText : 'white',
-                        ":hover": { backgroundColor: theme.palette.primary.contrastText }
+            <Box sx={{ display: "flex", flexDirection: 'row', justifyContent: "space-around", width: "100%", maxWidth: "1400px" }}>
+                <div>
+                    {expensesSum}
+                </div>
+                <div>
+                    <div>
+                        <Button
+                            type="submit"
+                            variant="outlined"
+                            sx={{
+                                margin: "1rem",
+                                height: "3rem",
+                                width: "8rem",
+                                backgroundColor: chosenMoneyOperations === 'expenses' ? theme.palette.primary.contrastText : 'white',
+                                ":hover": { backgroundColor: theme.palette.primary.contrastText }
 
-                    }}
-                    onClick={() => setChosenMoneyOperations("expenses")}>
-                    Wydatki
-                </Button>
-                <Button
-                    type="submit"
-                    variant="outlined"
-                    sx={{
-                        margin: "1rem",
-                        height: "3rem",
-                        width: "8rem",
-                        color: theme.palette.primary,
-                        backgroundColor: chosenMoneyOperations === 'incomes' ? theme.palette.primary.contrastText : 'white',
-                        ":hover": { backgroundColor: theme.palette.primary.contrastText },
-                    }}
-                    onClick={() => setChosenMoneyOperations("incomes")}>
-                    Przychody
-                </Button>
-            </div>
-            {
-                chosenMoneyOperations === "expenses" ? (
-                    <>
-                        <BudgetFormExpenses onSubmit={handleExpenseSubmit} />
-                        <ListContainer>
-                            <h3>Pokaż wydatki z kategorii: </h3>
-                            <Select
-                                id="Category"
-                                value={expensesFilterValue}
-                                onChange={handleExpensesFilter}
-                                sx={{
-                                    height: "3rem",
-                                    width: "15rem",
-                                    backgroundColor: theme.palette.secondary.contrastText,
-                                    ":hover": { backgroundColor: theme.palette.primary.contrastText }
-                                }}
-                            >
-                                <MenuItem value="Wszystko">Wszystko</MenuItem>
-                                <MenuItem value='Jedzenie/Picie'>Jedzenie/Napoje</MenuItem>
-                                <MenuItem value='Rachunki'>Rachunki</MenuItem>
-                                <MenuItem value='Rozrywka'>Rozrywka</MenuItem>
-                                <MenuItem value='Zakupy'>Zakupy</MenuItem>
-                                <MenuItem value='Transport'>Transport</MenuItem>
-                                <MenuItem value='Rodzina'>Rodzina</MenuItem>
-                                <MenuItem value='Zwierzęta'>Zwierzęta</MenuItem>
-                                <MenuItem value='Podróże'>Podróże</MenuItem>
-                                <MenuItem value='Inne'>Inne</MenuItem>
-
-                            </Select>
-                        </ListContainer>
-                        <ExpensesList expenses={filterExpenses} onDelete={handleExpensesDelete} />
-                    </>
-                ) : (
-                    <>
+                            }}
+                            onClick={() => setChosenMoneyOperations("expenses")}>
+                            Wydatki
+                        </Button>
+                        <Button
+                            type="submit"
+                            variant="outlined"
+                            sx={{
+                                margin: "1rem",
+                                height: "3rem",
+                                width: "8rem",
+                                color: theme.palette.primary,
+                                backgroundColor: chosenMoneyOperations === 'incomes' ? theme.palette.primary.contrastText : 'white',
+                                ":hover": { backgroundColor: theme.palette.primary.contrastText },
+                            }}
+                            onClick={() => setChosenMoneyOperations("incomes")}>
+                            Przychody
+                        </Button>
+                    </div>
+                    {chosenMoneyOperations === "expenses" ?
+                        <BudgetFormExpenses onSubmit={handleExpenseSubmit} /> :
                         <BudgetFormIncomes onSubmit={handleIncomesSubmit} />
-                        <ListContainer>
-                            <h3>Pokaż przychody z kategorii: </h3>
+                    }
+                </div>
 
-                            <Select
-                                id="Category"
-                                value={incomesFilterValue}
-                                onChange={handleIncomesFilter}
-                                label="Category"
-                                sx={{
-                                    height: "3rem",
-                                    width: "15rem",
-                                    backgroundColor: theme.palette.secondary.contrastText,
-                                    ":hover": { backgroundColor: theme.palette.primary.contrastText }
-                                }}
-                            >
-                                <MenuItem value="Wszystko">Wszystko</MenuItem>
-                                <MenuItem value='Wynagrodzenie'>Wynagrodzenie</MenuItem>
-                                <MenuItem value='Inne'>Inne</MenuItem>
+                {
+                    chosenMoneyOperations === "expenses" ? (
+                        <div>
 
-                            </Select>
-                        </ListContainer>
-                        <IncomesList incomes={filterIncomes} onDelete={handleIncomesDelete} />
+                            <ListContainer>
+                                <h3>Pokaż wydatki z kategorii: </h3>
+                                <Select
+                                    id="Category"
+                                    value={expensesFilterValue}
+                                    onChange={handleExpensesFilter}
+                                    sx={{
+                                        height: "3rem",
+                                        width: "15rem",
+                                        backgroundColor: theme.palette.secondary.contrastText,
+                                        ":hover": { backgroundColor: theme.palette.primary.contrastText }
+                                    }}
+                                >
+                                    <MenuItem value="Wszystko">Wszystko</MenuItem>
+                                    <MenuItem value='Jedzenie/Picie'>Jedzenie/Napoje</MenuItem>
+                                    <MenuItem value='Rachunki'>Rachunki</MenuItem>
+                                    <MenuItem value='Rozrywka'>Rozrywka</MenuItem>
+                                    <MenuItem value='Zakupy'>Zakupy</MenuItem>
+                                    <MenuItem value='Transport'>Transport</MenuItem>
+                                    <MenuItem value='Rodzina'>Rodzina</MenuItem>
+                                    <MenuItem value='Zwierzęta'>Zwierzęta</MenuItem>
+                                    <MenuItem value='Podróże'>Podróże</MenuItem>
+                                    <MenuItem value='Inne'>Inne</MenuItem>
 
-                    </>
-                )
-            }
+                                </Select>
+                            </ListContainer>
+                            <ExpensesList expenses={filterExpenses} onDelete={handleExpensesDelete} />
+                        </div>
+                    ) : (
+                        <div>
+                            <ListContainer>
+                                <h3>Pokaż przychody z kategorii: </h3>
 
+                                <Select
+                                    id="Category"
+                                    value={incomesFilterValue}
+                                    onChange={handleIncomesFilter}
+                                    label="Category"
+                                    sx={{
+                                        height: "3rem",
+                                        width: "15rem",
+                                        backgroundColor: theme.palette.secondary.contrastText,
+                                        ":hover": { backgroundColor: theme.palette.primary.contrastText }
+                                    }}
+                                >
+                                    <MenuItem value="Wszystko">Wszystko</MenuItem>
+                                    <MenuItem value='Wynagrodzenie'>Wynagrodzenie</MenuItem>
+                                    <MenuItem value='Inne'>Inne</MenuItem>
+
+                                </Select>
+                            </ListContainer>
+                            <IncomesList incomes={filterIncomes} onDelete={handleIncomesDelete} />
+
+                        </div>
+                    )
+                }
+            </Box>
 
 
         </PageWrapper >
