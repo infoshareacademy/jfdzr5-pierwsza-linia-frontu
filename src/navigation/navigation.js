@@ -33,7 +33,7 @@ export const Navigation = () => {
 
   const navigate = useNavigate();
 
-  const user = useContext(UserContext);
+  // const user = useContext(UserContext);
   const { user, avatarUrl } = useContext(UserContext);
 
   const handleSignOutClick = () => {
