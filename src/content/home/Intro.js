@@ -1,4 +1,3 @@
-
 import styled from "styled-components";
 import { Theme } from "../../common/theme/theme";
 
@@ -37,8 +36,6 @@ export const Intro = () => {
       </Typography>
       <TileContainer>
         <Box
-          //   component={Link}
-          //   to="/tasks"
           sx={{
             background: Theme.palette.secondary.main,
             margin: "2rem",
@@ -49,10 +46,6 @@ export const Intro = () => {
             borderCollapse: "collapse",
             textDecoration: "none",
             color: Theme.palette.secondary.contrastText,
-            // ":hover": {
-            //   cursor: "pointer",
-            //   border: `3px solid ${Theme.palette.primary.contrastText}`,
-            // },
           }}>
           <FormatListNumberedIcon
             sx={{ marginLeft: "1rem", fontSize: "3rem" }}
@@ -69,8 +62,6 @@ export const Intro = () => {
           </Typography>
         </Box>
         <Box
-          //   component={Link}
-          //   to="/budget"
           sx={{
             background: Theme.palette.secondary.main,
             margin: "2rem",
@@ -81,10 +72,6 @@ export const Intro = () => {
             borderCollapse: "collapse",
             textDecoration: "none",
             color: Theme.palette.secondary.contrastText,
-            // ":hover": {
-            //   cursor: "pointer",
-            //   border: `3px solid ${Theme.palette.primary.contrastText}`,
-            // },
           }}>
           <AccountBalanceWalletIcon
             sx={{ marginLeft: "1rem", fontSize: "3rem" }}
@@ -101,8 +88,6 @@ export const Intro = () => {
           </Typography>
         </Box>
         <Box
-          //   component={Link}
-          //   to="/calendar"
           sx={{
             background: Theme.palette.secondary.main,
             margin: "2rem",
@@ -113,10 +98,6 @@ export const Intro = () => {
             borderCollapse: "collapse",
             textDecoration: "none",
             color: Theme.palette.secondary.contrastText,
-            // ":hover": {
-            //   cursor: "pointer",
-            //   border: `3px solid ${Theme.palette.primary.contrastText}`,
-            // },
           }}>
           <ScheduleIcon sx={{ marginLeft: "1rem", fontSize: "3rem" }} />
           <Typography variant="h4" sx={{ margin: "1rem" }}>
@@ -130,8 +111,6 @@ export const Intro = () => {
           </Typography>
         </Box>
         <Box
-          //   component={Link}
-          //   to="/dashboard"
           sx={{
             background: Theme.palette.secondary.main,
             margin: "2rem",
@@ -142,10 +121,6 @@ export const Intro = () => {
             borderCollapse: "collapse",
             textDecoration: "none",
             color: Theme.palette.secondary.contrastText,
-            // ":hover": {
-            //   cursor: "pointer",
-            //   border: `3px solid ${Theme.palette.primary.contrastText}`,
-            // },
           }}>
           <BarChartIcon sx={{ marginLeft: "1rem", fontSize: "3rem" }} />
           <Typography variant="h4" sx={{ margin: "1rem" }}>
