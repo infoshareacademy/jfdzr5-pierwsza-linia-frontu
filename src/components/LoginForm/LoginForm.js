@@ -7,7 +7,7 @@ import TextField from "@mui/material/TextField";
 import { Theme } from "../../common/theme/theme";
 import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { PageWrapper } from "../../common/page-wrapper/page-wrapper";
 
@@ -15,11 +15,8 @@ import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   getAuth,
-  onAuthStateChanged,
 } from "firebase/auth";
 import { getFirestore, collection, addDoc } from "firebase/firestore";
-import { useContext } from "react";
-import { UserData } from "../../UserData/UserData";
 
 export const Sign = ({ isSignUp }) => {
   const [name, setName] = useState("");
@@ -128,16 +125,16 @@ export const Sign = ({ isSignUp }) => {
             )}
             {isSignUp && (
               <TextField
-              sx={{
-                bgcolor: Theme.palette.secondary.contrastText,
-                ":hover": { bgcolor: Theme.palette.primary.contrastText },
-                width: {
-                  lg: 400,
-                },
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-              }}
+                sx={{
+                  bgcolor: Theme.palette.secondary.contrastText,
+                  ":hover": { bgcolor: Theme.palette.primary.contrastText },
+                  width: {
+                    lg: 400,
+                  },
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                }}
                 id="surname"
                 label="Nazwisko"
                 type="text"
@@ -152,16 +149,16 @@ export const Sign = ({ isSignUp }) => {
               />
             )}
             <TextField
-             sx={{
-              bgcolor: Theme.palette.secondary.contrastText,
-              ":hover": { bgcolor: Theme.palette.primary.contrastText },
-              width: {
-                lg: 400,
-              },
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-            }}
+              sx={{
+                bgcolor: Theme.palette.secondary.contrastText,
+                ":hover": { bgcolor: Theme.palette.primary.contrastText },
+                width: {
+                  lg: 400,
+                },
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+              }}
               id="email"
               label="Adres email"
               type="email"
