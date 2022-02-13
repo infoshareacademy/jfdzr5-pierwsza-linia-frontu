@@ -8,97 +8,137 @@ import { FormGroup } from "@mui/material";
 import { FormHelperText } from "@mui/material";
 import { OutlinedInput } from "@mui/material";
 
-import { addDoc } from "firebase/firestore"
+import { addDoc } from "firebase/firestore";
 
-const AddEventForm = ({ item, setItem, alert, setAlert, date, setDate, docRef }) => {
+const AddEventForm = ({
+  item,
+  setItem,
+  alert,
+  setAlert,
+  date,
+  setDate,
+  docRef,
+}) => {
+  const handleChangeName = (e) => {
+    setItem(e.target.value);
+  };
 
-    const handleChangeName = (e) => {
-      setItem(e.target.value);
-    }
+  const handleChangeDate = (e) => {
+    setDate(e.target.value);
+  };
 
-    const handleChangeDate = (e) => {
-      setDate(e.target.value);
-    }
+  const handleChangeAlert = (e) => {
+    e.target.checked ? setAlert(true) : setAlert(false);
+  };
 
-    const handleChangeAlert = (e) => {
-      e.target.checked ? setAlert(true) : setAlert(false);
-    }
-
-      const handleSubmit = e => {
-        e.preventDefault();
-        addDoc(docRef, {
-          name: item,
-          date: date,
-          alert: alert,
-          timeStamp: +new Date(),
-        });
-        setItem("");
-      };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    addDoc(docRef, {
+      name: item,
+      date: date,
+      alert: alert,
+      timeStamp: +new Date(),
+    });
+    setItem("");
+    setDate("");
+  };
 
   return (
-    <Box sx={{backgroundColor: Theme.palette.secondary.main, minWidth: "50vw"}}>
-      <FormGroup sx={{display: "flex", flexDirection: "row", justifyContent: "space-between"}}>
-        <Box sx={{padding: "1rem"}}>
+    <Box
+      sx={{ backgroundColor: Theme.palette.secondary.main, minWidth: "35vw" }}
+    >
+      <FormGroup
+        sx={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "space-between",
+        }}
+      >
+        <Box sx={{ padding: "1rem" }}>
           <OutlinedInput
             autoFocus
             placeholder="Wprowadź nazwę"
             required
-            defaultValue={item}
+            value={item}
             sx={{
               height: "3rem",
               backgroundColor: Theme.palette.secondary.contrastText,
-              ":hover": {backgroundColor: Theme.palette.primary.contrastText}
-              }}
-            onChange={handleChangeName}/>
-          <FormHelperText sx={{margin: ".25rem", height: "1rem", color: Theme.palette.secondary.contrastText}}>Nazwa wydarzenia</FormHelperText>
+              ":hover": { backgroundColor: Theme.palette.primary.contrastText },
+            }}
+            onChange={handleChangeName}
+          />
+          <FormHelperText
+            sx={{
+              margin: ".25rem",
+              height: "1rem",
+              color: Theme.palette.secondary.contrastText,
+            }}
+          >
+            Nazwa wydarzenia
+          </FormHelperText>
         </Box>
-        <Box sx={{padding: "1rem"}}>
+        <Box sx={{ padding: "1rem" }}>
           <OutlinedInput
             type="date"
             required
-            defaultValue={date}
+            value={date}
             sx={{
               height: "3rem",
               backgroundColor: Theme.palette.secondary.contrastText,
-              ":hover": {backgroundColor: Theme.palette.primary.contrastText}
-              }}
-            onChange={handleChangeDate}/>
-          <FormHelperText sx={{margin: ".25rem", height: "1rem", color: Theme.palette.secondary.contrastText}}>Data</FormHelperText>
+              ":hover": { backgroundColor: Theme.palette.primary.contrastText },
+            }}
+            onChange={handleChangeDate}
+          />
+          <FormHelperText
+            sx={{
+              margin: ".25rem",
+              height: "1rem",
+              color: Theme.palette.secondary.contrastText,
+            }}
+          >
+            Data
+          </FormHelperText>
         </Box>
-        <Box sx={{padding: "1rem"}}>
+        <Box sx={{ padding: "1rem" }}>
           <Checkbox
             defaultChecked
             value={alert}
             sx={{
-              '& .MuiSvgIcon-root': { fontSize: "3rem" },
+              "& .MuiSvgIcon-root": { fontSize: "3rem" },
               [`&, &.${checkboxClasses.checked}`]: {
-              color: Theme.palette.secondary.contrastText},
+                color: Theme.palette.secondary.contrastText,
+              },
               margin: 0,
               padding: 0,
-              ":hover": {color: Theme.palette.primary.contrastText},
+              ":hover": { color: Theme.palette.primary.contrastText },
             }}
-            onChange={handleChangeAlert}/>
+            onChange={handleChangeAlert}
+          />
           <FormHelperText
             sx={{
               margin: ".25rem",
               height: "1rem",
               textAlign: "center",
               color: Theme.palette.secondary.contrastText,
-              }}>
-            Alert</FormHelperText>
+            }}
+          >
+            Alert
+          </FormHelperText>
         </Box>
-      <Button
-        type="submit"
-        variant="outlined"
-        sx={{
-          margin: "1rem",
-          height: "3rem",
-          color: Theme.palette.primary,
-          backgroundColor: Theme.palette.secondary.contrastText,
-          ":hover": {backgroundColor: Theme.palette.primary.contrastText},
+        <Button
+          type="submit"
+          variant="outlined"
+          sx={{
+            margin: "1rem",
+            height: "3rem",
+            color: Theme.palette.primary,
+            backgroundColor: Theme.palette.secondary.contrastText,
+            ":hover": { backgroundColor: Theme.palette.primary.contrastText },
           }}
-          onClick={handleSubmit}>
-        Dodaj</Button>
+          onClick={handleSubmit}
+        >
+          Dodaj
+        </Button>
       </FormGroup>
     </Box>
   );
