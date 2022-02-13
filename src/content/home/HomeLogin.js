@@ -1,22 +1,21 @@
-import { Link } from "react-router-dom";
-
 import styled from "styled-components";
 import { Theme } from "../../common/theme/theme";
 
 import { PageWrapper } from "../../common/page-wrapper/page-wrapper";
 
-import { Box } from "@mui/material";
 import { Typography } from "@mui/material";
 
 import FormatListNumberedIcon from "@mui/icons-material/FormatListNumbered";
 import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
 import ScheduleIcon from "@mui/icons-material/Schedule";
 import BarChartIcon from "@mui/icons-material/BarChart";
+import { BoxContainer } from "./BoxContainer";
 
 const TileContainer = styled.div`
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-gap: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  min-width: 800px;
+  justify-content: center;
 `;
 
 const HorizontalLine = styled.hr`
@@ -32,24 +31,7 @@ export const HomeLogin = () => {
     <PageWrapper title="Home App">
       <Typography variant="h4"> Witaj w aplikacji Home Organizer!</Typography>
       <TileContainer>
-        <Box
-          component={Link}
-          to="/tasks"
-          sx={{
-            background: Theme.palette.secondary.main,
-            margin: "2rem",
-            padding: "1rem",
-            minWidth: "40rem",
-            minHeight: "10rem",
-            border: "3px solid transparent",
-            borderCollapse: "collapse",
-            textDecoration: "none",
-            color: Theme.palette.secondary.contrastText,
-            ":hover": {
-              cursor: "pointer",
-              border: `3px solid ${Theme.palette.primary.contrastText}`,
-            },
-          }}>
+        <BoxContainer to="/tasks">
           <FormatListNumberedIcon
             sx={{ marginLeft: "1rem", fontSize: "3rem" }}
           />
@@ -63,25 +45,8 @@ export const HomeLogin = () => {
             Przeglądaj zadania do wykonania, dodaj nowe lub edytuj już
             istniejące.
           </Typography>
-        </Box>
-        <Box
-          component={Link}
-          to="/budget"
-          sx={{
-            background: Theme.palette.secondary.main,
-            margin: "2rem",
-            padding: "1rem",
-            minWidth: "40rem",
-            minHeight: "10rem",
-            border: "3px solid transparent",
-            borderCollapse: "collapse",
-            textDecoration: "none",
-            color: Theme.palette.secondary.contrastText,
-            ":hover": {
-              cursor: "pointer",
-              border: `3px solid ${Theme.palette.primary.contrastText}`,
-            },
-          }}>
+        </BoxContainer>
+        <BoxContainer to="/budget">
           <AccountBalanceWalletIcon
             sx={{ marginLeft: "1rem", fontSize: "3rem" }}
           />
@@ -95,25 +60,8 @@ export const HomeLogin = () => {
             Zarządzaj domowym budżetem, wprowadź wpływy i wydatki, analizuj
             strukturę wydatków.
           </Typography>
-        </Box>
-        <Box
-          component={Link}
-          to="/calendar"
-          sx={{
-            background: Theme.palette.secondary.main,
-            margin: "2rem",
-            padding: "1rem",
-            minWidth: "40rem",
-            minHeight: "10rem",
-            border: "3px solid transparent",
-            borderCollapse: "collapse",
-            textDecoration: "none",
-            color: Theme.palette.secondary.contrastText,
-            ":hover": {
-              cursor: "pointer",
-              border: `3px solid ${Theme.palette.primary.contrastText}`,
-            },
-          }}>
+        </BoxContainer>
+        <BoxContainer to="/calendar">
           <ScheduleIcon sx={{ marginLeft: "1rem", fontSize: "3rem" }} />
           <Typography variant="h4" sx={{ margin: "1rem" }}>
             Kalendarz
@@ -124,25 +72,8 @@ export const HomeLogin = () => {
             sx={{ margin: "1rem", fontSize: "1rem" }}>
             Dodaj daty, rocznice i terminy, o których już nigdy nie zapomnisz.
           </Typography>
-        </Box>
-        <Box
-          component={Link}
-          to="/dashboard"
-          sx={{
-            background: Theme.palette.secondary.main,
-            margin: "2rem",
-            padding: "1rem",
-            minWidth: "40rem",
-            minHeight: "10rem",
-            border: "3px solid transparent",
-            borderCollapse: "collapse",
-            textDecoration: "none",
-            color: Theme.palette.secondary.contrastText,
-            ":hover": {
-              cursor: "pointer",
-              border: `3px solid ${Theme.palette.primary.contrastText}`,
-            },
-          }}>
+        </BoxContainer>
+        <BoxContainer to="/dashboard">
           <BarChartIcon sx={{ marginLeft: "1rem", fontSize: "3rem" }} />
           <Typography variant="h4" sx={{ margin: "1rem" }}>
             Dashboard
@@ -153,7 +84,7 @@ export const HomeLogin = () => {
             sx={{ margin: "1rem", fontSize: "1rem" }}>
             Sprawdź dane i zasoby aplikacji.
           </Typography>
-        </Box>
+        </BoxContainer>
       </TileContainer>
     </PageWrapper>
   );
