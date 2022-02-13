@@ -1,19 +1,15 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
-import ButtonGroup from "@mui/material/ButtonGroup";
-import Typography from "@mui/material/Typography";
+
 import { Theme } from "../../../common/theme/theme";
 import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
-import { SaveButton } from "../../ToDoList/buttons/SaveButton";
-import { CancelButton } from "../../ToDoList/buttons/CancelButton";
+
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { UserContext } from "../../../userContext/UserContext";
 import { useContext } from "react";
-import { Container, Icon, OutlinedInput, TextField } from "@mui/material";
-import { border } from "@mui/system";
-import { TextFieldReadOnly } from "../text-field/TextFieldReadOnly";
-import { TextFieldView } from "../text-field/TextFieldView";
+import { Icon, TextField } from "@mui/material";
+
 import styled from "@emotion/styled";
 
 const ButtonsContainer = styled.div`
@@ -21,7 +17,6 @@ const ButtonsContainer = styled.div`
   justify-content: center;
   align-items: center;
 `;
-
 export const UserAvatar = () => {
   const [file, setFile] = useState(null);
 
