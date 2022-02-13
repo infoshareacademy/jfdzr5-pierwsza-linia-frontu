@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import AppBar from "@mui/material/AppBar";
 import Container from "@mui/material/Container";
 import Toolbar from "@mui/material/Toolbar";
@@ -29,10 +29,20 @@ const navItems = [
   // { label: "Panel użytkownika", path: "/user-panel" },
 ];
 export const Navigation = () => {
+
+
+  const navigate = useNavigate();
+
+  const user = useContext(UserContext);
   const { user, avatarUrl } = useContext(UserContext);
+
   const handleSignOutClick = () => {
     const auth = getAuth();
-    signOut(auth);
+    signOut(auth)
+    .then(() => {
+      navigate("/");
+      alert('Zostałeś wylogowany');
+    });
   };
   return (
     <AppBar position="static" theme={Theme} color="secondary">
