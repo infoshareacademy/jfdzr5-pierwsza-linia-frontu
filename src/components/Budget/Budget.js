@@ -16,7 +16,10 @@ import Box from '@mui/material/Box';
 
 
 const ListContainer = styled.div`
-margin-top: 40px;
+margin-top: 60px;
+display: flex;
+flex-direction: column;
+align-items: center;
 `
 
 
@@ -98,9 +101,12 @@ export const Budget = () => {
 
 
             <Typography variant="h3" sx={{ textAlign: "center", marginBottom: "40px" }}>Budżet domowy</Typography>
-            <Box sx={{ display: "flex", flexDirection: 'row', justifyContent: "space-around", width: "100%", maxWidth: "1400px" }}>
+            <Box sx={{ display: "flex", flexDirection: 'row', justifyContent: "space-around", width: "100%", maxWidth: "1600px" }}>
                 <div>
-                    {expensesSum}
+                    <h3>Suma wydatków</h3>
+                    <Box sx={{ marginTop: "60px", padding: "3rem", backgroundColor: theme.palette.secondary.main }}>
+                        {expensesSum}
+                    </Box>
                 </div>
                 <div>
                     <div>
