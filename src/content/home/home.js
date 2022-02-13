@@ -1,17 +1,5 @@
-import { Link } from "react-router-dom";
-
 import styled from "styled-components";
 import { Theme } from "../../common/theme/theme";
-
-import { PageWrapper } from "../../common/page-wrapper/page-wrapper";
-
-import { Box } from "@mui/material";
-import { Typography } from "@mui/material";
-
-import FormatListNumberedIcon from "@mui/icons-material/FormatListNumbered";
-import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
-import ScheduleIcon from "@mui/icons-material/Schedule";
-import BarChartIcon from "@mui/icons-material/BarChart";
 
 import { HomeLogin } from "./HomeLogin";
 import { Intro } from "./Intro";
@@ -34,11 +22,7 @@ const HorizontalLine = styled.hr`
 `;
 
 export const Home = () => {
-  const { user,  } = useContext(UserContext);
+  const { user } = useContext(UserContext);
 
-  return user ? (
-    <HomeLogin>Zalogowany</HomeLogin>
-  ) : (
-    <Intro>Niezalogowany</Intro>
-  );
+  return user ? <HomeLogin /> : <Intro />;
 };
