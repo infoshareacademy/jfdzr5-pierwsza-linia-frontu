@@ -12,9 +12,9 @@ const NewExpenseContainer = styled.div`
   min-height: 1rem;
   margin: 10px;
   padding: 10px;
-  background-color: grey;
-  color: ${Theme.palette.secondary.contrastText};
-  `;
+  background-color: ${Theme.palette.secondary.main};
+color: ${Theme.palette.secondary.contrastText};
+`;
 
 const ListItemElement = styled.span`
 padding: 10px;

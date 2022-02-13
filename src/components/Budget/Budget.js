@@ -102,10 +102,10 @@ export const Budget = () => {
 
             <Typography variant="h3" sx={{ textAlign: "center", marginBottom: "40px" }}>Budżet domowy</Typography>
             <Box sx={{ display: "flex", flexDirection: 'row', justifyContent: "space-around", width: "100%", maxWidth: "1600px" }}>
-                <div>
+                <div style={{ marginTop: "70px" }}>
                     <h3>Suma wydatków</h3>
-                    <Box sx={{ marginTop: "60px", padding: "3rem", backgroundColor: theme.palette.secondary.main }}>
-                        {expensesSum}
+                    <Box sx={{ fontSize: "30px", marginTop: "100px", marginRight: "10px", padding: "3rem", backgroundColor: theme.palette.secondary.main }}>
+                        {expensesSum} zł
                     </Box>
                 </div>
                 <div>

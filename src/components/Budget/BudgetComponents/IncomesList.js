@@ -11,7 +11,7 @@ const NewIncomeContainer = styled.div`
   min-height: 1rem;
   margin: 10px;
   padding: 10px;
-  background-color: grey;
+  background-color: ${Theme.palette.secondary.main};
   color: ${Theme.palette.secondary.contrastText};
   `;
 
