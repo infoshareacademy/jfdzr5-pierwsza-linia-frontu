@@ -123,8 +123,44 @@ const NewTask = ({ tasks, setTasks, db }) => {
           aria-describedby="alert-dialog-description">
           <DialogTitle id="alert-dialog-title">Czy usunąć zadanie?</DialogTitle>
           <DialogActions>
-            <Button onClick={handleClose}>Nie</Button>
-            <Button onClick={handleDeleteTask} autoFocus>
+            <Button
+              sx={{
+                margin: "2px",
+                my: 2,
+                color: "inherit",
+                border: `2px solid inherit`,
+                borderRadius: "0px",
+                border: `2px solid #fff`,
+                borderRadius: "0",
+                transition: "all",
+                transitionDuration: "0.3s",
+                ":hover": {
+                  color: Theme.palette.primary.contrastText,
+                  border: `2px solid ${Theme.palette.primary.contrastText}`,
+                  borderRadius: "0",
+                },
+              }}
+              onClick={handleClose}>
+              Nie
+            </Button>
+            <Button
+              sx={{
+                margin: "2px",
+                my: 2,
+                color: "inherit",
+                border: `2px solid inherit`,
+                borderRadius: "0px",
+                border: `2px solid #fff`,
+                borderRadius: "0",
+                transition: "all",
+                transitionDuration: "0.3s",
+                ":hover": {
+                  color: Theme.palette.primary.contrastText,
+                  border: `2px solid ${Theme.palette.primary.contrastText}`,
+                  borderRadius: "0",
+                },
+              }}
+              onClick={handleDeleteTask}>
               Tak
             </Button>
           </DialogActions>
