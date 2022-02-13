@@ -1,11 +1,4 @@
-import {
-  Avatar,
-  Button,
-  Container,
-  FormGroup,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { Container, FormGroup, Typography } from "@mui/material";
 
 import styled from "styled-components";
 
