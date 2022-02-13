@@ -28,8 +28,7 @@ const HorizontalLine = styled.hr`
 `
 
 export const Home = () => {
-    return <PageWrapper title="Home App">
-            <Typography variant="h4" >Witaj w aplikacji Home Organizer!</Typography>  
+    return <PageWrapper title="Home App"><Typography variant="h4"> Witaj w aplikacji Home Organizer!</Typography>  
             <TileContainer>
                 <Box
                 component={Link}
