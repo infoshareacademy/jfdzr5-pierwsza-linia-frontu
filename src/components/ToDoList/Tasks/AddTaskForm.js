@@ -1,6 +1,4 @@
-import Input from "@mui/material/Input";
 import Container from "@mui/material/Container";
-import Button from "@mui/material/Button";
 
 import { Theme } from "../../../common/theme/theme";
 import { OutlinedInput } from "@mui/material";
@@ -9,7 +7,7 @@ import styled from "styled-components";
 import { addDoc } from "firebase/firestore";
 import { AddButton } from "../buttons/AddButton";
 import { useContext } from "react";
-import { UserData } from "../../../UserData/UserData";
+import { UserContext } from "../../../userContext/UserContext";
 import { useState, useEffect } from "react";
 
 const FormContainer = styled.div`
@@ -22,16 +20,13 @@ const FormContainer = styled.div`
 const AddTaskForm = ({ task, setTask, colRef }) => {
   //get user uid and email from use context
   const [uid, setUid] = useState("");
-  const [userEmail, setUserEmail] = useState("");
-  const userDetailsData = useContext(UserData);
+  const [email, setEmail] = useState("");
+  const { userUID, userEmail } = useContext(UserContext);
 
   useEffect(() => {
-    console.log(userDetailsData);
-    if (userDetailsData) {
-      setUid(userDetailsData.uid);
-      setUserEmail(userDetailsData.email);
-      console.log(uid);
-      console.log(userEmail);
+    if (userUID) {
+      setUid(userUID);
+      setEmail(userEmail);
     }
   });
 

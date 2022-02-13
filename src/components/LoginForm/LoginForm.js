@@ -125,16 +125,16 @@ export const Sign = ({ isSignUp }) => {
             )}
             {isSignUp && (
               <TextField
-              sx={{
-                bgcolor: Theme.palette.secondary.contrastText,
-                ":hover": { bgcolor: Theme.palette.primary.contrastText },
-                width: {
-                  lg: 400,
-                },
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-              }}
+                sx={{
+                  bgcolor: Theme.palette.secondary.contrastText,
+                  ":hover": { bgcolor: Theme.palette.primary.contrastText },
+                  width: {
+                    lg: 400,
+                  },
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                }}
                 id="surname"
                 label="Nazwisko"
                 type="text"
@@ -149,16 +149,16 @@ export const Sign = ({ isSignUp }) => {
               />
             )}
             <TextField
-             sx={{
-              bgcolor: Theme.palette.secondary.contrastText,
-              ":hover": { bgcolor: Theme.palette.primary.contrastText },
-              width: {
-                lg: 400,
-              },
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-            }}
+              sx={{
+                bgcolor: Theme.palette.secondary.contrastText,
+                ":hover": { bgcolor: Theme.palette.primary.contrastText },
+                width: {
+                  lg: 400,
+                },
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+              }}
               id="email"
               label="Adres email"
               type="email"

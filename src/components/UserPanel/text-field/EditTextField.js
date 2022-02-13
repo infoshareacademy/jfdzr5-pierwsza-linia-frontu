@@ -1,10 +1,16 @@
 import { TextField } from "@mui/material";
 import { Theme } from "../../../common/theme/theme";
-import { styled } from "@mui/material/styles";
+import { alpha, styled } from "@mui/material/styles";
+import InputBase from "@mui/material/InputBase";
+import Box from "@mui/material/Box";
+import InputLabel from "@mui/material/InputLabel";
+import FormControl from "@mui/material/FormControl";
 
 const CssTextField = styled(TextField)({
   input: {
-    color: "#fff",
+    color: "#000",
+    backgroundColor: "#fff",
+    borderRadius: "5px",
   },
   "& label.Mui-focused": {},
   "& .MuiInput-underline:after": {
@@ -17,28 +23,24 @@ const CssTextField = styled(TextField)({
       color: "white",
     },
     "&:hover fieldset": {
-      borderColor: "#000",
+      borderColor: Theme.palette.primary.contrastText,
+      input: {
+        color: "#fff",
+      },
     },
     "&.Mui-focused fieldset": {},
   },
 });
 
-export const TextFieldView = ({ label, value, handleClick }) => {
+export const EditTextField = ({ value, onChange, label }) => {
   return (
     <CssTextField
       id="custom-css-outlined-input"
-      fullWidth
       label={label}
+      autoFocus
+      fullWidth
       value={value}
-      onClick={handleClick}
-      sx={{
-        // backgroundColor: Theme.palette.secondary.contrastText,
-        borderRadius: "5px",
-        ":hover": {
-          backgroundColor: Theme.palette.primary.contrastText,
-          border: "none",
-        },
-      }}
+      onChange={onChange}
     />
   );
 };
