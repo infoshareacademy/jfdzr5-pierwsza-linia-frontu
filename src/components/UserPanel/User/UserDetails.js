@@ -1,4 +1,4 @@
-import { Container, FormGroup, TextField, Typography } from "@mui/material";
+import { Container, FormGroup, Typography } from "@mui/material";
 
 import styled from "styled-components";
 
@@ -9,8 +9,10 @@ import { SaveButton } from "../../ToDoList/buttons/SaveButton";
 import { CancelButton } from "../../ToDoList/buttons/CancelButton";
 import { TextFieldReadOnly } from "../text-field/TextFieldReadOnly";
 import { TextFieldView } from "../text-field/TextFieldView";
+import { EditTextField } from "../text-field/EditTextField";
 import { useContext } from "react";
-import { UserData } from "../../../UserData/UserData";
+import { UserContext } from "../../../userContext/UserContext";
+import { UserAvatar } from "./UserAvatar";
 
 const DetailsContainer = styled.div`
   color: #fff;
@@ -23,21 +25,24 @@ const DetailsContainer = styled.div`
   background-color: grey;
   // justify-content: space-between;
 `;
+const AvatarContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
 
 export const UserDetails = ({ userData, db }) => {
-  const userDetailsData = useContext(UserData);
+  const { userUID, userEmail } = useContext(UserContext);
   //get user uid and email from use context
   const [uid, setUid] = useState("");
-  const [userEmail, setUserEmail] = useState("");
+  const [email, setEmail] = useState("");
   useEffect(() => {
-    console.log(userDetailsData);
-    if (userDetailsData) {
-      setUid(userDetailsData.uid);
-      setUserEmail(userDetailsData.email);
-      console.log(uid);
-      console.log(userEmail);
+    if (userUID) {
+      setUid(userUID);
+      setEmail(userEmail);
     }
-  });
+  }, [userEmail, userUID]);
 
   const [takenValue, setTakenValue] = useState("");
   const [telephoneEdit, setTelephoneEdit] = useState(false);
@@ -146,10 +151,10 @@ export const UserDetails = ({ userData, db }) => {
     setPostCodeEdit(false);
   };
   const handleOnClick = e => {
-    e.preventDefault();
-    if (e.target === e.currentTarget) {
-      handleClickCancel();
-    }
+    // e.preventDefault();
+    // if (e.target === e.currentTarget) {
+    //   handleClickCancel();
+    // }
   };
 
   return (
@@ -157,18 +162,20 @@ export const UserDetails = ({ userData, db }) => {
       <FormGroup sx={{ margin: "10px", padding: "10px" }}>
         {userData.map(
           element =>
-            element.email === userEmail && (
+            element.email === email && (
               <>
+                <AvatarContainer>
+                  <UserAvatar />
+                </AvatarContainer>
                 <Typography variant="h5">Dane użytkownika</Typography>
                 <DetailsContainer>
                   <TextFieldReadOnly value={element.name} label={"Imię"} />
-
                   <TextFieldReadOnly
                     value={element.surname}
                     label={"Nazwisko"}
                   />
 
-                  <TextFieldReadOnly value={userEmail} label={"Email"} />
+                  <TextFieldReadOnly value={email} label={"Email"} />
                   {!telephoneEdit && (
                     <TextFieldView
                       label="Nr telefonu"
@@ -178,12 +185,15 @@ export const UserDetails = ({ userData, db }) => {
                   )}
                   {telephoneEdit && (
                     <>
-                      <TextField
-                        autoFocus
-                        fullWidth
-                        label="Nr telefonu"
+                      <EditTextField
                         value={takenValue}
                         onChange={e => setTakenValue(e.target.value)}
+                        label="Nr telefonu"
+                        // autoFocus
+                        // fullWidth
+                        // label="Nr telefonu"
+                        // value={takenValue}
+                        // onChange={e => setTakenValue(e.target.value)}
                       />
                       <SaveButton
                         handleClickSave={handleClickSave}
@@ -196,7 +206,6 @@ export const UserDetails = ({ userData, db }) => {
                     </>
                   )}
                 </DetailsContainer>
-
                 <Typography variant="h5">Adres</Typography>
                 <DetailsContainer style={{ flexWrap: "wrap" }}>
                   {!streetEdit && (
@@ -208,12 +217,15 @@ export const UserDetails = ({ userData, db }) => {
                   )}
                   {streetEdit && (
                     <>
-                      <TextField
-                        autoFocus
-                        fullWidth
-                        label="Ulica"
+                      <EditTextField
                         value={takenValue}
                         onChange={e => setTakenValue(e.target.value)}
+                        label="Ulica"
+                        // autoFocus
+                        // fullWidth
+                        // label="Ulica"
+                        // value={takenValue}
+                        // onChange={e => setTakenValue(e.target.value)}
                       />
 
                       <SaveButton
@@ -235,12 +247,10 @@ export const UserDetails = ({ userData, db }) => {
                   )}
                   {houseNumberEdit && (
                     <>
-                      <TextField
-                        autoFocus
-                        fullWidth
-                        label="Nr dom/mieszkania"
+                      <EditTextField
                         value={takenValue}
                         onChange={e => setTakenValue(e.target.value)}
+                        label="Nr dom/mieszkania"
                       />
 
                       <SaveButton
@@ -262,12 +272,10 @@ export const UserDetails = ({ userData, db }) => {
                   )}
                   {cityEdit && (
                     <>
-                      <TextField
-                        autoFocus
-                        fullWidth
-                        label="Miejscowość"
+                      <EditTextField
                         value={takenValue}
                         onChange={e => setTakenValue(e.target.value)}
+                        label="Miejscowość"
                       />
 
                       <SaveButton
@@ -289,12 +297,10 @@ export const UserDetails = ({ userData, db }) => {
                   )}
                   {postCodeEdit && (
                     <>
-                      <TextField
-                        autoFocus
-                        fullWidth
-                        label="Kod pocztowy"
+                      <EditTextField
                         value={takenValue}
                         onChange={e => setTakenValue(e.target.value)}
+                        label="Kod pocztowy"
                       />
 
                       <SaveButton
