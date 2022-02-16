@@ -33,7 +33,7 @@ const HorizontalLine = styled.hr`
   margin: 1rem;
 `;
 
-export const Intro = ({ tasksNumber, eventsNumber }) => {
+export const Intro = ({ usersNumber, tasksNumber, eventsNumber }) => {
   return (
     <PageWrapper title="Home App">
       <Typography variant="h4"> Witaj w aplikacji Home Organizer!</Typography>
@@ -113,7 +113,7 @@ export const Intro = ({ tasksNumber, eventsNumber }) => {
             <Typography
               paragraph="true"
               sx={{ margin: "1rem", fontSize: "2rem" }}>
-              -
+              {usersNumber}
             </Typography>
           </BoxPanel>
           <BoxPanel>
