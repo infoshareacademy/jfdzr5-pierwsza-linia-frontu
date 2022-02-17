@@ -12,8 +12,7 @@ import { useContext } from "react";
 import { UserContext } from "../userContext/UserContext";
 import { NavigationButton } from "./NavigationButton";
 import styled from "@emotion/styled";
-import { Divider, useMediaQuery } from "@mui/material";
-import { useEffect } from "react";
+import { useMediaQuery } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useState } from "react";
 const ButtonsContainer = styled.div`
@@ -67,7 +66,6 @@ export const Navigation = () => {
           sx={{ flexDirection: maxWidth1000 ? "column" : "" }}
           disableGutters>
           <IconButton>
-            <Divider></Divider>
             <Avatar
               alt="home"
               variant="square"
@@ -129,7 +127,6 @@ export const Navigation = () => {
                 onClick={handleSignOutClick}>
                 Wyloguj
               </Button>
-              <Divider />
             </ButtonsContainer>
           ) : (
             <ButtonsContainer>
@@ -185,7 +182,6 @@ export const Navigation = () => {
                 sx={{ flexDirection: maxWidth1000 ? "column" : "" }}
                 disableGutters>
                 <IconButton>
-                  <Divider></Divider>
                   <Avatar
                     alt="home"
                     variant="square"
