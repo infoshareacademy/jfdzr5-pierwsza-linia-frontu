@@ -7,6 +7,10 @@ import { checkboxClasses } from "@mui/material";
 import { FormGroup } from "@mui/material";
 import { FormHelperText } from "@mui/material";
 import { OutlinedInput } from "@mui/material";
+import { useState, useEffect } from "react";
+
+import { useContext } from "react";
+import { UserContext } from "../../../userContext/UserContext";
 
 import { addDoc } from "firebase/firestore";
 
@@ -19,25 +23,36 @@ const AddEventForm = ({
   setDate,
   docRef,
 }) => {
-  const handleChangeName = (e) => {
+  const handleChangeName = e => {
     setItem(e.target.value);
   };
 
-  const handleChangeDate = (e) => {
+  const handleChangeDate = e => {
     setDate(e.target.value);
   };
 
-  const handleChangeAlert = (e) => {
+  const handleChangeAlert = e => {
     e.target.checked ? setAlert(true) : setAlert(false);
   };
+  // uid from firebase -
+  const [uid, setUid] = useState("");
+  const { userUID } = useContext(UserContext);
 
-  const handleSubmit = (e) => {
+  useEffect(() => {
+    if (userUID) {
+      setUid(userUID);
+    }
+  });
+
+  const handleSubmit = e => {
     e.preventDefault();
     addDoc(docRef, {
       name: item,
       date: date,
       alert: alert,
       timeStamp: +new Date(),
+      //add UserID to task
+      uid: uid,
     });
     setItem("");
     setDate("");
@@ -45,15 +60,13 @@ const AddEventForm = ({
 
   return (
     <Box
-      sx={{ backgroundColor: Theme.palette.secondary.main, minWidth: "35vw" }}
-    >
+      sx={{ backgroundColor: Theme.palette.secondary.main, minWidth: "35vw" }}>
       <FormGroup
         sx={{
           display: "flex",
           flexDirection: "row",
           justifyContent: "space-between",
-        }}
-      >
+        }}>
         <Box sx={{ padding: "1rem" }}>
           <OutlinedInput
             autoFocus
@@ -72,8 +85,7 @@ const AddEventForm = ({
               margin: ".25rem",
               height: "1rem",
               color: Theme.palette.secondary.contrastText,
-            }}
-          >
+            }}>
             Nazwa wydarzenia
           </FormHelperText>
         </Box>
@@ -94,8 +106,7 @@ const AddEventForm = ({
               margin: ".25rem",
               height: "1rem",
               color: Theme.palette.secondary.contrastText,
-            }}
-          >
+            }}>
             Data
           </FormHelperText>
         </Box>
@@ -120,8 +131,7 @@ const AddEventForm = ({
               height: "1rem",
               textAlign: "center",
               color: Theme.palette.secondary.contrastText,
-            }}
-          >
+            }}>
             Alert
           </FormHelperText>
         </Box>
@@ -135,8 +145,7 @@ const AddEventForm = ({
             backgroundColor: Theme.palette.secondary.contrastText,
             ":hover": { backgroundColor: Theme.palette.primary.contrastText },
           }}
-          onClick={handleSubmit}
-        >
+          onClick={handleSubmit}>
           Dodaj
         </Button>
       </FormGroup>

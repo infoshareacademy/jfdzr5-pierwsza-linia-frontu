@@ -10,6 +10,13 @@ import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
 import ScheduleIcon from "@mui/icons-material/Schedule";
 import BarChartIcon from "@mui/icons-material/BarChart";
 import { BoxContainer } from "./BoxContainer";
+import { BoxContainerDashboard } from "./BoxContainerDashboard";
+
+import GroupIcon from "@mui/icons-material/Group";
+import ListAltIcon from "@mui/icons-material/ListAlt";
+import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
+import { Box } from "@mui/system";
+import { BoxPanel } from "./BoxPanel";
 
 const TileContainer = styled.div`
   display: flex;
@@ -26,7 +33,7 @@ const HorizontalLine = styled.hr`
   margin: 1rem;
 `;
 
-export const HomeLogin = () => {
+export const HomeLogin = ({ usersNumber, tasksNumber, eventsNumber }) => {
   return (
     <PageWrapper title="Home App">
       <Typography variant="h4"> Witaj w aplikacji Home Organizer!</Typography>
@@ -73,18 +80,64 @@ export const HomeLogin = () => {
             Dodaj daty, rocznice i terminy, o których już nigdy nie zapomnisz.
           </Typography>
         </BoxContainer>
-        <BoxContainer to="/dashboard">
-          <BarChartIcon sx={{ marginLeft: "1rem", fontSize: "3rem" }} />
-          <Typography variant="h4" sx={{ margin: "1rem" }}>
-            Dashboard
-          </Typography>
-          <HorizontalLine />
-          <Typography
-            paragraph="true"
-            sx={{ margin: "1rem", fontSize: "1rem" }}>
-            Sprawdź dane i zasoby aplikacji.
-          </Typography>
-        </BoxContainer>
+
+        <BoxContainerDashboard>
+          <Box sx={{ flexGrow: "5", width: "75rem" }}>
+            <Box>
+              <Typography
+                variant="h4"
+                sx={{ margin: "1rem", textAlign: "center" }}>
+                <BarChartIcon sx={{ marginLeft: "1rem", fontSize: "3rem" }} />
+                Panel
+                <Typography
+                  paragraph="true"
+                  sx={{ margin: "1rem", fontSize: "1rem" }}>
+                  Sprawdź dane i zasoby aplikacji.
+                </Typography>
+              </Typography>
+            </Box>
+
+            <HorizontalLine style={{ width: "96%" }} />
+          </Box>
+          <BoxPanel>
+            <GroupIcon sx={{ marginLeft: "1rem", fontSize: "2rem" }} />
+            <Typography variant="h6" sx={{ margin: "1rem" }}>
+              Użytkownicy
+            </Typography>
+            <HorizontalLine />
+            <Typography
+              paragraph="true"
+              sx={{ margin: "1rem", fontSize: "2rem" }}>
+              {usersNumber}
+            </Typography>
+          </BoxPanel>
+          <BoxPanel>
+            <ListAltIcon sx={{ marginLeft: "1rem", fontSize: "2rem" }} />
+            <Typography variant="h6" sx={{ margin: "1rem" }}>
+              Zadania
+            </Typography>
+            <HorizontalLine />
+            <Typography
+              paragraph="true"
+              sx={{ margin: "1rem", fontSize: "2rem" }}>
+              {tasksNumber}
+            </Typography>
+          </BoxPanel>
+          <BoxPanel>
+            <NotificationsActiveIcon
+              sx={{ marginLeft: "1rem", fontSize: "2rem" }}
+            />
+            <Typography variant="h6" sx={{ margin: "1rem" }}>
+              Wydarzenia
+            </Typography>
+            <HorizontalLine />
+            <Typography
+              paragraph="true"
+              sx={{ margin: "1rem", fontSize: "2rem" }}>
+              {eventsNumber}
+            </Typography>
+          </BoxPanel>
+        </BoxContainerDashboard>
       </TileContainer>
     </PageWrapper>
   );

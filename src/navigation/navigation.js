@@ -25,23 +25,17 @@ const navItems = [
   { label: "Zadania", path: "/tasks" },
   { label: "Budżet", path: "/budget" },
   { label: "Kalendarz", path: "/calendar" },
-  { label: "Dashboard", path: "/dashboard" },
-  // { label: "Panel użytkownika", path: "/user-panel" },
 ];
 export const Navigation = () => {
-
-
   const navigate = useNavigate();
 
-  // const user = useContext(UserContext);
   const { user, avatarUrl } = useContext(UserContext);
 
   const handleSignOutClick = () => {
     const auth = getAuth();
-    signOut(auth)
-    .then(() => {
+    signOut(auth).then(() => {
       navigate("/");
-      alert('Zostałeś wylogowany');
+      alert("Zostałeś wylogowany");
     });
   };
   return (
