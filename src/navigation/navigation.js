@@ -162,6 +162,7 @@ export const Navigation = () => {
         <MenuIcon
           onClick={handleShowMenu}
           sx={{
+            cursor: "pointer",
             color: "#fff",
             padding: "5px",
             textAlign: "center",
