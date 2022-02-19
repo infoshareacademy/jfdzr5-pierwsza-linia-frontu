@@ -12,23 +12,34 @@ import { useContext } from "react";
 import { UserContext } from "../userContext/UserContext";
 import { NavigationButton } from "./NavigationButton";
 import styled from "@emotion/styled";
-
+import { useMediaQuery } from "@mui/material";
+import MenuIcon from "@mui/icons-material/Menu";
+import { useState } from "react";
 const ButtonsContainer = styled.div`
   flex-grow: 1;
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  flex-wrap: wrap;
+  @media (max-width: 1000px) {
+    flex-direction: column;
+  }
 `;
-
+const MenuIconContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  background-color: ${Theme.palette.secondary.main};
+`;
 const navItems = [
   { label: "Zadania", path: "/tasks" },
   { label: "Budżet", path: "/budget" },
   { label: "Kalendarz", path: "/calendar" },
 ];
 export const Navigation = () => {
+  const maxWidth1000 = useMediaQuery(
+    `(max-width: ${Theme.breakpoints.maxWidth1000})`
+  );
   const navigate = useNavigate();
-
+  console.log(maxWidth1000);
   const { user, avatarUrl } = useContext(UserContext);
 
   const handleSignOutClick = () => {
@@ -38,10 +49,22 @@ export const Navigation = () => {
       alert("Zostałeś wylogowany");
     });
   };
-  return (
+  const [showMenu, setShowMenu] = useState(false);
+
+  const handleShowMenu = () => {
+    if (maxWidth1000) {
+      setShowMenu(true);
+    }
+    if (showMenu) {
+      setShowMenu(false);
+    }
+  };
+  return !maxWidth1000 ? (
     <AppBar position="static" theme={Theme} color="secondary">
       <Container maxWidth="xl">
-        <Toolbar sx={{ flexWrap: "wrap" }} disableGutters>
+        <Toolbar
+          sx={{ flexDirection: maxWidth1000 ? "column" : "" }}
+          disableGutters>
           <IconButton>
             <Avatar
               alt="home"
@@ -85,6 +108,7 @@ export const Navigation = () => {
                 to="/user-panel">
                 Panel użytkownika
               </Button>
+
               <Button
                 sx={{
                   margin: "2px",
@@ -129,5 +153,124 @@ export const Navigation = () => {
         </Toolbar>
       </Container>
     </AppBar>
+  ) : (
+    <>
+      <MenuIconContainer>
+        <MenuIcon
+          onClick={handleShowMenu}
+          sx={{
+            cursor: "pointer",
+            color: "#fff",
+            padding: "5px",
+            textAlign: "center",
+            fontSize: "5rem",
+            transition: "all",
+            transitionDuration: "0.4s",
+            ":hover": {
+              color: Theme.palette.primary.contrastText,
+              // border: `2px solid ${Theme.palette.primary.contrastText}`,
+              borderRadius: "none",
+            },
+          }}
+        />
+      </MenuIconContainer>
+      {showMenu && (
+        <>
+          <AppBar position="static" theme={Theme} color="secondary">
+            <Container maxWidth="xl">
+              <Toolbar
+                sx={{ flexDirection: maxWidth1000 ? "column" : "" }}
+                disableGutters>
+                <IconButton>
+                  <Avatar
+                    alt="home"
+                    variant="square"
+                    src={logo}
+                    component={Link}
+                    to="/"
+                  />
+                </IconButton>
+                {navItems.map(
+                  item =>
+                    user && <NavigationButton to={item.path} item={item} />
+                )}
+                {user ? (
+                  <ButtonsContainer>
+                    <Avatar
+                      variant="square"
+                      src={avatarUrl}
+                      alt="avatar"
+                      sx={{
+                        marginRight: "10px",
+                        backgroundColor: "black",
+                        padding: "1px",
+                      }}
+                    />
+                    <Button
+                      sx={{
+                        margin: "2px",
+                        my: 2,
+                        color: "inherit",
+                        border: `2px solid ${Theme.palette.secondary.main}`,
+                        borderRadius: "0px",
+                        transition: "all",
+                        transitionDuration: "0.3s",
+                        ":hover": {
+                          color: Theme.palette.primary.contrastText,
+                          border: `2px solid ${Theme.palette.primary.contrastText}`,
+                          borderRadius: "none",
+                        },
+                      }}
+                      component={Link}
+                      to="/user-panel">
+                      Panel użytkownika
+                    </Button>
+                    <Button
+                      sx={{
+                        margin: "2px",
+                        my: 2,
+                        color: "inherit",
+                        border: `2px solid ${Theme.palette.secondary.main}`,
+                        borderRadius: "0px",
+                        transition: "all",
+                        transitionDuration: "0.3s",
+                        ":hover": {
+                          color: Theme.palette.primary.contrastText,
+                          border: `2px solid ${Theme.palette.primary.contrastText}`,
+                          borderRadius: "none",
+                        },
+                      }}
+                      onClick={handleSignOutClick}>
+                      Wyloguj
+                    </Button>
+                  </ButtonsContainer>
+                ) : (
+                  <ButtonsContainer>
+                    <Button
+                      sx={{
+                        my: 2,
+                        color: "inherit",
+                        border: `2px solid ${Theme.palette.secondary.main}`,
+                        borderRadius: "0px",
+                        transition: "all",
+                        transitionDuration: "0.4s",
+                        ":hover": {
+                          color: Theme.palette.primary.contrastText,
+                          border: `2px solid ${Theme.palette.primary.contrastText}`,
+                          borderRadius: "none",
+                        },
+                      }}
+                      component={Link}
+                      to="/sign-in">
+                      Zaloguj
+                    </Button>
+                  </ButtonsContainer>
+                )}
+              </Toolbar>
+            </Container>
+          </AppBar>
+        </>
+      )}
+    </>
   );
 };
