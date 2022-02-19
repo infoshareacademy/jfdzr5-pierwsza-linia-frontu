@@ -23,6 +23,10 @@ const TileContainer = styled.div`
   flex-wrap: wrap;
   min-width: 800px;
   justify-content: center;
+  @media (max-width: 1000px) {
+    flex-direction: column;
+    align-items: center;
+  }
 `;
 
 const HorizontalLine = styled.hr`
@@ -102,7 +106,7 @@ export const Intro = ({ usersNumber, tasksNumber, eventsNumber }) => {
               </Typography>
             </Box>
 
-            <HorizontalLine style={{ width: "96%" }} />
+            <HorizontalLine style={{ margin: "0 auto", width: "90%" }} />
           </Box>
           <BoxPanel>
             <GroupIcon sx={{ marginLeft: "1rem", fontSize: "2rem" }} />
