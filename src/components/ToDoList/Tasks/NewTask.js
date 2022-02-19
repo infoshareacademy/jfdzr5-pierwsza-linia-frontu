@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
 import styled from "styled-components";
-import { Alert, Icon, Input, Typography } from "@mui/material";
+import { Input, Typography } from "@mui/material";
 import Checkbox from "@mui/material/Checkbox";
 import { Theme } from "../../../common/theme/theme";
 import { checkboxClasses } from "@mui/material";
@@ -19,8 +19,6 @@ import { UserContext } from "../../../userContext/UserContext";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 
 const NewTasksContainer = styled.div`
@@ -35,8 +33,7 @@ const NewTaskContainer = styled.div`
   // justify-content: space-between;
 `;
 
-const NewTask = ({ tasks, setTasks, db }) => {
-  const [save, setSave] = useState(false);
+const NewTask = ({ tasks, db }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [taskID, setTaskId] = useState("");
   const [taskIDDelete, setTaskIDDelete] = useState("");
@@ -44,7 +41,6 @@ const NewTask = ({ tasks, setTasks, db }) => {
 
   const handleClickEdit = id => {
     setIsEditing(true);
-    setSave(true);
     setTaskId(id);
     tasks.forEach(element => {
       if (id === element.id) {
@@ -54,8 +50,6 @@ const NewTask = ({ tasks, setTasks, db }) => {
   };
 
   const handleClickSave = async id => {
-    setSave(false);
-
     setIsEditing(false);
     setTaskId("");
 
@@ -84,7 +78,7 @@ const NewTask = ({ tasks, setTasks, db }) => {
 
   const handleClickCancel = id => {
     setIsEditing(false);
-    setSave(false);
+    // setSave(false);
     setTaskId("");
   };
 
@@ -220,7 +214,7 @@ const NewTask = ({ tasks, setTasks, db }) => {
                   id={element.id}
                 />
               )}
-              {save && element.id === taskID && (
+              {element.id === taskID && (
                 <SaveButton handleClickSave={handleClickSave} id={element.id} />
               )}
               <DeleteButton handleClickOpen={handleClickOpen} id={element.id} />
