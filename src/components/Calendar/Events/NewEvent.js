@@ -7,7 +7,6 @@ import { Box } from "@mui/material";
 import { Button } from "@mui/material";
 import { Checkbox } from "@mui/material";
 import { checkboxClasses } from "@mui/material";
-import { FormHelperText } from "@mui/material";
 import { Icon } from "@mui/material";
 import { OutlinedInput } from "@mui/material";
 import { Typography } from "@mui/material";
@@ -28,7 +27,6 @@ const NewEventContainer = styled.div`
 `;
 
 const NewEvent = ({ items, setItems, firestore }) => {
-  const [save, setSave] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [eventID, setEventId] = useState("");
   const [takenName, setTakenName] = useState("");
@@ -45,11 +43,10 @@ const NewEvent = ({ items, setItems, firestore }) => {
     }
   });
 
-  const handleClickEdit = id => {
+  const handleClickEdit = (id) => {
     setIsEditing(true);
-    setSave(true);
     setEventId(id);
-    items.forEach(element => {
+    items.forEach((element) => {
       if (id === element.id) {
         setTakenName(element.name);
         setTakenDate(element.date);
@@ -57,16 +54,14 @@ const NewEvent = ({ items, setItems, firestore }) => {
       }
     });
   };
-  const handleClickDelete = id => {
+  const handleClickDelete = (id) => {
     const docRef = doc(firestore, "calendar", id);
     deleteDoc(docRef);
-    setSave(false);
     setIsEditing(false);
     setEventId("");
   };
 
-  const handleClickSave = async id => {
-    setSave(false);
+  const handleClickSave = async (id) => {
     setIsEditing(false);
     setEventId("");
 
@@ -75,14 +70,13 @@ const NewEvent = ({ items, setItems, firestore }) => {
       name: takenName,
       date: takenDate,
       alert: isAlerted,
-      //add UserID to task
+      //add UserID to event
       uid: uid,
     });
   };
 
-  const handleClickCancel = id => {
+  const handleClickCancel = (id) => {
     setIsEditing(false);
-    setSave(false);
     setEventId("");
   };
 
@@ -91,10 +85,11 @@ const NewEvent = ({ items, setItems, firestore }) => {
       sx={{
         backgroundColor: Theme.palette.primary.main,
         minWidth: "35vw",
-      }}>
+      }}
+    >
       {items.map(
-        element =>
-        //check if task from firebase has UserID
+        (element) =>
+          //check if event from firebase has UserID
           element.uid === uid && (
             <NewEventContainer key={element.id}>
               {element.id !== eventID && (
@@ -104,7 +99,8 @@ const NewEvent = ({ items, setItems, firestore }) => {
                       minWidth: "10vw",
                       alignSelf: "center",
                       padding: ".5rem",
-                    }}>
+                    }}
+                  >
                     {element.name}
                   </Typography>
                   <Typography
@@ -112,7 +108,8 @@ const NewEvent = ({ items, setItems, firestore }) => {
                       marginLeft: "auto",
                       alignSelf: "center",
                       padding: ".5rem",
-                    }}>
+                    }}
+                  >
                     {element.date}
                   </Typography>
                   <Checkbox
@@ -145,7 +142,7 @@ const NewEvent = ({ items, setItems, firestore }) => {
                           backgroundColor: Theme.palette.primary.contrastText,
                         },
                       }}
-                      onChange={e => {
+                      onChange={(e) => {
                         setTakenName(e.target.value);
                       }}
                     />
@@ -162,7 +159,7 @@ const NewEvent = ({ items, setItems, firestore }) => {
                           backgroundColor: Theme.palette.primary.contrastText,
                         },
                       }}
-                      onChange={e => {
+                      onChange={(e) => {
                         setTakenDate(e.target.value);
                       }}
                     />
@@ -181,44 +178,20 @@ const NewEvent = ({ items, setItems, firestore }) => {
                           color: Theme.palette.primary.contrastText,
                         },
                       }}
-                      onChange={e => {
+                      onChange={(e) => {
                         setIsAlerted(e.target.checked ? true : false);
                         console.log(isAlerted);
                       }}
                     />
                   </Box>
-                </>
-              )}
-              {!save && (
-                <>
-                  <Button
-                    sx={{
-                      marginLeft: "6vw",
-                      color: Theme.palette.secondary.contrastText,
-                      ":hover": { color: Theme.palette.primary.contrastText },
-                    }}
-                    onClick={() => handleClickEdit(element.id)}>
-                    <Icon>edit</Icon>
-                  </Button>
-                  <Button
-                    sx={{
-                      color: Theme.palette.secondary.contrastText,
-                      ":hover": { color: Theme.palette.primary.contrastText },
-                    }}
-                    onClick={() => handleClickDelete(element.id)}>
-                    <Icon>delete</Icon>
-                  </Button>
-                </>
-              )}
-              {save && element.id === eventID && (
-                <>
                   <Button
                     sx={{
                       marginLeft: "auto",
                       color: Theme.palette.secondary.contrastText,
                       ":hover": { color: Theme.palette.primary.contrastText },
                     }}
-                    onClick={() => handleClickCancel(element.id)}>
+                    onClick={() => handleClickCancel(element.id)}
+                  >
                     <Icon>cancel</Icon>
                   </Button>
                   <Button
@@ -226,8 +199,55 @@ const NewEvent = ({ items, setItems, firestore }) => {
                       color: Theme.palette.secondary.contrastText,
                       ":hover": { color: Theme.palette.primary.contrastText },
                     }}
-                    onClick={() => handleClickSave(element.id)}>
+                    onClick={() => handleClickSave(element.id)}
+                  >
                     <Icon>save</Icon>
+                  </Button>
+                </>
+              )}
+              {isEditing && element.id !== eventID && (
+                <>
+                  <Button
+                    sx={{
+                      marginLeft: "6vw",
+                      color: Theme.palette.secondary.contrastText,
+                      ":hover": { color: Theme.palette.primary.contrastText },
+                    }}
+                    onClick={() => handleClickEdit(element.id)}
+                  >
+                    <Icon>edit</Icon>
+                  </Button>
+                  <Button
+                    sx={{
+                      color: Theme.palette.secondary.contrastText,
+                      ":hover": { color: Theme.palette.primary.contrastText },
+                    }}
+                    onClick={() => handleClickDelete(element.id)}
+                  >
+                    <Icon>delete</Icon>
+                  </Button>
+                </>
+              )}
+              {!isEditing && (
+                <>
+                  <Button
+                    sx={{
+                      marginLeft: "6vw",
+                      color: Theme.palette.secondary.contrastText,
+                      ":hover": { color: Theme.palette.primary.contrastText },
+                    }}
+                    onClick={() => handleClickEdit(element.id)}
+                  >
+                    <Icon>edit</Icon>
+                  </Button>
+                  <Button
+                    sx={{
+                      color: Theme.palette.secondary.contrastText,
+                      ":hover": { color: Theme.palette.primary.contrastText },
+                    }}
+                    onClick={() => handleClickDelete(element.id)}
+                  >
+                    <Icon>delete</Icon>
                   </Button>
                 </>
               )}
