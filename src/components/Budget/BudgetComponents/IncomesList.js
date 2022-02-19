@@ -1,9 +1,11 @@
 import React from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from '@mui/icons-material/Edit';
 import styled from "styled-components";
 import { Theme } from "../../../common/theme/theme";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
+import { Button } from "@mui/material";
 
 const NewIncomeContainer = styled.div`
   display: flex;
@@ -30,16 +32,23 @@ function IncomesList(props) {
               <>
                 <NewIncomeContainer>
                   <ListItem className="incomes" key={income.id}>
-                    <ListItemElement style={{ width: "8rem" }}>
+                    <ListItemElement style={{ width: "7rem" }}>
                       {income.amount} zł
                     </ListItemElement>
-                    <ListItemElement style={{ width: "8rem" }}>
+                    <ListItemElement style={{ width: "7rem" }}>
                       {income.category}
                     </ListItemElement>
                     <ListItemElement style={{ width: "7rem" }}>
                       {income.date}
                     </ListItemElement>
-                    <DeleteIcon onClick={() => props.onDelete(income.id)} />
+
+                    <Button>
+                      <DeleteIcon style={{ width: "4rem" }} onClick={() => props.onDelete(income.id)} />
+                    </Button>
+                    <Button>
+                      <EditIcon style={{ width: "4rem" }} onClick={() => (income.id)} />
+                    </Button>
+
                   </ListItem>
                 </NewIncomeContainer>
               </>
