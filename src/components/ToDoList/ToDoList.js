@@ -35,7 +35,9 @@ const ToDoList = () => {
 
   return (
     <PageWrapper>
-      <Typography variant="h3" sx={{ textAlign: "center" }}>
+      <Typography
+        variant="h3"
+        sx={{ textAlign: "center", marginBottom: "40px" }}>
         Lista zadań
       </Typography>
       <Container
