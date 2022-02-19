@@ -35,6 +35,9 @@ const ToDoList = () => {
 
   return (
     <PageWrapper>
+      <Typography variant="h3" sx={{ textAlign: "center" }}>
+        Lista zadań
+      </Typography>
       <Container
         maxWidth="sm"
         sx={{
@@ -43,9 +46,6 @@ const ToDoList = () => {
           marginTop: "10px",
         }}>
         <Container>
-          <Typography variant="h3" sx={{ textAlign: "center" }}>
-            Lista zadań
-          </Typography>
           <AddTaskForm task={task} setTask={setTask} colRef={colRef} />
           <NewTask tasks={tasks} setTasks={setTasks} db={db} />
         </Container>
