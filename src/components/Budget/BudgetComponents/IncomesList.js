@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { Theme } from "../../../common/theme/theme";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
-import { Button } from "@mui/material";
+import { Button, Icon } from "@mui/material";
 import { OutlinedInput } from "@mui/material";
 import { FormHelperText } from "@mui/material";
 import MenuItem from "@mui/material/MenuItem";
@@ -36,6 +36,8 @@ function IncomesList(props) {
     setEditedTaskId(id)
     const editedTask = props.incomes.find((income) => income.id === id)
     setAmountInput(editedTask.amount)
+    setCategoryInput(editedTask.category)
+    setDateInput(editedTask.date)
 
   }
   const handleAmountChange = event => {
@@ -43,6 +45,10 @@ function IncomesList(props) {
   };
   const handleCategoryChange = event => setCategoryInput(event.target.value);
   const handleDateChange = event => setDateInput(event.target.value);
+
+  const handleClickCancel = (id) => {
+    setEditedTaskId(id);
+  };
 
   //function IncomesList(props) {
   return (
@@ -126,6 +132,13 @@ function IncomesList(props) {
                           Data{" "}
                         </FormHelperText>
 
+                        <Button>
+                          <Icon style={{ color: "white" }}>save</Icon>
+                        </Button>
+                        <Button>
+                          <Icon style={{ color: "white" }} onClick={() => handleClickCancel()}>cancel</Icon>
+                        </Button>
+
                       </>) : (
                         <>
                           <ListItemElement>
@@ -139,10 +152,10 @@ function IncomesList(props) {
                           </ListItemElement>
 
                           <Button>
-                            <DeleteIcon style={{ width: "4rem" }} onClick={() => props.onDelete(income.id)} />
+                            <DeleteIcon style={{ width: "4rem", color: "white" }} onClick={() => props.onDelete(income.id)} />
                           </Button>
                           <Button>
-                            <EditIcon style={{ width: "4rem" }} onClick={() => handleEditTask(income.id)} />
+                            <EditIcon style={{ width: "4rem", color: "white" }} onClick={() => handleEditTask(income.id)} />
                           </Button>
                         </>
 
