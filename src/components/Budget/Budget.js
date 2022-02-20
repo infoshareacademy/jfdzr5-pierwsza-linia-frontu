@@ -145,7 +145,11 @@ export const Budget = () => {
           maxWidth: "1600px",
         }}>
         <div style={{ marginTop: "70px" }}>
-          <h3>Suma wydatków</h3>
+          {chosenMoneyOperations === "expenses" ?
+            <h3>Suma wydatków</h3>
+            :
+            <h3>Suma przychodów</h3>
+          }
           <Box
             sx={{
               fontSize: "30px",

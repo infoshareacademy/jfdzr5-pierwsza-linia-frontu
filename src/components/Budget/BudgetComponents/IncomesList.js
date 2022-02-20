@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from '@mui/icons-material/Edit';
 import styled from "styled-components";
@@ -6,6 +6,11 @@ import { Theme } from "../../../common/theme/theme";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import { Button } from "@mui/material";
+import { OutlinedInput } from "@mui/material";
+import { FormHelperText } from "@mui/material";
+import MenuItem from "@mui/material/MenuItem";
+import Select from "@mui/material/Select";
+
 
 const NewIncomeContainer = styled.div`
   display: flex;
@@ -18,9 +23,28 @@ const NewIncomeContainer = styled.div`
 
 const ListItemElement = styled.span`
   padding: 10px;
+  width: 7rem;
 `;
 
 function IncomesList(props) {
+  const [editedTaskId, setEditedTaskId] = useState(null);
+  const [amountInput, setAmountInput] = useState("");
+  const [categoryInput, setCategoryInput] = useState("");
+  const [dateInput, setDateInput] = useState("");
+
+  const handleEditTask = (id) => {
+    setEditedTaskId(id)
+    const editedTask = props.incomes.find((income) => income.id === id)
+    setAmountInput(editedTask.amount)
+
+  }
+  const handleAmountChange = event => {
+    setAmountInput(event.target.value.replace(",", "."));
+  };
+  const handleCategoryChange = event => setCategoryInput(event.target.value);
+  const handleDateChange = event => setDateInput(event.target.value);
+
+  //function IncomesList(props) {
   return (
     <div className="income-container">
       <List>
@@ -32,22 +56,99 @@ function IncomesList(props) {
               <>
                 <NewIncomeContainer>
                   <ListItem className="incomes" key={income.id}>
-                    <ListItemElement style={{ width: "7rem" }}>
-                      {income.amount} zł
-                    </ListItemElement>
-                    <ListItemElement style={{ width: "7rem" }}>
-                      {income.category}
-                    </ListItemElement>
-                    <ListItemElement style={{ width: "7rem" }}>
-                      {income.date}
-                    </ListItemElement>
+                    {
+                      income.id === editedTaskId ? (<>
+                        <OutlinedInput
+                          inputProps={{
+                            pattern: "[0-9]+(.|,)[0-9]{0,2}",
+                            title: "podaj liczbę z maks. 2 cyframi po przecinku ",
+                          }}
+                          required
+                          placeholder="Podaj kwotę..."
+                          value={amountInput}
+                          onChange={handleAmountChange}
+                          sx={{
+                            width: "100%",
+                            height: "3rem",
+                            backgroundColor: Theme.palette.secondary.contrastText,
+                            ":hover": { backgroundColor: Theme.palette.primary.contrastText },
+                          }}></OutlinedInput>
+                        <FormHelperText
+                          sx={{
+                            margin: ".25rem",
+                            height: "1rem",
+                            color: Theme.palette.secondary.contrastText,
+                          }}>
+                          Kwota{" "}
+                        </FormHelperText>
 
-                    <Button>
-                      <DeleteIcon style={{ width: "4rem" }} onClick={() => props.onDelete(income.id)} />
-                    </Button>
-                    <Button>
-                      <EditIcon style={{ width: "4rem" }} onClick={() => (income.id)} />
-                    </Button>
+                        <Select
+                          required
+                          id="Category"
+                          value={categoryInput}
+                          onChange={handleCategoryChange}
+                          sx={{
+                            height: "3rem",
+                            width: "15rem",
+                            backgroundColor: Theme.palette.secondary.contrastText,
+                            ":hover": { backgroundColor: Theme.palette.primary.contrastText },
+                          }}>
+                          <MenuItem value="Wynagrodzenie">Wynagrodzenie</MenuItem>
+                          <MenuItem value="Inne">Inne</MenuItem>
+                        </Select>
+                        <FormHelperText
+                          sx={{
+                            margin: ".25rem",
+                            height: "1rem",
+                            color: Theme.palette.secondary.contrastText,
+                          }}>
+                          Kategoria{" "}
+                        </FormHelperText>
+
+                        <OutlinedInput
+                          required
+                          type="date"
+                          value={dateInput}
+                          onChange={handleDateChange}
+                          sx={{
+                            width: "100%",
+                            height: "3rem",
+                            backgroundColor: Theme.palette.secondary.contrastText,
+                            ":hover": { backgroundColor: Theme.palette.primary.contrastText },
+                          }}
+                        />
+                        <FormHelperText
+                          sx={{
+                            margin: ".25rem",
+                            height: "1rem",
+                            color: Theme.palette.secondary.contrastText,
+                          }}>
+                          Data{" "}
+                        </FormHelperText>
+
+                      </>) : (
+                        <>
+                          <ListItemElement>
+                            {income.amount} zł
+                          </ListItemElement>
+                          <ListItemElement>
+                            {income.category}
+                          </ListItemElement>
+                          <ListItemElement>
+                            {income.date}
+                          </ListItemElement>
+
+                          <Button>
+                            <DeleteIcon style={{ width: "4rem" }} onClick={() => props.onDelete(income.id)} />
+                          </Button>
+                          <Button>
+                            <EditIcon style={{ width: "4rem" }} onClick={() => handleEditTask(income.id)} />
+                          </Button>
+                        </>
+
+                      )
+
+                    }
 
                   </ListItem>
                 </NewIncomeContainer>
@@ -55,7 +156,7 @@ function IncomesList(props) {
             )
         )}
       </List>
-    </div>
+    </div >
   );
 }
 
