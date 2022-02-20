@@ -1,21 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 
 import styled from "styled-components";
 import { Theme } from "../../../common/theme/theme";
 
-import { Box } from "@mui/material";
-import { Button } from "@mui/material";
-import { Checkbox } from "@mui/material";
-import { checkboxClasses } from "@mui/material";
-import { Icon } from "@mui/material";
-import { OutlinedInput } from "@mui/material";
-import { Typography } from "@mui/material";
+import { Box, Button, Checkbox, checkboxClasses, Dialog, DialogActions, DialogTitle, Icon, OutlinedInput, Typography } from "@mui/material";
 
-import { Dialog } from "@mui/material";
-import { DialogActions } from "@mui/material";
-import { DialogTitle } from "@mui/material";
-
-import { useContext } from "react";
 import { UserContext } from "../../../userContext/UserContext";
 
 import { doc, deleteDoc, updateDoc } from "firebase/firestore";
@@ -38,7 +27,6 @@ const NewEvent = ({ items, setItems, firestore }) => {
   const [takenDate, setTakenDate] = useState("");
   const [isAlerted, setIsAlerted] = useState();
 
-  // uid from firebase -
   const [uid, setUid] = useState("");
   const { userUID } = useContext(UserContext);
 
@@ -69,7 +57,6 @@ const NewEvent = ({ items, setItems, firestore }) => {
       name: takenName,
       date: takenDate,
       alert: isAlerted,
-      //add UserID to event
       uid: uid,
     });
   };
@@ -79,7 +66,6 @@ const NewEvent = ({ items, setItems, firestore }) => {
     setEventId("");
   };
 
-  //alert when deleting
   const [open, setOpen] = useState(false);
 
   const handleClickOpen = (id) => {
@@ -161,7 +147,6 @@ const NewEvent = ({ items, setItems, firestore }) => {
       </div>
       {items.map(
         (element) =>
-          //check if event from firebase has UserID
           element.uid === uid && (
             <NewEventContainer key={element.id}>
               {element.id !== eventID && (

@@ -1,15 +1,9 @@
+import { useState, useEffect, useContext } from "react";
+
 import { Theme } from "../../../common/theme/theme";
 
-import { Box } from "@mui/material";
-import { Button } from "@mui/material";
-import { Checkbox } from "@mui/material";
-import { checkboxClasses } from "@mui/material";
-import { FormGroup } from "@mui/material";
-import { FormHelperText } from "@mui/material";
-import { OutlinedInput } from "@mui/material";
-import { useState, useEffect } from "react";
+import { Box, Button, Checkbox, checkboxClasses, FormGroup, FormHelperText, OutlinedInput } from "@mui/material";
 
-import { useContext } from "react";
 import { UserContext } from "../../../userContext/UserContext";
 
 import { addDoc } from "firebase/firestore";
@@ -34,7 +28,6 @@ const AddEventForm = ({
   const handleChangeAlert = (e) => {
     e.target.checked ? setAlert(true) : setAlert(false);
   };
-  // uid from firebase -
   const [uid, setUid] = useState("");
   const { userUID } = useContext(UserContext);
 
@@ -51,7 +44,6 @@ const AddEventForm = ({
       date: date,
       alert: alert,
       timeStamp: +new Date(),
-      //add UserID to task
       uid: uid,
     });
     setItem("");
