@@ -11,6 +11,10 @@ import { Icon } from "@mui/material";
 import { OutlinedInput } from "@mui/material";
 import { Typography } from "@mui/material";
 
+import { Dialog } from "@mui/material";
+import { DialogActions } from "@mui/material";
+import { DialogTitle } from "@mui/material";
+
 import { useContext } from "react";
 import { UserContext } from "../../../userContext/UserContext";
 
@@ -29,6 +33,7 @@ const NewEventContainer = styled.div`
 const NewEvent = ({ items, setItems, firestore }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [eventID, setEventId] = useState("");
+  const [eventIDDelete, setEventIDDelete] = useState("");
   const [takenName, setTakenName] = useState("");
   const [takenDate, setTakenDate] = useState("");
   const [isAlerted, setIsAlerted] = useState();
@@ -54,12 +59,6 @@ const NewEvent = ({ items, setItems, firestore }) => {
       }
     });
   };
-  const handleClickDelete = (id) => {
-    const docRef = doc(firestore, "calendar", id);
-    deleteDoc(docRef);
-    setIsEditing(false);
-    setEventId("");
-  };
 
   const handleClickSave = async (id) => {
     setIsEditing(false);
@@ -80,6 +79,26 @@ const NewEvent = ({ items, setItems, firestore }) => {
     setEventId("");
   };
 
+  //alert when deleting
+  const [open, setOpen] = useState(false);
+
+  const handleClickOpen = (id) => {
+    setOpen(true);
+    setEventIDDelete(id);
+  };
+
+  const handleDeleteEvent = () => {
+    const docRef = doc(firestore, "calendar", eventIDDelete);
+    deleteDoc(docRef);
+    setIsEditing(false);
+    setOpen(false);
+    setEventId("");
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   return (
     <Box
       sx={{
@@ -87,6 +106,59 @@ const NewEvent = ({ items, setItems, firestore }) => {
         minWidth: "35vw",
       }}
     >
+      <div>
+        <Dialog
+          open={open}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+        >
+          <DialogTitle id="alert-dialog-title">
+            Czy usunąć wydarzenie?
+          </DialogTitle>
+          <DialogActions>
+            <Button
+              sx={{
+                margin: "5px 5px 5px auto",
+                background: Theme.palette.secondary.main,
+                color: Theme.palette.secondary.contrastText,
+                border: `2px solid ${Theme.palette.secondary.main}`,
+                borderRadius: "0px",
+                transition: "all",
+                transitionDuration: "0.3s",
+                ":hover": {
+                  color: Theme.palette.primary.main,
+                  background: Theme.palette.primary.contrastText,
+                  border: `2px solid ${Theme.palette.primary.contrastText}`,
+                  borderRadius: "0",
+                },
+              }}
+              onClick={handleClose}
+            >
+              Nie
+            </Button>
+            <Button
+              sx={{
+                margin: "5px auto 5px 5px",
+                background: Theme.palette.secondary.main,
+                color: Theme.palette.secondary.contrastText,
+                border: `2px solid ${Theme.palette.secondary.main}`,
+                borderRadius: "0px",
+                transition: "all",
+                transitionDuration: "0.3s",
+                ":hover": {
+                  color: Theme.palette.primary.main,
+                  background: Theme.palette.primary.contrastText,
+                  border: `2px solid ${Theme.palette.primary.contrastText}`,
+                  borderRadius: "0",
+                },
+              }}
+              onClick={handleDeleteEvent}
+            >
+              Tak
+            </Button>
+          </DialogActions>
+        </Dialog>
+      </div>
       {items.map(
         (element) =>
           //check if event from firebase has UserID
@@ -222,7 +294,7 @@ const NewEvent = ({ items, setItems, firestore }) => {
                       color: Theme.palette.secondary.contrastText,
                       ":hover": { color: Theme.palette.primary.contrastText },
                     }}
-                    onClick={() => handleClickDelete(element.id)}
+                    onClick={() => handleClickOpen(element.id)}
                   >
                     <Icon>delete</Icon>
                   </Button>
@@ -245,7 +317,7 @@ const NewEvent = ({ items, setItems, firestore }) => {
                       color: Theme.palette.secondary.contrastText,
                       ":hover": { color: Theme.palette.primary.contrastText },
                     }}
-                    onClick={() => handleClickDelete(element.id)}
+                    onClick={() => handleClickOpen(element.id)}
                   >
                     <Icon>delete</Icon>
                   </Button>
