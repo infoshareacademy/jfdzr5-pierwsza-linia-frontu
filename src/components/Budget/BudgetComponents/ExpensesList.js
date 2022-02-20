@@ -10,6 +10,8 @@ import { OutlinedInput } from "@mui/material";
 import { FormHelperText } from "@mui/material";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
+import { doc, updateDoc } from "firebase/firestore";
+
 
 
 const NewExpenseContainer = styled.div`
@@ -32,6 +34,8 @@ function ExpensesList(props) {
   const [categoryInput, setCategoryInput] = useState("");
   const [dateInput, setDateInput] = useState("");
 
+  // const expensesColRef = collection(firestore, "budget-expenses");
+
   const handleEditTask = (id) => {
     setEditedTaskId(id)
     const editedTask = props.expenses.find((expense) => expense.id === id)
@@ -48,6 +52,11 @@ function ExpensesList(props) {
 
   // const handleClickSave = async (id) => {
   //   setEditedTaskId(false);
+
+  //   const docRefExpenses = doc(db, "budget-expenses", id);
+  //   await updateDoc(docRefExpenses, {
+
+  //   })
   // }
 
   const handleClickCancel = (id) => {
