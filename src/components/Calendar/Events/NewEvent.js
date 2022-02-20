@@ -9,6 +9,10 @@ import { UserContext } from "../../../userContext/UserContext";
 
 import { doc, deleteDoc, updateDoc } from "firebase/firestore";
 
+import dayjs from 'dayjs';
+import 'dayjs/locale/pl';
+dayjs.locale('pl');
+
 const NewEventContainer = styled.div`
   box-sizing: border-box;
   display: flex;
@@ -166,8 +170,8 @@ const NewEvent = ({ items, setItems, firestore }) => {
                       alignSelf: "center",
                       padding: ".5rem",
                     }}
-                  >
-                    {element.date}
+                  > 
+                    {dayjs(element.date).format('D MMMM')}
                   </Typography>
                   <Checkbox
                     type="disabled"
@@ -237,7 +241,6 @@ const NewEvent = ({ items, setItems, firestore }) => {
                       }}
                       onChange={(e) => {
                         setIsAlerted(e.target.checked ? true : false);
-                        console.log(isAlerted);
                       }}
                     />
                   </Box>
