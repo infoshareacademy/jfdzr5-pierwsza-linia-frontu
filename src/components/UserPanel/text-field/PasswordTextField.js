@@ -38,7 +38,6 @@ export const PassowrdTextField = ({ value, onChange, label }) => {
       type="password"
       id="custom-css-outlined-input"
       label={label}
-    //   autoFocus
       fullWidth
       value={value}
       onChange={onChange}

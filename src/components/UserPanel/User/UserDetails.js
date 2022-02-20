@@ -17,6 +17,7 @@ import { Theme } from "../../../common/theme/theme";
 import { getAuth, updatePassword } from "firebase/auth";
 import { PassowrdTextField } from "../text-field/PasswordTextField";
 import { EmailAuthProvider, reauthenticateWithCredential } from "firebase/auth";
+import { ChangePassword } from "./ChangePasword";
 
 const DetailsContainer = styled.div`
   color: #fff;
@@ -57,6 +58,7 @@ export const UserDetails = ({ userData, db }) => {
   const [cityEdit, setCityEdit] = useState(false);
   const [postCodeEdit, setPostCodeEdit] = useState(false);
   const [editPassword, setEditPassword] = useState(false);
+  const [newPassword, setNewPassword] = useState("");
 
   const handleClickEditTelephone = e => {
     handleClickCancel();
@@ -158,56 +160,15 @@ export const UserDetails = ({ userData, db }) => {
     setPostCodeEdit(false);
   };
   const handleOnClick = e => {
-    e.preventDefault();
-    if (e.target === e.currentTarget) {
-      handleClickCancel();
-    }
+    // e.preventDefault();
+    // if (e.target === e.currentTarget) {
+    //   handleClickCancel();
+    // }
   };
   const handleChangePassword = () => {
     setEditPassword(true);
+    setNewPassword("");
   };
-  const [newPassword, setNewPassowrd] = useState("");
-  const [newPassowordCheck, setNewPasswordCheck] = useState("");
-  const [currentPassword, setCurrentPassword] = useState("");
-  const auth = getAuth();
-
-  const credential = EmailAuthProvider.credential(userEmail, currentPassword);
-  const hadleSavePassword = () => {
-    if (newPassowordCheck.length <= 5) {
-      alert("Hasło powinno zawierać co najmniej 6 znaków");
-    } else {
-      if (newPassword === newPassowordCheck) {
-        console.log(currentPassword);
-        reauthenticateWithCredential(auth.currentUser, credential)
-          .then(() => {
-            console.log("haslo zmienione!!!!");
-            const user = auth.currentUser;
-            updatePassword(user, newPassword)
-              .then(() => {
-                // Update successful.
-              })
-              .catch(error => {
-                console.log(error);
-                // An error ocurred
-                // ...
-              });
-          })
-          .catch(error => {
-            console.log(error);
-          });
-      } else {
-        alert("Hasła nie są takie same");
-      }
-    }
-  };
-  // const auth = getAuth();
-  // const auth = getAuth();
-
-  const handleCancelChangePassword = () => {
-    setEditPassword(false);
-  };
-
-  // const newPassword = getASecureRandomPassword();
 
   return (
     <Container onClick={handleOnClick}>
@@ -241,11 +202,6 @@ export const UserDetails = ({ userData, db }) => {
                         value={takenValue}
                         onChange={e => setTakenValue(e.target.value)}
                         label="Nr telefonu"
-                        // autoFocus
-                        // fullWidth
-                        // label="Nr telefonu"
-                        // value={takenValue}
-                        // onChange={e => setTakenValue(e.target.value)}
                       />
                       <SaveButton
                         handleClickSave={handleClickSave}
@@ -277,48 +233,12 @@ export const UserDetails = ({ userData, db }) => {
                       Zmień hasło
                     </Button>
                   ) : (
-                    <>
-                      <PassowrdTextField
-                        type="password"
-                        value={currentPassword}
-                        onChange={e => setCurrentPassword(e.target.value)}
-                        label="Aktualne hasło"
-                        // autoFocus
-                        // fullWidth
-                        // label="Nr telefonu"
-                        // value={setNewPassowrd}
-                        // onChange={e => setTakenValue(e.target.value)}
-                      />
-                      <PassowrdTextField
-                        type="password"
-                        value={newPassword}
-                        onChange={e => setNewPassowrd(e.target.value)}
-                        label="Nowe hasło"
-                        // autoFocus
-                        // fullWidth
-                        // label="Nr telefonu"
-                        // value={setNewPassowrd}
-                        // onChange={e => setTakenValue(e.target.value)}
-                      />
-                      <PassowrdTextField
-                        value={newPassowordCheck}
-                        onChange={e => setNewPasswordCheck(e.target.value)}
-                        label="Powtórz nowe hasło"
-                        // autoFocus
-                        // fullWidth
-                        // label="Nr telefonu"
-                        // value={setNewPassowrdCheck}
-                        // onChange={e => setTakenValue(e.target.value)}
-                      />
-                      <SaveButton
-                        handleClickSave={hadleSavePassword}
-                        id={element.id}
-                      />
-                      <CancelButton
-                        handleClickCancel={handleCancelChangePassword}
-                        id={element.id}
-                      />
-                    </>
+                    <ChangePassword
+                      setEditPassword={setEditPassword}
+                      userEmail={userEmail}
+                      newPassword={newPassword}
+                      setNewPassword={setNewPassword}
+                    />
                   )}
                 </DetailsContainer>
                 <Typography variant="h5">Adres</Typography>
