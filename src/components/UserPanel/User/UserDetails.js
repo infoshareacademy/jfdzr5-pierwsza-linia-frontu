@@ -1,4 +1,4 @@
-import { Container, FormGroup, Typography } from "@mui/material";
+import { Button, Container, FormGroup, Typography } from "@mui/material";
 
 import styled from "styled-components";
 
@@ -13,6 +13,10 @@ import { EditTextField } from "../text-field/EditTextField";
 import { useContext } from "react";
 import { UserContext } from "../../../userContext/UserContext";
 import { UserAvatar } from "./UserAvatar";
+import { Theme } from "../../../common/theme/theme";
+import { getAuth, updatePassword } from "firebase/auth";
+import { PassowrdTextField } from "../text-field/PasswordTextField";
+import { EmailAuthProvider, reauthenticateWithCredential } from "firebase/auth";
 
 const DetailsContainer = styled.div`
   color: #fff;
@@ -37,10 +41,12 @@ export const UserDetails = ({ userData, db }) => {
   //get user uid and email from use context
   const [uid, setUid] = useState("");
   const [email, setEmail] = useState("");
+  // const [currentUser, setCurrentUser] = useState("");
   useEffect(() => {
     if (userUID) {
       setUid(userUID);
       setEmail(userEmail);
+      // setCurrentUser(user);
     }
   }, [userEmail, userUID]);
 
@@ -50,6 +56,7 @@ export const UserDetails = ({ userData, db }) => {
   const [houseNumberEdit, setHouseNumberEdit] = useState(false);
   const [cityEdit, setCityEdit] = useState(false);
   const [postCodeEdit, setPostCodeEdit] = useState(false);
+  const [editPassword, setEditPassword] = useState(false);
 
   const handleClickEditTelephone = e => {
     handleClickCancel();
@@ -151,11 +158,56 @@ export const UserDetails = ({ userData, db }) => {
     setPostCodeEdit(false);
   };
   const handleOnClick = e => {
-    // e.preventDefault();
-    // if (e.target === e.currentTarget) {
-    //   handleClickCancel();
-    // }
+    e.preventDefault();
+    if (e.target === e.currentTarget) {
+      handleClickCancel();
+    }
   };
+  const handleChangePassword = () => {
+    setEditPassword(true);
+  };
+  const [newPassword, setNewPassowrd] = useState("");
+  const [newPassowordCheck, setNewPasswordCheck] = useState("");
+  const [currentPassword, setCurrentPassword] = useState("");
+  const auth = getAuth();
+
+  const credential = EmailAuthProvider.credential(userEmail, currentPassword);
+  const hadleSavePassword = () => {
+    if (newPassowordCheck.length <= 5) {
+      alert("Hasło powinno zawierać co najmniej 6 znaków");
+    } else {
+      if (newPassword === newPassowordCheck) {
+        console.log(currentPassword);
+        reauthenticateWithCredential(auth.currentUser, credential)
+          .then(() => {
+            console.log("haslo zmienione!!!!");
+            const user = auth.currentUser;
+            updatePassword(user, newPassword)
+              .then(() => {
+                // Update successful.
+              })
+              .catch(error => {
+                console.log(error);
+                // An error ocurred
+                // ...
+              });
+          })
+          .catch(error => {
+            console.log(error);
+          });
+      } else {
+        alert("Hasła nie są takie same");
+      }
+    }
+  };
+  // const auth = getAuth();
+  // const auth = getAuth();
+
+  const handleCancelChangePassword = () => {
+    setEditPassword(false);
+  };
+
+  // const newPassword = getASecureRandomPassword();
 
   return (
     <Container onClick={handleOnClick}>
@@ -201,6 +253,69 @@ export const UserDetails = ({ userData, db }) => {
                       />
                       <CancelButton
                         handleClickCancel={handleClickCancel}
+                        id={element.id}
+                      />
+                    </>
+                  )}
+                  {!editPassword ? (
+                    <Button
+                      onClick={handleChangePassword}
+                      sx={{
+                        background: Theme.palette.secondary.main,
+                        color: Theme.palette.secondary.contrastText,
+                        border: `2px solid ${Theme.palette.secondary.main}`,
+                        borderRadius: "0px",
+                        transition: "all",
+                        transitionDuration: "0.3s",
+                        ":hover": {
+                          color: Theme.palette.primary.main,
+                          background: Theme.palette.primary.contrastText,
+                          border: `2px solid ${Theme.palette.primary.contrastText}`,
+                          borderRadius: "0",
+                        },
+                      }}>
+                      Zmień hasło
+                    </Button>
+                  ) : (
+                    <>
+                      <PassowrdTextField
+                        type="password"
+                        value={currentPassword}
+                        onChange={e => setCurrentPassword(e.target.value)}
+                        label="Aktualne hasło"
+                        // autoFocus
+                        // fullWidth
+                        // label="Nr telefonu"
+                        // value={setNewPassowrd}
+                        // onChange={e => setTakenValue(e.target.value)}
+                      />
+                      <PassowrdTextField
+                        type="password"
+                        value={newPassword}
+                        onChange={e => setNewPassowrd(e.target.value)}
+                        label="Nowe hasło"
+                        // autoFocus
+                        // fullWidth
+                        // label="Nr telefonu"
+                        // value={setNewPassowrd}
+                        // onChange={e => setTakenValue(e.target.value)}
+                      />
+                      <PassowrdTextField
+                        value={newPassowordCheck}
+                        onChange={e => setNewPasswordCheck(e.target.value)}
+                        label="Powtórz nowe hasło"
+                        // autoFocus
+                        // fullWidth
+                        // label="Nr telefonu"
+                        // value={setNewPassowrdCheck}
+                        // onChange={e => setTakenValue(e.target.value)}
+                      />
+                      <SaveButton
+                        handleClickSave={hadleSavePassword}
+                        id={element.id}
+                      />
+                      <CancelButton
+                        handleClickCancel={handleCancelChangePassword}
                         id={element.id}
                       />
                     </>
