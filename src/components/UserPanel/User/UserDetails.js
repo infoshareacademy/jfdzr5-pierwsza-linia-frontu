@@ -189,30 +189,6 @@ export const UserDetails = ({ userData, db }) => {
                   />
 
                   <TextFieldReadOnly value={email} label={"Email"} />
-                  {!telephoneEdit && (
-                    <TextFieldView
-                      label="Nr telefonu"
-                      value={element.telephone}
-                      handleClick={handleClickEditTelephone}
-                    />
-                  )}
-                  {telephoneEdit && (
-                    <>
-                      <EditTextField
-                        value={takenValue}
-                        onChange={e => setTakenValue(e.target.value)}
-                        label="Nr telefonu"
-                      />
-                      <SaveButton
-                        handleClickSave={handleClickSave}
-                        id={element.id}
-                      />
-                      <CancelButton
-                        handleClickCancel={handleClickCancel}
-                        id={element.id}
-                      />
-                    </>
-                  )}
                   {!editPassword ? (
                     <Button
                       onClick={handleChangePassword}
@@ -239,6 +215,31 @@ export const UserDetails = ({ userData, db }) => {
                       newPassword={newPassword}
                       setNewPassword={setNewPassword}
                     />
+                  )}
+
+                  {!telephoneEdit && (
+                    <TextFieldView
+                      label="Nr telefonu"
+                      value={element.telephone}
+                      handleClick={handleClickEditTelephone}
+                    />
+                  )}
+                  {telephoneEdit && (
+                    <>
+                      <EditTextField
+                        value={takenValue}
+                        onChange={e => setTakenValue(e.target.value)}
+                        label="Nr telefonu"
+                      />
+                      <SaveButton
+                        handleClickSave={handleClickSave}
+                        id={element.id}
+                      />
+                      <CancelButton
+                        handleClickCancel={handleClickCancel}
+                        id={element.id}
+                      />
+                    </>
                   )}
                 </DetailsContainer>
                 <Typography variant="h5">Adres</Typography>
