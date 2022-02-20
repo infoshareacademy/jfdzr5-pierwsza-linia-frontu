@@ -39,7 +39,6 @@ export const Navigation = () => {
     `(max-width: ${Theme.breakpoints.maxWidth1000})`
   );
   const navigate = useNavigate();
-  console.log(maxWidth1000);
   const { user, avatarUrl } = useContext(UserContext);
 
   const handleSignOutClick = () => {
