@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
 import styled from "styled-components";
-import { Alert, Icon, Input, Typography } from "@mui/material";
+import { Input, Typography } from "@mui/material";
 import Checkbox from "@mui/material/Checkbox";
 import { Theme } from "../../../common/theme/theme";
 import { checkboxClasses } from "@mui/material";
@@ -19,8 +19,6 @@ import { UserContext } from "../../../userContext/UserContext";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 
 const NewTasksContainer = styled.div`
@@ -35,27 +33,23 @@ const NewTaskContainer = styled.div`
   // justify-content: space-between;
 `;
 
-const NewTask = ({ tasks, setTasks, db }) => {
-  const [save, setSave] = useState(false);
+const NewTask = ({ tasks, db }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [taskID, setTaskId] = useState("");
   const [taskIDDelete, setTaskIDDelete] = useState("");
   const [takenValue, setTakenValue] = useState("");
 
-  const handleClickEdit = id => {
+  const handleClickEdit = (id) => {
     setIsEditing(true);
-    setSave(true);
     setTaskId(id);
-    tasks.forEach(element => {
+    tasks.forEach((element) => {
       if (id === element.id) {
         setTakenValue(element.task);
       }
     });
   };
 
-  const handleClickSave = async id => {
-    setSave(false);
-
+  const handleClickSave = async (id) => {
     setIsEditing(false);
     setTaskId("");
 
@@ -65,8 +59,8 @@ const NewTask = ({ tasks, setTasks, db }) => {
     });
   };
 
-  const handleIsChecked = async id => {
-    tasks.map(async element => {
+  const handleIsChecked = async (id) => {
+    tasks.map(async (element) => {
       if (element.isChecked && element.id === id) {
         const docRef = doc(db, "to-do-list", id);
         await updateDoc(docRef, {
@@ -82,9 +76,9 @@ const NewTask = ({ tasks, setTasks, db }) => {
     });
   };
 
-  const handleClickCancel = id => {
+  const handleClickCancel = (id) => {
     setIsEditing(false);
-    setSave(false);
+    // setSave(false);
     setTaskId("");
   };
 
@@ -100,7 +94,7 @@ const NewTask = ({ tasks, setTasks, db }) => {
 
   const [open, setOpen] = useState(false);
 
-  const handleClickOpen = id => {
+  const handleClickOpen = (id) => {
     setOpen(true);
     setTaskIDDelete(id);
   };
@@ -120,54 +114,55 @@ const NewTask = ({ tasks, setTasks, db }) => {
         <Dialog
           open={open}
           aria-labelledby="alert-dialog-title"
-          aria-describedby="alert-dialog-description">
+          aria-describedby="alert-dialog-description"
+        >
           <DialogTitle id="alert-dialog-title">Czy usunąć zadanie?</DialogTitle>
           <DialogActions>
             <Button
               sx={{
-                margin: "2px",
-                my: 2,
-                color: "inherit",
-                border: `2px solid inherit`,
+                margin: "5px 5px 5px auto",
+                background: Theme.palette.secondary.main,
+                color: Theme.palette.secondary.contrastText,
+                border: `2px solid ${Theme.palette.secondary.main}`,
                 borderRadius: "0px",
-                border: `2px solid #fff`,
-                borderRadius: "0",
                 transition: "all",
                 transitionDuration: "0.3s",
                 ":hover": {
-                  color: Theme.palette.primary.contrastText,
+                  color: Theme.palette.primary.main,
+                  background: Theme.palette.primary.contrastText,
                   border: `2px solid ${Theme.palette.primary.contrastText}`,
                   borderRadius: "0",
                 },
               }}
-              onClick={handleClose}>
+              onClick={handleClose}
+            >
               Nie
             </Button>
             <Button
               sx={{
-                margin: "2px",
-                my: 2,
-                color: "inherit",
-                border: `2px solid inherit`,
+                margin: "5px auto 5px 5px",
+                background: Theme.palette.secondary.main,
+                color: Theme.palette.secondary.contrastText,
+                border: `2px solid ${Theme.palette.secondary.main}`,
                 borderRadius: "0px",
-                border: `2px solid #fff`,
-                borderRadius: "0",
                 transition: "all",
                 transitionDuration: "0.3s",
                 ":hover": {
-                  color: Theme.palette.primary.contrastText,
+                  color: Theme.palette.primary.main,
+                  background: Theme.palette.primary.contrastText,
                   border: `2px solid ${Theme.palette.primary.contrastText}`,
                   borderRadius: "0",
                 },
               }}
-              onClick={handleDeleteTask}>
+              onClick={handleDeleteTask}
+            >
               Tak
             </Button>
           </DialogActions>
         </Dialog>
       </div>
       {tasks.map(
-        element =>
+        (element) =>
           element.uid === uid && (
             <NewTaskContainer key={element.id}>
               {element.id !== taskID && (
@@ -178,7 +173,8 @@ const NewTask = ({ tasks, setTasks, db }) => {
                       element.isChecked ? "line-through" : ""
                     }`,
                     flexGrow: "1",
-                  }}>
+                  }}
+                >
                   {element.task}
                 </Typography>
               )}
@@ -188,9 +184,10 @@ const NewTask = ({ tasks, setTasks, db }) => {
                   autoFocus
                   type="text"
                   value={takenValue}
-                  onChange={e => {
+                  onChange={(e) => {
                     setTakenValue(e.target.value);
-                  }}></Input>
+                  }}
+                ></Input>
               )}
               <Checkbox
                 sx={{
@@ -220,7 +217,7 @@ const NewTask = ({ tasks, setTasks, db }) => {
                   id={element.id}
                 />
               )}
-              {save && element.id === taskID && (
+              {element.id === taskID && (
                 <SaveButton handleClickSave={handleClickSave} id={element.id} />
               )}
               <DeleteButton handleClickOpen={handleClickOpen} id={element.id} />

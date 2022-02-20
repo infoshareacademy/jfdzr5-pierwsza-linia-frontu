@@ -29,6 +29,11 @@ export const UserPanel = () => {
 
   return (
     <PageWrapper>
+      <Typography
+        variant="h3"
+        sx={{ textAlign: "center", marginBottom: "40px" }}>
+        Panel użytkownika
+      </Typography>
       <Container
         maxWidth="sm"
         sx={{
@@ -36,9 +41,6 @@ export const UserPanel = () => {
           margin: "0 auto",
           marginTop: "10px",
         }}>
-        <Typography variant="h3" sx={{ textAlign: "center" }}>
-          Panel użytkownika
-        </Typography>
         <UserDetails userData={userData} db={db} />
       </Container>
     </PageWrapper>
