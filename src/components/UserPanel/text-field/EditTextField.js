@@ -35,7 +35,6 @@ const CssTextField = styled(TextField)({
 export const EditTextField = ({ value, onChange, label }) => {
   return (
     <CssTextField
-      id="custom-css-outlined-input"
       label={label}
       autoFocus
       fullWidth

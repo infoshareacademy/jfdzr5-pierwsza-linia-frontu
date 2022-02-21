@@ -36,7 +36,6 @@ export const PassowrdTextField = ({ value, onChange, label }) => {
   return (
     <CssTextField
       type="password"
-      id="custom-css-outlined-input"
       label={label}
       fullWidth
       value={value}
