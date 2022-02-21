@@ -171,26 +171,38 @@ export const UserDetails = ({ userData, db }) => {
   };
 
   return (
-    <Container onClick={handleOnClick}>
-      <FormGroup sx={{ margin: "10px", padding: "10px" }}>
+    <Container key="container" onClick={handleOnClick}>
+      <FormGroup key="form" sx={{ margin: "10px", padding: "10px" }}>
         {userData.map(
           element =>
             element.email === email && (
               <>
-                <AvatarContainer>
-                  <UserAvatar />
+                <AvatarContainer key="avatar">
+                  <UserAvatar key="setAvatar" />
                 </AvatarContainer>
-                <Typography variant="h5">Dane użytkownika</Typography>
-                <DetailsContainer>
-                  <TextFieldReadOnly value={element.name} label={"Imię"} />
+                <Typography key="userTitle" variant="h5">
+                  Dane użytkownika
+                </Typography>
+                <DetailsContainer key="detailsContainer">
                   <TextFieldReadOnly
+                    key={element.name}
+                    value={element.name}
+                    label={"Imię"}
+                  />
+                  <TextFieldReadOnly
+                    key={element.surname}
                     value={element.surname}
                     label={"Nazwisko"}
                   />
 
-                  <TextFieldReadOnly value={email} label={"Email"} />
+                  <TextFieldReadOnly
+                    key={email}
+                    value={email}
+                    label={"Email"}
+                  />
                   {!editPassword ? (
                     <Button
+                      key="editPasswordButton"
                       onClick={handleChangePassword}
                       sx={{
                         background: Theme.palette.secondary.main,
@@ -210,6 +222,7 @@ export const UserDetails = ({ userData, db }) => {
                     </Button>
                   ) : (
                     <ChangePassword
+                      key="changePassword"
                       setEditPassword={setEditPassword}
                       userEmail={userEmail}
                       newPassword={newPassword}
@@ -219,6 +232,7 @@ export const UserDetails = ({ userData, db }) => {
 
                   {!telephoneEdit && (
                     <TextFieldView
+                      key="telephone"
                       label="Nr telefonu"
                       value={element.telephone}
                       handleClick={handleClickEditTelephone}
@@ -227,6 +241,7 @@ export const UserDetails = ({ userData, db }) => {
                   {telephoneEdit && (
                     <>
                       <EditTextField
+                        key="editTelephone"
                         value={takenValue}
                         onChange={e => setTakenValue(e.target.value)}
                         label="Nr telefonu"
@@ -242,10 +257,15 @@ export const UserDetails = ({ userData, db }) => {
                     </>
                   )}
                 </DetailsContainer>
-                <Typography variant="h5">Adres</Typography>
-                <DetailsContainer style={{ flexWrap: "wrap" }}>
+                <Typography key="adresTitle" variant="h5">
+                  Adres
+                </Typography>
+                <DetailsContainer
+                  key="detailsContainer2"
+                  style={{ flexWrap: "wrap" }}>
                   {!streetEdit && (
                     <TextFieldView
+                      key={element.street}
                       label="Ulica"
                       value={element.street}
                       handleClick={handleClickEditStreet}
@@ -254,14 +274,10 @@ export const UserDetails = ({ userData, db }) => {
                   {streetEdit && (
                     <>
                       <EditTextField
+                        key="editStreet"
                         value={takenValue}
                         onChange={e => setTakenValue(e.target.value)}
                         label="Ulica"
-                        // autoFocus
-                        // fullWidth
-                        // label="Ulica"
-                        // value={takenValue}
-                        // onChange={e => setTakenValue(e.target.value)}
                       />
 
                       <SaveButton
@@ -276,6 +292,7 @@ export const UserDetails = ({ userData, db }) => {
                   )}
                   {!houseNumberEdit && (
                     <TextFieldView
+                      key="houseNumber"
                       label="Nr dom/mieszkania"
                       value={element.houseNumber}
                       handleClick={handleClickEditHouseNumber}
@@ -284,6 +301,7 @@ export const UserDetails = ({ userData, db }) => {
                   {houseNumberEdit && (
                     <>
                       <EditTextField
+                        key="editHouseNumber"
                         value={takenValue}
                         onChange={e => setTakenValue(e.target.value)}
                         label="Nr dom/mieszkania"
@@ -301,6 +319,7 @@ export const UserDetails = ({ userData, db }) => {
                   )}
                   {!cityEdit && (
                     <TextFieldView
+                      key="street"
                       label="Miejscowość"
                       value={element.city}
                       handleClick={handleClickEditCity}
@@ -309,6 +328,7 @@ export const UserDetails = ({ userData, db }) => {
                   {cityEdit && (
                     <>
                       <EditTextField
+                        key="editCity"
                         value={takenValue}
                         onChange={e => setTakenValue(e.target.value)}
                         label="Miejscowość"
@@ -326,6 +346,7 @@ export const UserDetails = ({ userData, db }) => {
                   )}
                   {!postCodeEdit && (
                     <TextFieldView
+                      key="postCode"
                       label="Kod pocztowy"
                       value={element.postcode}
                       handleClick={handleClickEditPostcode}
@@ -334,6 +355,7 @@ export const UserDetails = ({ userData, db }) => {
                   {postCodeEdit && (
                     <>
                       <EditTextField
+                        key="editPostcode"
                         value={takenValue}
                         onChange={e => setTakenValue(e.target.value)}
                         label="Kod pocztowy"
