@@ -10,6 +10,14 @@ import {
   deleteUser,
 } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
+import {
+  getFirestore,
+  collection,
+  onSnapshot,
+  doc,
+  deleteDoc,
+} from "firebase/firestore";
+import { useEffect } from "react";
 
 const DeleteButtonContainer = styled.div`
   display: flex;
@@ -29,7 +37,34 @@ export const DeleteUser = ({ setDeleteUser, open, setOpen, userEmail }) => {
   };
   const navigate = useNavigate();
   const auth = getAuth();
+  const db = getFirestore();
+  const colRef = collection(db, "user-data");
+  //   const docRef = doc(db, "to-do-list", taskIDDelete);
+  //   deleteDoc(docRef);
 
+  useEffect(() => {
+    fetchData();
+  }, []);
+  const [userCollection, setUserCollection] = useState([]);
+  const fetchData = () => {
+    onSnapshot(colRef, doc => {
+      let data = [];
+      doc.docs.forEach(element => {
+        data.push({ ...element.data(), id: element.id });
+      });
+      setUserCollection(data);
+    });
+  };
+  console.log(userCollection.email);
+  const deleteUserCollection = () => {
+    userCollection.map(item => {
+      console.log(item.email);
+      if (item.email === userEmail) {
+        const docRef = doc(db, "user-data", item.id);
+        deleteDoc(docRef);
+      }
+    });
+  };
   const credential = EmailAuthProvider.credential(userEmail, currentPassword);
   console.log(currentPassword);
   const handleDeletePermanentUser = () => {
@@ -39,6 +74,7 @@ export const DeleteUser = ({ setDeleteUser, open, setOpen, userEmail }) => {
       deleteUser(user)
         .then(() => {
           console.log("delete user");
+          deleteUserCollection();
           alert("Konto zostało usunięte");
           navigate("/");
           // User deleted.
