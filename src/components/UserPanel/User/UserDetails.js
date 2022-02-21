@@ -18,6 +18,7 @@ import { getAuth, updatePassword } from "firebase/auth";
 import { PassowrdTextField } from "../text-field/PasswordTextField";
 import { EmailAuthProvider, reauthenticateWithCredential } from "firebase/auth";
 import { ChangePassword } from "./ChangePasword";
+import { DeleteUser } from "./DeleteUser";
 
 const DetailsContainer = styled.div`
   color: #fff;
@@ -58,6 +59,7 @@ export const UserDetails = ({ userData, db }) => {
   const [cityEdit, setCityEdit] = useState(false);
   const [postCodeEdit, setPostCodeEdit] = useState(false);
   const [editPassword, setEditPassword] = useState(false);
+  const [deleteUser, setDeleteUser] = useState(false);
   const [newPassword, setNewPassword] = useState("");
 
   const handleClickEditTelephone = e => {
@@ -170,6 +172,12 @@ export const UserDetails = ({ userData, db }) => {
     setNewPassword("");
   };
 
+  const handleAskToDelete = () => {
+    setDeleteUser(true);
+    setOpen(true);
+  };
+  const [open, setOpen] = useState(false);
+
   return (
     <Container key="container" onClick={handleOnClick}>
       <FormGroup key="form" sx={{ margin: "10px", padding: "10px" }}>
@@ -202,7 +210,6 @@ export const UserDetails = ({ userData, db }) => {
                   />
                   {!editPassword ? (
                     <Button
-                      key="editPasswordButton"
                       onClick={handleChangePassword}
                       sx={{
                         background: Theme.palette.secondary.main,
@@ -227,6 +234,33 @@ export const UserDetails = ({ userData, db }) => {
                       userEmail={userEmail}
                       newPassword={newPassword}
                       setNewPassword={setNewPassword}
+                    />
+                  )}
+
+                  <Button
+                    onClick={handleAskToDelete}
+                    sx={{
+                      background: Theme.palette.secondary.main,
+                      color: Theme.palette.secondary.contrastText,
+                      border: `2px solid ${Theme.palette.secondary.main}`,
+                      borderRadius: "0px",
+                      transition: "all",
+                      transitionDuration: "0.3s",
+                      ":hover": {
+                        color: Theme.palette.primary.main,
+                        background: Theme.palette.primary.contrastText,
+                        border: `2px solid ${Theme.palette.primary.contrastText}`,
+                        borderRadius: "0",
+                      },
+                    }}>
+                    Usuń konto
+                  </Button>
+                  {deleteUser && (
+                    <DeleteUser
+                      setDeleteUser={setDeleteUser}
+                      open={open}
+                      setOpen={setOpen}
+                      userEmail={userEmail}
                     />
                   )}
 
