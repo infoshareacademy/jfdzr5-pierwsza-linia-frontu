@@ -39,8 +39,6 @@ export const DeleteUser = ({ setDeleteUser, open, setOpen, userEmail }) => {
   const auth = getAuth();
   const db = getFirestore();
   const colRef = collection(db, "user-data");
-  //   const docRef = doc(db, "to-do-list", taskIDDelete);
-  //   deleteDoc(docRef);
 
   useEffect(() => {
     fetchData();
@@ -55,22 +53,21 @@ export const DeleteUser = ({ setDeleteUser, open, setOpen, userEmail }) => {
       setUserCollection(data);
     });
   };
-  console.log(userCollection.email);
+  //delet user collection from firebase
   const deleteUserCollection = () => {
     userCollection.map(item => {
-      console.log(item.email);
       if (item.email === userEmail) {
         const docRef = doc(db, "user-data", item.id);
         deleteDoc(docRef);
       }
     });
   };
+  //re-authorisation
   const credential = EmailAuthProvider.credential(userEmail, currentPassword);
-  console.log(currentPassword);
   const handleDeletePermanentUser = () => {
     reauthenticateWithCredential(auth.currentUser, credential).then(() => {
       const user = auth.currentUser;
-
+      //delete user account from firebase
       deleteUser(user)
         .then(() => {
           console.log("delete user");
