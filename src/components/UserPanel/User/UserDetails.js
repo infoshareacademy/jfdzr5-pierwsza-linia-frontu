@@ -179,35 +179,24 @@ export const UserDetails = ({ userData, db }) => {
   const [open, setOpen] = useState(false);
 
   return (
-    <Container key="container" onClick={handleOnClick}>
-      <FormGroup key="form" sx={{ margin: "10px", padding: "10px" }}>
+    <Container onClick={handleOnClick}>
+      <FormGroup sx={{ margin: "10px", padding: "10px" }}>
         {userData.map(
           element =>
             element.email === email && (
               <>
-                <AvatarContainer key="avatar">
-                  <UserAvatar key="setAvatar" />
+                <AvatarContainer>
+                  <UserAvatar />
                 </AvatarContainer>
-                <Typography key="userTitle" variant="h5">
-                  Dane użytkownika
-                </Typography>
-                <DetailsContainer key="detailsContainer">
+                <Typography variant="h5">Dane użytkownika</Typography>
+                <DetailsContainer>
+                  <TextFieldReadOnly value={element.name} label={"Imię"} />
                   <TextFieldReadOnly
-                    key={element.name}
-                    value={element.name}
-                    label={"Imię"}
-                  />
-                  <TextFieldReadOnly
-                    key={element.surname}
                     value={element.surname}
                     label={"Nazwisko"}
                   />
 
-                  <TextFieldReadOnly
-                    key={email}
-                    value={email}
-                    label={"Email"}
-                  />
+                  <TextFieldReadOnly value={email} label={"Email"} />
                   {!editPassword ? (
                     <Button
                       onClick={handleChangePassword}
@@ -229,7 +218,6 @@ export const UserDetails = ({ userData, db }) => {
                     </Button>
                   ) : (
                     <ChangePassword
-                      key="changePassword"
                       setEditPassword={setEditPassword}
                       userEmail={userEmail}
                       newPassword={newPassword}
@@ -266,7 +254,6 @@ export const UserDetails = ({ userData, db }) => {
 
                   {!telephoneEdit && (
                     <TextFieldView
-                      key="telephone"
                       label="Nr telefonu"
                       value={element.telephone}
                       handleClick={handleClickEditTelephone}
@@ -275,7 +262,6 @@ export const UserDetails = ({ userData, db }) => {
                   {telephoneEdit && (
                     <>
                       <EditTextField
-                        key="editTelephone"
                         value={takenValue}
                         onChange={e => setTakenValue(e.target.value)}
                         label="Nr telefonu"
@@ -291,15 +277,10 @@ export const UserDetails = ({ userData, db }) => {
                     </>
                   )}
                 </DetailsContainer>
-                <Typography key="adresTitle" variant="h5">
-                  Adres
-                </Typography>
-                <DetailsContainer
-                  key="detailsContainer2"
-                  style={{ flexWrap: "wrap" }}>
+                <Typography variant="h5">Adres</Typography>
+                <DetailsContainer style={{ flexWrap: "wrap" }}>
                   {!streetEdit && (
                     <TextFieldView
-                      key={element.street}
                       label="Ulica"
                       value={element.street}
                       handleClick={handleClickEditStreet}
@@ -308,7 +289,6 @@ export const UserDetails = ({ userData, db }) => {
                   {streetEdit && (
                     <>
                       <EditTextField
-                        key="editStreet"
                         value={takenValue}
                         onChange={e => setTakenValue(e.target.value)}
                         label="Ulica"
@@ -326,7 +306,6 @@ export const UserDetails = ({ userData, db }) => {
                   )}
                   {!houseNumberEdit && (
                     <TextFieldView
-                      key="houseNumber"
                       label="Nr dom/mieszkania"
                       value={element.houseNumber}
                       handleClick={handleClickEditHouseNumber}
@@ -335,7 +314,6 @@ export const UserDetails = ({ userData, db }) => {
                   {houseNumberEdit && (
                     <>
                       <EditTextField
-                        key="editHouseNumber"
                         value={takenValue}
                         onChange={e => setTakenValue(e.target.value)}
                         label="Nr dom/mieszkania"
@@ -353,7 +331,6 @@ export const UserDetails = ({ userData, db }) => {
                   )}
                   {!cityEdit && (
                     <TextFieldView
-                      key="street"
                       label="Miejscowość"
                       value={element.city}
                       handleClick={handleClickEditCity}
@@ -362,7 +339,6 @@ export const UserDetails = ({ userData, db }) => {
                   {cityEdit && (
                     <>
                       <EditTextField
-                        key="editCity"
                         value={takenValue}
                         onChange={e => setTakenValue(e.target.value)}
                         label="Miejscowość"
@@ -380,7 +356,6 @@ export const UserDetails = ({ userData, db }) => {
                   )}
                   {!postCodeEdit && (
                     <TextFieldView
-                      key="postCode"
                       label="Kod pocztowy"
                       value={element.postcode}
                       handleClick={handleClickEditPostcode}
@@ -389,7 +364,6 @@ export const UserDetails = ({ userData, db }) => {
                   {postCodeEdit && (
                     <>
                       <EditTextField
-                        key="editPostcode"
                         value={takenValue}
                         onChange={e => setTakenValue(e.target.value)}
                         label="Kod pocztowy"

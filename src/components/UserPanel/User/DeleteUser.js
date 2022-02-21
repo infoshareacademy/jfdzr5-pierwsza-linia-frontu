@@ -9,7 +9,7 @@ import {
   getAuth,
   deleteUser,
 } from "firebase/auth";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const DeleteButtonContainer = styled.div`
   display: flex;
@@ -56,7 +56,9 @@ export const DeleteUser = ({ setDeleteUser, open, setOpen, userEmail }) => {
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description">
       <DialogTitle id="alert-dialog-title">
-        Czy na pewno chcesz usunąć konto?
+        {!permanentDeleteUser
+          ? "Czy na pewno chcesz usunąć konto?"
+          : "Wprowadź hasło i kliknij przycisk USUŃ KONTO"}
       </DialogTitle>
       <DialogActions>
         {!permanentDeleteUser ? (
