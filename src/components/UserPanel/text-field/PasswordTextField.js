@@ -32,11 +32,11 @@ const CssTextField = styled(TextField)({
   },
 });
 
-export const EditTextField = ({ value, onChange, label }) => {
+export const PassowrdTextField = ({ value, onChange, label }) => {
   return (
     <CssTextField
+      type="password"
       label={label}
-      autoFocus
       fullWidth
       value={value}
       onChange={onChange}

@@ -1,4 +1,4 @@
-import { Container, FormGroup, Typography } from "@mui/material";
+import { Button, Container, FormGroup, Typography } from "@mui/material";
 
 import styled from "styled-components";
 
@@ -13,6 +13,12 @@ import { EditTextField } from "../text-field/EditTextField";
 import { useContext } from "react";
 import { UserContext } from "../../../userContext/UserContext";
 import { UserAvatar } from "./UserAvatar";
+import { Theme } from "../../../common/theme/theme";
+import { getAuth, updatePassword } from "firebase/auth";
+import { PassowrdTextField } from "../text-field/PasswordTextField";
+import { EmailAuthProvider, reauthenticateWithCredential } from "firebase/auth";
+import { ChangePassword } from "./ChangePasword";
+import { DeleteUser } from "./DeleteUser";
 
 const DetailsContainer = styled.div`
   color: #fff;
@@ -37,10 +43,12 @@ export const UserDetails = ({ userData, db }) => {
   //get user uid and email from use context
   const [uid, setUid] = useState("");
   const [email, setEmail] = useState("");
+  // const [currentUser, setCurrentUser] = useState("");
   useEffect(() => {
     if (userUID) {
       setUid(userUID);
       setEmail(userEmail);
+      // setCurrentUser(user);
     }
   }, [userEmail, userUID]);
 
@@ -50,6 +58,9 @@ export const UserDetails = ({ userData, db }) => {
   const [houseNumberEdit, setHouseNumberEdit] = useState(false);
   const [cityEdit, setCityEdit] = useState(false);
   const [postCodeEdit, setPostCodeEdit] = useState(false);
+  const [editPassword, setEditPassword] = useState(false);
+  const [deleteUser, setDeleteUser] = useState(false);
+  const [newPassword, setNewPassword] = useState("");
 
   const handleClickEditTelephone = e => {
     handleClickCancel();
@@ -156,6 +167,16 @@ export const UserDetails = ({ userData, db }) => {
     //   handleClickCancel();
     // }
   };
+  const handleChangePassword = () => {
+    setEditPassword(true);
+    setNewPassword("");
+  };
+
+  const handleAskToDelete = () => {
+    setDeleteUser(true);
+    setOpen(true);
+  };
+  const [open, setOpen] = useState(false);
 
   return (
     <Container onClick={handleOnClick}>
@@ -176,6 +197,61 @@ export const UserDetails = ({ userData, db }) => {
                   />
 
                   <TextFieldReadOnly value={email} label={"Email"} />
+                  {!editPassword ? (
+                    <Button
+                      onClick={handleChangePassword}
+                      sx={{
+                        background: Theme.palette.secondary.main,
+                        color: Theme.palette.secondary.contrastText,
+                        border: `2px solid ${Theme.palette.secondary.main}`,
+                        borderRadius: "0px",
+                        transition: "all",
+                        transitionDuration: "0.3s",
+                        ":hover": {
+                          color: Theme.palette.primary.main,
+                          background: Theme.palette.primary.contrastText,
+                          border: `2px solid ${Theme.palette.primary.contrastText}`,
+                          borderRadius: "0",
+                        },
+                      }}>
+                      Zmień hasło
+                    </Button>
+                  ) : (
+                    <ChangePassword
+                      setEditPassword={setEditPassword}
+                      userEmail={userEmail}
+                      newPassword={newPassword}
+                      setNewPassword={setNewPassword}
+                    />
+                  )}
+
+                  <Button
+                    onClick={handleAskToDelete}
+                    sx={{
+                      background: Theme.palette.secondary.main,
+                      color: Theme.palette.secondary.contrastText,
+                      border: `2px solid ${Theme.palette.secondary.main}`,
+                      borderRadius: "0px",
+                      transition: "all",
+                      transitionDuration: "0.3s",
+                      ":hover": {
+                        color: Theme.palette.primary.main,
+                        background: Theme.palette.primary.contrastText,
+                        border: `2px solid ${Theme.palette.primary.contrastText}`,
+                        borderRadius: "0",
+                      },
+                    }}>
+                    Usuń konto
+                  </Button>
+                  {deleteUser && (
+                    <DeleteUser
+                      setDeleteUser={setDeleteUser}
+                      open={open}
+                      setOpen={setOpen}
+                      userEmail={userEmail}
+                    />
+                  )}
+
                   {!telephoneEdit && (
                     <TextFieldView
                       label="Nr telefonu"
@@ -189,11 +265,6 @@ export const UserDetails = ({ userData, db }) => {
                         value={takenValue}
                         onChange={e => setTakenValue(e.target.value)}
                         label="Nr telefonu"
-                        // autoFocus
-                        // fullWidth
-                        // label="Nr telefonu"
-                        // value={takenValue}
-                        // onChange={e => setTakenValue(e.target.value)}
                       />
                       <SaveButton
                         handleClickSave={handleClickSave}
@@ -221,11 +292,6 @@ export const UserDetails = ({ userData, db }) => {
                         value={takenValue}
                         onChange={e => setTakenValue(e.target.value)}
                         label="Ulica"
-                        // autoFocus
-                        // fullWidth
-                        // label="Ulica"
-                        // value={takenValue}
-                        // onChange={e => setTakenValue(e.target.value)}
                       />
 
                       <SaveButton

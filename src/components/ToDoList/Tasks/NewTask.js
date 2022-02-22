@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
 import styled from "styled-components";
-import { Input, Typography } from "@mui/material";
+import { Input, OutlinedInput, Typography } from "@mui/material";
 import Checkbox from "@mui/material/Checkbox";
 import { Theme } from "../../../common/theme/theme";
 import { checkboxClasses } from "@mui/material";
@@ -39,17 +39,17 @@ const NewTask = ({ tasks, db }) => {
   const [taskIDDelete, setTaskIDDelete] = useState("");
   const [takenValue, setTakenValue] = useState("");
 
-  const handleClickEdit = (id) => {
+  const handleClickEdit = id => {
     setIsEditing(true);
     setTaskId(id);
-    tasks.forEach((element) => {
+    tasks.forEach(element => {
       if (id === element.id) {
         setTakenValue(element.task);
       }
     });
   };
 
-  const handleClickSave = async (id) => {
+  const handleClickSave = async id => {
     setIsEditing(false);
     setTaskId("");
 
@@ -59,8 +59,8 @@ const NewTask = ({ tasks, db }) => {
     });
   };
 
-  const handleIsChecked = async (id) => {
-    tasks.map(async (element) => {
+  const handleIsChecked = async id => {
+    tasks.map(async element => {
       if (element.isChecked && element.id === id) {
         const docRef = doc(db, "to-do-list", id);
         await updateDoc(docRef, {
@@ -76,7 +76,7 @@ const NewTask = ({ tasks, db }) => {
     });
   };
 
-  const handleClickCancel = (id) => {
+  const handleClickCancel = id => {
     setIsEditing(false);
     // setSave(false);
     setTaskId("");
@@ -94,7 +94,7 @@ const NewTask = ({ tasks, db }) => {
 
   const [open, setOpen] = useState(false);
 
-  const handleClickOpen = (id) => {
+  const handleClickOpen = id => {
     setOpen(true);
     setTaskIDDelete(id);
   };
@@ -114,8 +114,7 @@ const NewTask = ({ tasks, db }) => {
         <Dialog
           open={open}
           aria-labelledby="alert-dialog-title"
-          aria-describedby="alert-dialog-description"
-        >
+          aria-describedby="alert-dialog-description">
           <DialogTitle id="alert-dialog-title">Czy usunąć zadanie?</DialogTitle>
           <DialogActions>
             <Button
@@ -134,8 +133,7 @@ const NewTask = ({ tasks, db }) => {
                   borderRadius: "0",
                 },
               }}
-              onClick={handleClose}
-            >
+              onClick={handleClose}>
               Nie
             </Button>
             <Button
@@ -154,15 +152,14 @@ const NewTask = ({ tasks, db }) => {
                   borderRadius: "0",
                 },
               }}
-              onClick={handleDeleteTask}
-            >
+              onClick={handleDeleteTask}>
               Tak
             </Button>
           </DialogActions>
         </Dialog>
       </div>
       {tasks.map(
-        (element) =>
+        element =>
           element.uid === uid && (
             <NewTaskContainer key={element.id}>
               {element.id !== taskID && (
@@ -173,21 +170,27 @@ const NewTask = ({ tasks, db }) => {
                       element.isChecked ? "line-through" : ""
                     }`,
                     flexGrow: "1",
-                  }}
-                >
+                  }}>
                   {element.task}
                 </Typography>
               )}
               {isEditing && element.id === taskID && (
-                <Input
-                  sx={{ flexGrow: "1" }}
+                <OutlinedInput
+                  sx={{
+                    flexGrow: "1",
+                    maxHeight: "2.5rem",
+                    padding: ".25rem",
+                    backgroundColor: Theme.palette.secondary.contrastText,
+                    ":hover": {
+                      backgroundColor: Theme.palette.primary.contrastText,
+                    },
+                  }}
                   autoFocus
                   type="text"
                   value={takenValue}
-                  onChange={(e) => {
+                  onChange={e => {
                     setTakenValue(e.target.value);
-                  }}
-                ></Input>
+                  }}></OutlinedInput>
               )}
               <Checkbox
                 sx={{

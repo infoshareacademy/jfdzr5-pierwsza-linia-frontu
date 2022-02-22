@@ -3,6 +3,7 @@ import { Content } from "./content/content";
 import { ThemeProvider } from "@mui/material/styles";
 import { Theme } from "./common/theme/theme";
 import { UserContextProvider } from "./userContext/UserContext";
+import { Footer } from "./components/Footer/Footer";
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
         <ThemeProvider theme={Theme}>
           <Navigation />
           <Content />
+          <Footer />
         </ThemeProvider>
       </UserContextProvider>
     </>
