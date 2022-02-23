@@ -8,7 +8,7 @@ All your activities are saved in a private account where you can set your own av
 
 # Demo
 
-[Home Organizer](#)
+[Home Organizer](https://homeorganizer-44534.web.app/)
 
 # Authors
 
