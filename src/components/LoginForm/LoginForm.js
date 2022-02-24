@@ -115,7 +115,10 @@ export const Sign = ({ isSignUp }) => {
             navigate("/");
           })
           .catch(err => {
-            alert(err);
+            console.log(err);
+            if (err) {
+              alert("Nieprawidłowy email");
+            }
           });
         creatueUserDocument();
       }
