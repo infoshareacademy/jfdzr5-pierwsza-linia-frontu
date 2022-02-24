@@ -112,15 +112,15 @@ export const Sign = ({ isSignUp }) => {
       } else {
         method(auth, email, password)
           .then(() => {
+            creatueUserDocument();
             navigate("/");
           })
           .catch(err => {
             console.log(err);
             if (err) {
-              alert("Nieprawidłowy email");
+              alert(err);
             }
           });
-        creatueUserDocument();
       }
     }
   };
