@@ -23,15 +23,20 @@ export const Sign = ({ isSignUp }) => {
   const [surname, setSurname] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
   const navigate = useNavigate();
 
   const handleNameChange = e => {
-    setName(e.target.value);
+    let nameUpperCase = "";
+    nameUpperCase = toUpperCaseFirstLetter(e.target.value);
+    setName(nameUpperCase);
   };
 
   const handleSurnameChange = e => {
-    setSurname(e.target.value);
+    let surnameUpperCase = "";
+    surnameUpperCase = toUpperCaseFirstLetter(e.target.value);
+    setSurname(surnameUpperCase);
   };
 
   const handleEmailChange = e => {
@@ -40,6 +45,9 @@ export const Sign = ({ isSignUp }) => {
 
   const handlePasswordChange = e => {
     setPassword(e.target.value);
+  };
+  const handlePasswordConfirm = e => {
+    setConfirmPassword(e.target.value);
   };
 
   const db = getFirestore();
@@ -60,6 +68,10 @@ export const Sign = ({ isSignUp }) => {
       });
     }
   };
+  const toUpperCaseFirstLetter = string => {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  };
+
   const handleSubmit = e => {
     e.preventDefault();
     const auth = getAuth();
@@ -67,14 +79,23 @@ export const Sign = ({ isSignUp }) => {
       ? createUserWithEmailAndPassword
       : signInWithEmailAndPassword;
 
-    method(auth, email, password)
-      .then(() => {
-        navigate("/");
-      })
-      .catch(err => {
-        alert(err);
-      });
-    creatueUserDocument();
+    if (name.length <= 2) {
+      alert("Imię powinno posiadać minimum trzy znaki");
+    } else if (surname.length <= 2) {
+      alert("Nazwisko powinno posiadać minimum trzy znaki");
+    } else if (password !== confirmPassword) {
+      alert("hasła nie są identyczne");
+      console.log(confirmPassword);
+    } else {
+      method(auth, email, password)
+        .then(() => {
+          navigate("/");
+        })
+        .catch(err => {
+          alert(err);
+        });
+      creatueUserDocument();
+    }
   };
   return (
     <PageWrapper>
@@ -193,6 +214,29 @@ export const Sign = ({ isSignUp }) => {
               name="password"
               value={password}
               onChange={handlePasswordChange}
+            />
+            <TextField
+              sx={{
+                bgcolor: Theme.palette.secondary.contrastText,
+                ":hover": { bgcolor: Theme.palette.primary.contrastText },
+                width: {
+                  lg: 400,
+                },
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+              }}
+              id="confirm-password"
+              label="Potwierdz hasło"
+              type="password"
+              autoComplete="current-password"
+              variant="filled"
+              margin="normal"
+              required
+              fullWidth
+              name="password"
+              value={confirmPassword}
+              onChange={handlePasswordConfirm}
             />
 
             <Button
