@@ -104,6 +104,8 @@ export const Sign = ({ isSignUp }) => {
         alert("Imię powinno posiadać minimum trzy znaki");
       } else if (surname.length <= 2) {
         alert("Nazwisko powinno posiadać minimum trzy znaki");
+      } else if (password.length <= 5) {
+        alert("Hasło musi zawierać minimum sześć znaków");
       } else if (password !== confirmPassword) {
         alert("Podane hasła nie są identyczne");
         console.log(confirmPassword);
