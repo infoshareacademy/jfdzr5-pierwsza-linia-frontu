@@ -97,8 +97,21 @@ export const Sign = ({ isSignUp }) => {
           navigate("/");
         })
         .catch(err => {
-          alert(err);
-        });
+          console.log(err);
+            if (err) {
+              // alert(err);
+              switch (err.code) {
+                case "auth/invalid-email":
+                  console.log("Błedy format emaila");
+                  alert("Błedy format emaila");
+                  break;
+                  case "auth/user-not-found":
+                  console.log("Nie znaleziono użytkownika z tym adresem e-mail");
+                  alert("Nie znaleziono użytkownika z tym adresem e-mail");
+                  break; 
+              }
+            }
+          });    
     } else {
       if (name.length <= 2) {
         alert("Imię powinno posiadać minimum trzy znaki");
