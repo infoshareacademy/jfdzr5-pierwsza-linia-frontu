@@ -118,7 +118,17 @@ export const Sign = ({ isSignUp }) => {
           .catch(err => {
             console.log(err);
             if (err) {
-              alert(err);
+              // alert(err);
+              switch (err.code) {
+                case "auth/invalid-email":
+                  console.log("Błedy format emaila");
+                  alert("Błedy format emaila");
+                  break;
+                case "auth/email-already-in-use":
+                  console.log("Ten adres email został już użyty");
+                  alert("Ten adres email został już użyty");
+                  break;
+              }
             }
           });
       }
