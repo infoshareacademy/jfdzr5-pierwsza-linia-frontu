@@ -84,7 +84,22 @@ export const Sign = ({ isSignUp }) => {
   const toUpperCaseFirstLetter = string => {
     return string.charAt(0).toUpperCase() + string.slice(1);
   };
-
+  const emailValidation = error => {
+    switch (error) {
+      case "auth/invalid-email":
+        console.log("Błedy format emaila");
+        alert("Błedy format adresu emaila");
+        break;
+      case "auth/user-not-found":
+        console.log("Nie znaleziono użytkownika z tym adresem e-mail");
+        alert("Nie znaleziono użytkownika z tym adresem e-mail");
+        break;
+      case "auth/email-already-in-use":
+        console.log("Ten adres email został już użyty");
+        alert("Ten adres email został już użyty");
+        break;
+    }
+  };
   const handleSubmit = e => {
     e.preventDefault();
     const auth = getAuth();
@@ -97,21 +112,8 @@ export const Sign = ({ isSignUp }) => {
           navigate("/");
         })
         .catch(err => {
-          console.log(err);
-            if (err) {
-              // alert(err);
-              switch (err.code) {
-                case "auth/invalid-email":
-                  console.log("Błedy format emaila");
-                  alert("Błedy format emaila");
-                  break;
-                  case "auth/user-not-found":
-                  console.log("Nie znaleziono użytkownika z tym adresem e-mail");
-                  alert("Nie znaleziono użytkownika z tym adresem e-mail");
-                  break; 
-              }
-            }
-          });    
+          emailValidation(err.code);
+        });
     } else {
       if (name.length <= 2) {
         alert("Imię powinno posiadać minimum trzy znaki");
@@ -129,20 +131,7 @@ export const Sign = ({ isSignUp }) => {
             navigate("/");
           })
           .catch(err => {
-            console.log(err);
-            if (err) {
-              // alert(err);
-              switch (err.code) {
-                case "auth/invalid-email":
-                  console.log("Błedy format emaila");
-                  alert("Błedy format emaila");
-                  break;
-                case "auth/email-already-in-use":
-                  console.log("Ten adres email został już użyty");
-                  alert("Ten adres email został już użyty");
-                  break;
-              }
-            }
+            emailValidation(err.code);
           });
       }
     }
@@ -164,11 +153,8 @@ export const Sign = ({ isSignUp }) => {
         alert(`Link do zmiany hasła został wysłany na adres ${resetEmail}`);
         handleClose();
       })
-      .catch(error => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        // ..
-        console.log(error);
+      .catch(err => {
+        emailValidation(err.code);
       });
   };
 
