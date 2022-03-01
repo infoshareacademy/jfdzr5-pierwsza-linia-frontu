@@ -98,6 +98,10 @@ export const Sign = ({ isSignUp }) => {
         console.log("Ten adres email został już użyty");
         alert("Ten adres email został już użyty");
         break;
+      case "auth/wrong-password":
+        console.log("Niepoprawne hasło");
+        alert("Niepoprawne hasło");
+        break;
     }
   };
   const handleSubmit = e => {
@@ -123,7 +127,6 @@ export const Sign = ({ isSignUp }) => {
         alert("Hasło musi zawierać minimum sześć znaków");
       } else if (password !== confirmPassword) {
         alert("Podane hasła nie są identyczne");
-        console.log(confirmPassword);
       } else {
         method(auth, email, password)
           .then(() => {
