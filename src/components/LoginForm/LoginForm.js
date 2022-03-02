@@ -93,20 +93,24 @@ export const Sign = ({ isSignUp }) => {
     setErrors(true);
     switch (error) {
       case "auth/invalid-email":
-        console.log("Błędny format emaila");
+        console.log(error);
         setErrorMessage("Błędny format adresu emaila");
         break;
       case "auth/user-not-found":
-        console.log("Nie znaleziono użytkownika z tym adresem e-mail");
+        console.log(error);
         setErrorMessage("Nie znaleziono użytkownika z tym adresem e-mail");
         break;
       case "auth/email-already-in-use":
-        console.log("Ten adres email został już użyty");
+        console.log(error);
         setErrorMessage("Ten adres email został już użyty");
         break;
       case "auth/wrong-password":
-        console.log("Niepoprawne hasło");
+        console.log(error);
         setErrorMessage("Niepoprawne hasło");
+        break;
+      case "auth/internal-error":
+        console.log(error);
+        setErrorMessage("Błąd autoryzacji. Wprowadz poprawny login i hasło");
         break;
     }
   };
@@ -123,6 +127,7 @@ export const Sign = ({ isSignUp }) => {
         })
         .catch(err => {
           emailValidation(err.code);
+          console.log(err.code);
         });
     } else {
       setOpenValidationDialog(true);
@@ -143,6 +148,7 @@ export const Sign = ({ isSignUp }) => {
           })
           .catch(err => {
             emailValidation(err.code);
+            console.log(err.code);
           });
       }
     }
@@ -167,6 +173,7 @@ export const Sign = ({ isSignUp }) => {
       })
       .catch(err => {
         emailValidation(err.code);
+        console.log(err.code);
       });
   };
 
