@@ -15,23 +15,41 @@ import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   getAuth,
+  sendPasswordResetEmail,
 } from "firebase/auth";
 import { getFirestore, collection, addDoc } from "firebase/firestore";
+import { Dialog, DialogActions, DialogTitle } from "@mui/material";
+import styled from "@emotion/styled";
+import { EditTextField } from "../UserPanel/text-field/EditTextField";
+
+const ResetButtonContainer = styled.div`
+  display: flex;
+  // flex-direction: column;
+  //   justify-content: center;
+  //   align-items: center;
+`;
 
 export const Sign = ({ isSignUp }) => {
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [resetPassword, setResetPassword] = useState(false);
+  const [resetEmail, setResetEmail] = useState("");
 
   const navigate = useNavigate();
 
   const handleNameChange = e => {
-    setName(e.target.value);
+    let nameUpperCase = "";
+    nameUpperCase = toUpperCaseFirstLetter(e.target.value);
+    setName(nameUpperCase);
   };
 
   const handleSurnameChange = e => {
-    setSurname(e.target.value);
+    let surnameUpperCase = "";
+    surnameUpperCase = toUpperCaseFirstLetter(e.target.value);
+    setSurname(surnameUpperCase);
   };
 
   const handleEmailChange = e => {
@@ -40,6 +58,9 @@ export const Sign = ({ isSignUp }) => {
 
   const handlePasswordChange = e => {
     setPassword(e.target.value);
+  };
+  const handlePasswordConfirm = e => {
+    setConfirmPassword(e.target.value);
   };
 
   const db = getFirestore();
@@ -60,22 +81,86 @@ export const Sign = ({ isSignUp }) => {
       });
     }
   };
+  const toUpperCaseFirstLetter = string => {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  };
+  const emailValidation = error => {
+    switch (error) {
+      case "auth/invalid-email":
+        console.log("Błedy format emaila");
+        alert("Błedy format adresu emaila");
+        break;
+      case "auth/user-not-found":
+        console.log("Nie znaleziono użytkownika z tym adresem e-mail");
+        alert("Nie znaleziono użytkownika z tym adresem e-mail");
+        break;
+      case "auth/email-already-in-use":
+        console.log("Ten adres email został już użyty");
+        alert("Ten adres email został już użyty");
+        break;
+      case "auth/wrong-password":
+        console.log("Niepoprawne hasło");
+        alert("Niepoprawne hasło");
+        break;
+    }
+  };
   const handleSubmit = e => {
     e.preventDefault();
     const auth = getAuth();
     const method = isSignUp
       ? createUserWithEmailAndPassword
       : signInWithEmailAndPassword;
-
-    method(auth, email, password)
+    if (!isSignUp) {
+      method(auth, email, password)
+        .then(() => {
+          navigate("/");
+        })
+        .catch(err => {
+          emailValidation(err.code);
+        });
+    } else {
+      if (name.length <= 2) {
+        alert("Imię powinno posiadać minimum trzy znaki");
+      } else if (surname.length <= 2) {
+        alert("Nazwisko powinno posiadać minimum trzy znaki");
+      } else if (password.length <= 5) {
+        alert("Hasło musi zawierać minimum sześć znaków");
+      } else if (password !== confirmPassword) {
+        alert("Podane hasła nie są identyczne");
+      } else {
+        method(auth, email, password)
+          .then(() => {
+            creatueUserDocument();
+            navigate("/");
+          })
+          .catch(err => {
+            emailValidation(err.code);
+          });
+      }
+    }
+  };
+  const [open, setOpen] = useState(false);
+  const handleClose = () => {
+    setOpen(false);
+  };
+  const handleResetPassoword = () => {
+    setResetPassword(true);
+    setOpen(true);
+  };
+  const handleSendResetLink = () => {
+    const auth = getAuth();
+    sendPasswordResetEmail(auth, resetEmail)
       .then(() => {
-        navigate("/");
+        // Password reset email sent!
+        // ..
+        alert(`Link do zmiany hasła został wysłany na adres ${resetEmail}`);
+        handleClose();
       })
       .catch(err => {
-        alert(err);
+        emailValidation(err.code);
       });
-    creatueUserDocument();
   };
+
   return (
     <PageWrapper>
       <Container component="main" maxWidth="sm">
@@ -194,6 +279,31 @@ export const Sign = ({ isSignUp }) => {
               value={password}
               onChange={handlePasswordChange}
             />
+            {isSignUp && (
+              <TextField
+                sx={{
+                  bgcolor: Theme.palette.secondary.contrastText,
+                  ":hover": { bgcolor: Theme.palette.primary.contrastText },
+                  width: {
+                    lg: 400,
+                  },
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                }}
+                id="confirm-password"
+                label="Potwierdz hasło"
+                type="password"
+                autoComplete="current-password"
+                variant="filled"
+                margin="normal"
+                required
+                fullWidth
+                name="password"
+                value={confirmPassword}
+                onChange={handlePasswordConfirm}
+              />
+            )}
 
             <Button
               fullWidth
@@ -210,6 +320,79 @@ export const Sign = ({ isSignUp }) => {
 
             <Grid container>
               <Grid item>
+                {!isSignUp && (
+                  <Typography
+                    onClick={handleResetPassoword}
+                    sx={{
+                      textDecoration: "none",
+                      color: "white",
+                      underline: "none",
+                      marginBottom: "20px",
+                      cursor: "pointer",
+                    }}>
+                    Nie pamiętasz hasła? Kliknij tutaj.
+                  </Typography>
+                )}
+                {resetPassword && (
+                  <Dialog
+                    open={open}
+                    aria-labelledby="alert-dialog-title"
+                    aria-describedby="alert-dialog-description">
+                    <DialogTitle id="alert-dialog-title">
+                      Wprowadz swój adres email
+                    </DialogTitle>
+                    <DialogActions>
+                      <ResetButtonContainer>
+                        <EditTextField
+                          value={resetEmail}
+                          onChange={e => setResetEmail(e.target.value)}
+                          label="Adres email"
+                        />
+                      </ResetButtonContainer>
+                      <ResetButtonContainer>
+                        <Button
+                          sx={{
+                            margin: "5px 5px 5px auto",
+                            background: Theme.palette.secondary.main,
+                            color: Theme.palette.secondary.contrastText,
+                            border: `2px solid ${Theme.palette.secondary.main}`,
+                            borderRadius: "0px",
+                            transition: "all",
+                            transitionDuration: "0.3s",
+                            ":hover": {
+                              color: Theme.palette.primary.main,
+                              background: Theme.palette.primary.contrastText,
+                              border: `2px solid ${Theme.palette.primary.contrastText}`,
+                              borderRadius: "0",
+                            },
+                          }}
+                          onClick={handleClose}>
+                          Anuluj
+                        </Button>
+                        <Button
+                          sx={{
+                            margin: "5px auto 5px 5px",
+                            background: Theme.palette.secondary.main,
+                            color: Theme.palette.secondary.contrastText,
+                            border: `2px solid ${Theme.palette.secondary.main}`,
+                            borderRadius: "0px",
+                            transition: "all",
+                            transitionDuration: "0.3s",
+                            ":hover": {
+                              color: Theme.palette.primary.main,
+                              background: Theme.palette.primary.contrastText,
+                              border: `2px solid ${Theme.palette.primary.contrastText}`,
+                              borderRadius: "0",
+                            },
+                          }}
+                          onClick={handleSendResetLink}>
+                          Wyślij
+                        </Button>
+                      </ResetButtonContainer>
+                    </DialogActions>
+                  </Dialog>
+                )}
+
                 <Link to={isSignUp ? "/sign-in" : "/sign-up"}>
                   {isSignUp && (
                     <Typography
@@ -222,14 +405,16 @@ export const Sign = ({ isSignUp }) => {
                     </Typography>
                   )}
                   {!isSignUp && (
-                    <Typography
-                      sx={{
-                        textDecoration: "none",
-                        color: "white",
-                        underline: "none",
-                      }}>
-                      Nie masz konta? Zarejestruj się!
-                    </Typography>
+                    <>
+                      <Typography
+                        sx={{
+                          textDecoration: "none",
+                          color: "white",
+                          underline: "none",
+                        }}>
+                        Nie masz konta? Zarejestruj się!
+                      </Typography>
+                    </>
                   )}
                 </Link>
               </Grid>

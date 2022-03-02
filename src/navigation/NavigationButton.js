@@ -5,7 +5,6 @@ import { Button } from "@mui/material";
 export const NavigationButton = ({ to, item }) => {
   return (
     <Button
-      key={item.label}
       sx={{
         margin: "2px",
         my: 2,

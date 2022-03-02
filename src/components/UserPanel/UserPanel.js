@@ -26,7 +26,6 @@ export const UserPanel = () => {
       setUserData(data);
     });
   };
-
   return (
     <PageWrapper>
       <Typography

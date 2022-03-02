@@ -64,7 +64,7 @@ export const Navigation = () => {
         <Toolbar
           sx={{ flexDirection: maxWidth1000 ? "column" : "" }}
           disableGutters>
-          <IconButton>
+          <IconButton key="icon-button">
             <Avatar
               alt="home"
               variant="square"
@@ -74,7 +74,10 @@ export const Navigation = () => {
             />
           </IconButton>
           {navItems.map(
-            item => user && <NavigationButton to={item.path} item={item} />
+            item =>
+              user && (
+                <NavigationButton key={item.label} to={item.path} item={item} />
+              )
           )}
           {user ? (
             <ButtonsContainer>

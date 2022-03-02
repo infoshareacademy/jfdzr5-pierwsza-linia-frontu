@@ -26,7 +26,6 @@ const CssTextField = styled(TextField)({
 export const TextFieldView = ({ label, value, handleClick }) => {
   return (
     <CssTextField
-      id="custom-css-outlined-input"
       fullWidth
       label={label}
       value={value}

@@ -52,7 +52,8 @@ export const HomeLogin = ({ usersNumber, tasksNumber, eventsNumber }) => {
           <HorizontalLine />
           <Typography
             paragraph="true"
-            sx={{ margin: "1rem", fontSize: "1rem" }}>
+            sx={{ margin: "1rem", fontSize: "1rem" }}
+          >
             Przeglądaj zadania do wykonania, dodaj nowe lub edytuj już
             istniejące.
           </Typography>
@@ -67,7 +68,8 @@ export const HomeLogin = ({ usersNumber, tasksNumber, eventsNumber }) => {
           <HorizontalLine />
           <Typography
             paragraph="true"
-            sx={{ margin: "1rem", fontSize: "1rem" }}>
+            sx={{ margin: "1rem", fontSize: "1rem" }}
+          >
             Zarządzaj domowym budżetem, wprowadź wpływy i wydatki, analizuj
             strukturę wydatków.
           </Typography>
@@ -80,24 +82,45 @@ export const HomeLogin = ({ usersNumber, tasksNumber, eventsNumber }) => {
           <HorizontalLine />
           <Typography
             paragraph="true"
-            sx={{ margin: "1rem", fontSize: "1rem" }}>
+            sx={{ margin: "1rem", fontSize: "1rem" }}
+          >
             Dodaj daty, rocznice i terminy, o których już nigdy nie zapomnisz.
           </Typography>
         </BoxContainer>
 
         <BoxContainerDashboard>
           <Box sx={{ flexGrow: "5", width: "75rem" }}>
-            <Box>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+              }}
+            >
               <Typography
                 variant="h4"
-                sx={{ margin: "1rem", textAlign: "center" }}>
-                <BarChartIcon sx={{ marginLeft: "1rem", fontSize: "3rem" }} />
-                Panel
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  margin: ".5rem",
+                }}
+              >
+                <BarChartIcon
+                  paragraph="true"
+                  sx={{ marginLeft: "1rem", fontSize: "3rem" }}
+                />
                 <Typography
                   paragraph="true"
-                  sx={{ margin: "1rem", fontSize: "1rem" }}>
-                  Sprawdź dane i zasoby aplikacji.
+                  sx={{ margin: "0 0 0 .5rem", fontSize: "2rem" }}
+                >
+                  Panel
                 </Typography>
+              </Typography>
+              <Typography
+                paragraph="true"
+                sx={{ align: "center", margin: ".5rem", fontSize: "1rem" }}
+              >
+                Sprawdź dane i zasoby aplikacji.
               </Typography>
             </Box>
 
@@ -111,7 +134,8 @@ export const HomeLogin = ({ usersNumber, tasksNumber, eventsNumber }) => {
             <HorizontalLine />
             <Typography
               paragraph="true"
-              sx={{ margin: "1rem", fontSize: "2rem" }}>
+              sx={{ margin: "1rem", fontSize: "2rem" }}
+            >
               {usersNumber}
             </Typography>
           </BoxPanel>
@@ -123,7 +147,8 @@ export const HomeLogin = ({ usersNumber, tasksNumber, eventsNumber }) => {
             <HorizontalLine />
             <Typography
               paragraph="true"
-              sx={{ margin: "1rem", fontSize: "2rem" }}>
+              sx={{ margin: "1rem", fontSize: "2rem" }}
+            >
               {tasksNumber}
             </Typography>
           </BoxPanel>
@@ -137,7 +162,8 @@ export const HomeLogin = ({ usersNumber, tasksNumber, eventsNumber }) => {
             <HorizontalLine />
             <Typography
               paragraph="true"
-              sx={{ margin: "1rem", fontSize: "2rem" }}>
+              sx={{ margin: "1rem", fontSize: "2rem" }}
+            >
               {eventsNumber}
             </Typography>
           </BoxPanel>
