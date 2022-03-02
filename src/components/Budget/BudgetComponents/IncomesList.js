@@ -90,14 +90,7 @@ function IncomesList(props) {
                             backgroundColor: Theme.palette.secondary.contrastText,
                             ":hover": { backgroundColor: Theme.palette.primary.contrastText },
                           }}></OutlinedInput>
-                        <FormHelperText
-                          sx={{
-                            margin: ".25rem",
-                            height: "1rem",
-                            color: Theme.palette.secondary.contrastText,
-                          }}>
-                          Kwota{" "}
-                        </FormHelperText>
+
 
                         <Select
                           required
@@ -113,14 +106,7 @@ function IncomesList(props) {
                           <MenuItem value="Wynagrodzenie">Wynagrodzenie</MenuItem>
                           <MenuItem value="Inne">Inne</MenuItem>
                         </Select>
-                        <FormHelperText
-                          sx={{
-                            margin: ".25rem",
-                            height: "1rem",
-                            color: Theme.palette.secondary.contrastText,
-                          }}>
-                          Kategoria{" "}
-                        </FormHelperText>
+
 
                         <OutlinedInput
                           required
@@ -134,22 +120,24 @@ function IncomesList(props) {
                             ":hover": { backgroundColor: Theme.palette.primary.contrastText },
                           }}
                         />
-                        <FormHelperText
-                          sx={{
-                            margin: ".25rem",
-                            height: "1rem",
-                            color: Theme.palette.secondary.contrastText,
-                          }}>
-                          Data{" "}
-                        </FormHelperText>
 
-                        <Button>
+
+                        <Button
+                          sx={{
+                            color: Theme.palette.secondary.contrastText,
+                            ":hover": { color: Theme.palette.primary.contrastText },
+                          }}>
                           <Icon
-                            onClick={() => handleClickSave(income.id)}
-                            style={{ color: "white" }}>save</Icon>
+                            onClick={() => handleClickSave(income.id)}>
+                            save
+                          </Icon>
                         </Button>
-                        <Button>
-                          <Icon style={{ color: "white" }}
+                        <Button
+                          sx={{
+                            color: Theme.palette.secondary.contrastText,
+                            ":hover": { color: Theme.palette.primary.contrastText },
+                          }}>
+                          <Icon
                             onClick={() => handleClickCancel()}>cancel</Icon>
                         </Button>
 
@@ -165,12 +153,20 @@ function IncomesList(props) {
                             {income.date}
                           </ListItemElement>
 
-                          <Button>
-                            <DeleteIcon style={{ width: "4rem", color: "white" }}
+                          <Button
+                            sx={{
+                              color: Theme.palette.secondary.contrastText,
+                              ":hover": { color: Theme.palette.primary.contrastText },
+                            }}>
+                            <DeleteIcon style={{ width: "4rem" }}
                               onClick={() => props.onDelete(income.id)} />
                           </Button>
-                          <Button>
-                            <EditIcon style={{ width: "4rem", color: "white" }}
+                          <Button
+                            sx={{
+                              color: Theme.palette.secondary.contrastText,
+                              ":hover": { color: Theme.palette.primary.contrastText },
+                            }}>
+                            <EditIcon style={{ width: "4rem" }}
                               onClick={() => handleEditTask(income.id)} />
                           </Button>
                         </>
