@@ -55,7 +55,7 @@ function BudgetFormExpenses(props) {
             }}></OutlinedInput>
           <FormHelperText
             sx={{
-              margin: ".25rem",
+              margin: "0.25rem",
               height: "1rem",
               color: Theme.palette.secondary.contrastText,
             }}>
