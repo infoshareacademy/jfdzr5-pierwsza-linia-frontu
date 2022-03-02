@@ -96,14 +96,7 @@ function ExpensesList(props) {
                                   Theme.palette.primary.contrastText,
                               },
                             }}></OutlinedInput>
-                          <FormHelperText
-                            sx={{
-                              margin: "0.25rem",
-                              height: "1rem",
-                              color: Theme.palette.secondary.contrastText,
-                            }}>
-                            Kwota{" "}
-                          </FormHelperText>
+
 
                           <Select
                             required
@@ -132,14 +125,7 @@ function ExpensesList(props) {
                             <MenuItem value="Podróże">Podróże</MenuItem>
                             <MenuItem value="Inne">Inne</MenuItem>
                           </Select>
-                          <FormHelperText
-                            sx={{
-                              margin: ".25rem",
-                              height: "1rem",
-                              color: Theme.palette.secondary.contrastText,
-                            }}>
-                            Kategoria{" "}
-                          </FormHelperText>
+
 
                           <OutlinedInput
                             required
@@ -157,25 +143,26 @@ function ExpensesList(props) {
                               },
                             }}
                           />
-                          <FormHelperText
-                            sx={{
-                              margin: ".25rem",
-                              height: "1rem",
-                              color: Theme.palette.secondary.contrastText,
-                            }}>
-                            Data{" "}
-                          </FormHelperText>
 
-                          <Button>
+
+                          <Button
+                            sx={{
+                              color: Theme.palette.secondary.contrastText,
+                              ":hover": { color: Theme.palette.primary.contrastText },
+                            }}>
                             <Icon
                               onClick={() => handleClickSave(expense.id)}
-                              style={{ color: "white" }}>
+                            >
                               save
                             </Icon>
                           </Button>
-                          <Button>
+                          <Button
+                            sx={{
+                              color: Theme.palette.secondary.contrastText,
+                              ":hover": { color: Theme.palette.primary.contrastText },
+                            }}
+                          >
                             <Icon
-                              style={{ color: "white" }}
                               onClick={() => handleClickCancel()}>
                               cancel
                             </Icon>
@@ -189,15 +176,23 @@ function ExpensesList(props) {
                           <ListItemElement>{expense.category}</ListItemElement>
                           <ListItemElement>{expense.date}</ListItemElement>
 
-                          <Button>
+                          <Button
+                            sx={{
+                              color: Theme.palette.secondary.contrastText,
+                              ":hover": { color: Theme.palette.primary.contrastText },
+                            }}>
                             <DeleteIcon
-                              style={{ width: "4rem", color: "white" }}
+                              style={{ width: "4rem" }}
                               onClick={() => props.onDelete(expense.id)}
                             />
                           </Button>
-                          <Button>
+                          <Button
+                            sx={{
+                              color: Theme.palette.secondary.contrastText,
+                              ":hover": { color: Theme.palette.primary.contrastText },
+                            }}>
                             <EditIcon
-                              style={{ width: "4rem", color: "white" }}
+                              style={{ width: "4rem" }}
                               onClick={() => handleEditExpense(expense.id)}
                             />
                           </Button>
