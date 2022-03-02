@@ -11,8 +11,6 @@ import { FormHelperText } from "@mui/material";
 import { Box } from "@mui/material";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
-// import { firestore } from "../../firebase";
-// import { doc, updateDoc } from "firebase/firestore";
 import { doc, deleteDoc, updateDoc } from "firebase/firestore";
 
 const NewExpenseContainer = styled.div`
@@ -34,8 +32,6 @@ function ExpensesList(props) {
   const [amountInput, setAmountInput] = useState("");
   const [categoryInput, setCategoryInput] = useState("");
   const [dateInput, setDateInput] = useState("");
-
-  // const expensesColRef = collection(firestore, "budget-expenses");
 
   const handleEditExpense = id => {
     setEditedTaskId(id);
@@ -124,7 +120,7 @@ function ExpensesList(props) {
                                   Theme.palette.primary.contrastText,
                               },
                             }}>
-                            <MenuItem value="Jedzenie/Picie">
+                            <MenuItem value="Jedzenie/Napoje">
                               Jedzenie/Napoje
                             </MenuItem>
                             <MenuItem value="Rachunki">Rachunki</MenuItem>

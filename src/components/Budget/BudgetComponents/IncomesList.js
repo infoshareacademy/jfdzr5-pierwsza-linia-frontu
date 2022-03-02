@@ -10,6 +10,7 @@ import { OutlinedInput } from "@mui/material";
 import { FormHelperText } from "@mui/material";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
+import { doc, deleteDoc, updateDoc } from "firebase/firestore";
 
 
 const NewIncomeContainer = styled.div`
@@ -38,19 +39,29 @@ function IncomesList(props) {
     setAmountInput(editedTask.amount)
     setCategoryInput(editedTask.category)
     setDateInput(editedTask.date)
-
-  }
+  };
   const handleAmountChange = event => {
     setAmountInput(event.target.value.replace(",", "."));
   };
   const handleCategoryChange = event => setCategoryInput(event.target.value);
   const handleDateChange = event => setDateInput(event.target.value);
 
+  const handleClickSave = async id => {
+    setEditedTaskId(false);
+
+    const docRefIncomes = doc(props.firestore, "budget-incomes", id);
+    await updateDoc(docRefIncomes, {
+      amount: parseFloat(amountInput),
+      category: categoryInput,
+      date: dateInput,
+      uid: props.uid,
+    });
+  };
+
   const handleClickCancel = (id) => {
     setEditedTaskId(id);
   };
 
-  //function IncomesList(props) {
   return (
     <div className="income-container">
       <List>
@@ -133,10 +144,13 @@ function IncomesList(props) {
                         </FormHelperText>
 
                         <Button>
-                          <Icon style={{ color: "white" }}>save</Icon>
+                          <Icon
+                            onClick={() => handleClickSave(income.id)}
+                            style={{ color: "white" }}>save</Icon>
                         </Button>
                         <Button>
-                          <Icon style={{ color: "white" }} onClick={() => handleClickCancel()}>cancel</Icon>
+                          <Icon style={{ color: "white" }}
+                            onClick={() => handleClickCancel()}>cancel</Icon>
                         </Button>
 
                       </>) : (
@@ -152,10 +166,12 @@ function IncomesList(props) {
                           </ListItemElement>
 
                           <Button>
-                            <DeleteIcon style={{ width: "4rem", color: "white" }} onClick={() => props.onDelete(income.id)} />
+                            <DeleteIcon style={{ width: "4rem", color: "white" }}
+                              onClick={() => props.onDelete(income.id)} />
                           </Button>
                           <Button>
-                            <EditIcon style={{ width: "4rem", color: "white" }} onClick={() => handleEditTask(income.id)} />
+                            <EditIcon style={{ width: "4rem", color: "white" }}
+                              onClick={() => handleEditTask(income.id)} />
                           </Button>
                         </>
 

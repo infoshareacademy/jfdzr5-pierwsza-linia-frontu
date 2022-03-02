@@ -242,7 +242,7 @@ export const Budget = props => {
                   },
                 }}>
                 <MenuItem value="Wszystko">Wszystko</MenuItem>
-                <MenuItem value="Jedzenie/Picie">Jedzenie/Napoje</MenuItem>
+                <MenuItem value="Jedzenie/Napoje">Jedzenie/Napoje</MenuItem>
                 <MenuItem value="Rachunki">Rachunki</MenuItem>
                 <MenuItem value="Rozrywka">Rozrywka</MenuItem>
                 <MenuItem value="Zakupy">Zakupy</MenuItem>
@@ -294,6 +294,7 @@ export const Budget = props => {
               uid={uid}
               incomes={filterIncomes}
               onDelete={handleIncomesDelete}
+              firestore={firestore}
             />
           </div>
         )}
