@@ -140,23 +140,29 @@ export const Budget = props => {
         sx={{
           display: "flex",
           flexDirection: "row",
-          justifyContent: "space-around",
           width: "100%",
           maxWidth: "1600px",
+          justifyContent: "space-between",
+          gap: "10px",
         }}>
-        <div style={{ marginTop: "70px" }}>
+        <div
+          style={{
+            alignSelf: "center",
+            width: "8rem",
+            flexGrow: "1.5",
+          }}>
           {chosenMoneyOperations === "expenses" ? (
-            <h3>Suma wydatków</h3>
+            <h3 style={{ textAlign: "center" }}>Suma wydatków</h3>
           ) : (
-            <h3>Suma przychodów</h3>
+            <h3 style={{ textAlign: "center" }}>Suma przychodów</h3>
           )}
           <Box
             sx={{
               fontSize: "30px",
-              marginTop: "100px",
-              marginRight: "10px",
-              padding: "3rem",
+              padding: "1.5rem",
+              alignSelf: "center",
               backgroundColor: theme.palette.secondary.main,
+              textAlign: "center",
             }}>
             {/* tu również mój kod :) dopisałem warunek ktory sprawdza czy sa wlaczone wydatki
                 czy przychody i wyswietla to lub to */}
@@ -215,7 +221,12 @@ export const Budget = props => {
         </div>
 
         {chosenMoneyOperations === "expenses" ? (
-          <div>
+          <div
+            style={{
+              flexGrow: "1",
+              width: "50%",
+              alignSelf: "center",
+            }}>
             <ListContainer>
               <h3>Pokaż wydatki z kategorii: </h3>
               <Select
@@ -251,7 +262,12 @@ export const Budget = props => {
             />
           </div>
         ) : (
-          <div>
+          <div
+            style={{
+              flexGrow: "1",
+              width: "50%",
+              alignSelf: "center",
+            }}>
             <ListContainer>
               <h3>Pokaż przychody z kategorii: </h3>
 
