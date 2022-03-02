@@ -29,7 +29,7 @@ const ListContainer = styled.div`
   align-items: center;
 `;
 
-export const Budget = () => {
+export const Budget = props => {
   const theme = useTheme();
   const expensesColRef = collection(firestore, "budget-expenses");
   const incomesColRef = collection(firestore, "budget-incomes");
@@ -145,12 +145,11 @@ export const Budget = () => {
           maxWidth: "1600px",
         }}>
         <div style={{ marginTop: "70px" }}>
-          {chosenMoneyOperations === "expenses" ?
+          {chosenMoneyOperations === "expenses" ? (
             <h3>Suma wydatków</h3>
-            :
-            <h3>Suma przychodów
-            </h3>
-          }
+          ) : (
+            <h3>Suma przychodów</h3>
+          )}
           <Box
             sx={{
               fontSize: "30px",
@@ -248,6 +247,7 @@ export const Budget = () => {
               uid={uid}
               expenses={filterExpenses}
               onDelete={handleExpensesDelete}
+              firestore={firestore}
             />
           </div>
         ) : (

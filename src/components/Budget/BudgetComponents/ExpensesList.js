@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
-import EditIcon from '@mui/icons-material/Edit';
+import EditIcon from "@mui/icons-material/Edit";
 import styled from "styled-components";
 import { Theme } from "../../../common/theme/theme";
 import List from "@mui/material/List";
@@ -13,8 +13,7 @@ import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 // import { firestore } from "../../firebase";
 // import { doc, updateDoc } from "firebase/firestore";
-
-
+import { doc, deleteDoc, updateDoc } from "firebase/firestore";
 
 const NewExpenseContainer = styled.div`
   display: flex;
@@ -38,30 +37,32 @@ function ExpensesList(props) {
 
   // const expensesColRef = collection(firestore, "budget-expenses");
 
-  const handleEditExpense = (id) => {
-    setEditedTaskId(id)
-    const editedTask = props.expenses.find((expense) => expense.id === id)
-    setAmountInput(editedTask.amount)
-    setCategoryInput(editedTask.category)
-    setDateInput(editedTask.date)
-
-  }
+  const handleEditExpense = id => {
+    setEditedTaskId(id);
+    const editedTask = props.expenses.find(expense => expense.id === id);
+    setAmountInput(editedTask.amount);
+    setCategoryInput(editedTask.category);
+    setDateInput(editedTask.date);
+  };
   const handleAmountChange = event => {
     setAmountInput(event.target.value.replace(",", "."));
   };
   const handleCategoryChange = event => setCategoryInput(event.target.value);
   const handleDateChange = event => setDateInput(event.target.value);
 
-  // const handleClickSave = async (id) => {
-  //   setEditedTaskId(false);
+  const handleClickSave = async id => {
+    setEditedTaskId(false);
 
-  //   const docRefExpenses = doc(db, "budget-expenses", id);
-  //   await updateDoc(docRefExpenses, {
+    const docRefExpenses = doc(props.firestore, "budget-expenses", id);
+    await updateDoc(docRefExpenses, {
+      amount: parseFloat(amountInput),
+      category: categoryInput,
+      date: dateInput,
+      uid: props.uid,
+    });
+  };
 
-  //   })
-  // }
-
-  const handleClickCancel = (id) => {
+  const handleClickCancel = id => {
     setEditedTaskId(id);
   };
 
@@ -77,13 +78,14 @@ function ExpensesList(props) {
                 <>
                   <NewExpenseContainer>
                     <ListItem className="expenses" key={expense.id}>
-                      {
-                        expense.id === editedTaskId ? (<>
+                      {expense.id === editedTaskId ? (
+                        <>
                           <OutlinedInput
                             required
                             inputProps={{
                               pattern: "[0-9]+(.|,)[0-9]{0,2}",
-                              title: "podaj liczbę z maks. 2 cyframi po przecinku ",
+                              title:
+                                "podaj liczbę z maks. 2 cyframi po przecinku ",
                             }}
                             placeholder="Podaj kwotę..."
                             value={amountInput}
@@ -91,8 +93,12 @@ function ExpensesList(props) {
                             sx={{
                               width: "100%",
                               height: "3rem",
-                              backgroundColor: Theme.palette.secondary.contrastText,
-                              ":hover": { backgroundColor: Theme.palette.primary.contrastText },
+                              backgroundColor:
+                                Theme.palette.secondary.contrastText,
+                              ":hover": {
+                                backgroundColor:
+                                  Theme.palette.primary.contrastText,
+                              },
                             }}></OutlinedInput>
                           <FormHelperText
                             sx={{
@@ -111,10 +117,16 @@ function ExpensesList(props) {
                             sx={{
                               height: "3rem",
                               width: "15rem",
-                              backgroundColor: Theme.palette.secondary.contrastText,
-                              ":hover": { backgroundColor: Theme.palette.primary.contrastText },
+                              backgroundColor:
+                                Theme.palette.secondary.contrastText,
+                              ":hover": {
+                                backgroundColor:
+                                  Theme.palette.primary.contrastText,
+                              },
                             }}>
-                            <MenuItem value="Jedzenie/Picie">Jedzenie/Napoje</MenuItem>
+                            <MenuItem value="Jedzenie/Picie">
+                              Jedzenie/Napoje
+                            </MenuItem>
                             <MenuItem value="Rachunki">Rachunki</MenuItem>
                             <MenuItem value="Rozrywka">Rozrywka</MenuItem>
                             <MenuItem value="Zakupy">Zakupy</MenuItem>
@@ -141,8 +153,12 @@ function ExpensesList(props) {
                             sx={{
                               width: "100%",
                               height: "3rem",
-                              backgroundColor: Theme.palette.secondary.contrastText,
-                              ":hover": { backgroundColor: Theme.palette.primary.contrastText },
+                              backgroundColor:
+                                Theme.palette.secondary.contrastText,
+                              ":hover": {
+                                backgroundColor:
+                                  Theme.palette.primary.contrastText,
+                              },
                             }}
                           />
                           <FormHelperText
@@ -155,37 +171,42 @@ function ExpensesList(props) {
                           </FormHelperText>
 
                           <Button>
-                            <Icon style={{ color: "white" }}>save</Icon>
+                            <Icon
+                              onClick={() => handleClickSave(expense.id)}
+                              style={{ color: "white" }}>
+                              save
+                            </Icon>
                           </Button>
                           <Button>
-                            <Icon style={{ color: "white" }} onClick={() => handleClickCancel()}>cancel</Icon>
+                            <Icon
+                              style={{ color: "white" }}
+                              onClick={() => handleClickCancel()}>
+                              cancel
+                            </Icon>
                           </Button>
+                        </>
+                      ) : (
+                        <>
+                          <ListItemElement>
+                            {expense.amount} zł{" "}
+                          </ListItemElement>
+                          <ListItemElement>{expense.category}</ListItemElement>
+                          <ListItemElement>{expense.date}</ListItemElement>
 
-
-                        </>) : (
-                          <>
-                            <ListItemElement>
-                              {expense.amount} zł{" "}
-                            </ListItemElement>
-                            <ListItemElement>
-                              {expense.category}
-                            </ListItemElement>
-                            <ListItemElement>
-                              {expense.date}
-                            </ListItemElement>
-
-                            <Button>
-                              <DeleteIcon style={{ width: "4rem", color: "white" }} onClick={() => props.onDelete(expense.id)} />
-                            </Button>
-                            <Button>
-                              <EditIcon style={{ width: "4rem", color: "white" }} onClick={() => handleEditExpense(expense.id)} />
-                            </Button>
-                          </>
-                        )
-
-                      }
-
-
+                          <Button>
+                            <DeleteIcon
+                              style={{ width: "4rem", color: "white" }}
+                              onClick={() => props.onDelete(expense.id)}
+                            />
+                          </Button>
+                          <Button>
+                            <EditIcon
+                              style={{ width: "4rem", color: "white" }}
+                              onClick={() => handleEditExpense(expense.id)}
+                            />
+                          </Button>
+                        </>
+                      )}
                     </ListItem>
                   </NewExpenseContainer>
                 </>
