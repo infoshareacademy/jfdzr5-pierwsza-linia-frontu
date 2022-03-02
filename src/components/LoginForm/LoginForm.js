@@ -87,11 +87,11 @@ export const Sign = ({ isSignUp }) => {
   const emailValidation = error => {
     switch (error) {
       case "auth/invalid-email":
-        console.log("Błedy format emaila");
-        alert("Błedy format adresu emaila");
+        console.log("Błędny format emaila");
+        alert("Błędny format adresu emaila");
         setOpen(true)
         <DialogValidation 
-        title="Błedy format emaila" 
+        title="Błędny format emaila" 
         open={open} 
         setOpen={setOpen}
         handleClose={handleClose}
