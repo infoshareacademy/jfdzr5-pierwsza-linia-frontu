@@ -148,7 +148,8 @@ export const Budget = () => {
           {chosenMoneyOperations === "expenses" ?
             <h3>Suma wydatków</h3>
             :
-            <h3>Suma przychodów</h3>
+            <h3>Suma przychodów
+            </h3>
           }
           <Box
             sx={{
