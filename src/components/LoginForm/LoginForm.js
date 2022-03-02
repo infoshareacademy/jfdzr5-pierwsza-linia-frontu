@@ -89,6 +89,13 @@ export const Sign = ({ isSignUp }) => {
       case "auth/invalid-email":
         console.log("Błedy format emaila");
         alert("Błedy format adresu emaila");
+        setOpen(true)
+        <DialogValidation 
+        title="Błedy format emaila" 
+        open={open} 
+        setOpen={setOpen}
+        handleClose={handleClose}
+        />
         break;
       case "auth/user-not-found":
         console.log("Nie znaleziono użytkownika z tym adresem e-mail");
