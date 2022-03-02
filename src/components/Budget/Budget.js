@@ -23,7 +23,6 @@ import { useContext } from "react";
 import { UserContext } from "../../userContext/UserContext";
 
 const ListContainer = styled.div`
-  margin-top: 60px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -147,9 +146,10 @@ export const Budget = props => {
         }}>
         <div
           style={{
-            alignSelf: "center",
+            alignSelf: "flex-start",
             width: "8rem",
             flexGrow: "1.5",
+            marginTop: "17px",
           }}>
           {chosenMoneyOperations === "expenses" ? (
             <h3 style={{ textAlign: "center" }}>Suma wydatków</h3>
