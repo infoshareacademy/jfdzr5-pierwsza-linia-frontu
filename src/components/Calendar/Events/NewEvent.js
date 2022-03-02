@@ -103,25 +103,16 @@ const NewEvent = ({ items, setItems, firestore }) => {
 
   const [notification, setNotification] = useState(true);
 
-  const handleNotificationClose = (event, reason) => {
-    console.log("click");
+  const handleNotificationClose = () => {
     setNotification(false);
   };
 
-  const action = (
-    <>
-      <Button
-        sx={{
-          marginLeft: "auto",
-          color: Theme.palette.primary.main,
-          ":hover": { color: Theme.palette.secondary.contrastText },
-        }}
-        onClick={() => handleNotificationClose}
-      >
-        <Icon>cancel</Icon>
-      </Button>
-    </>
-  );
+  const handleNotificationCancel = async (id) => {
+    const docRef = doc(firestore, "calendar", id);
+    await updateDoc(docRef, {
+      alert: false,
+    });
+  };
 
   return (
     <Box
@@ -356,7 +347,34 @@ const NewEvent = ({ items, setItems, firestore }) => {
                     autoHideDuration={10000}
                     onClose={handleNotificationClose}
                     message={`${element.name} - to już dzisiaj! Nie zapomnij!`}
-                    action={action}
+                    action={
+                      <>
+                        <Button
+                          sx={{
+                            marginLeft: "auto",
+                            color: Theme.palette.primary.main,
+                            ":hover": {
+                              color: Theme.palette.secondary.contrastText,
+                            },
+                          }}
+                          onClick={() => handleNotificationCancel(element.id)}
+                        >
+                          <Icon>alarm_off</Icon>
+                        </Button>
+                        <Button
+                          sx={{
+                            marginLeft: "auto",
+                            color: Theme.palette.primary.main,
+                            ":hover": {
+                              color: Theme.palette.secondary.contrastText,
+                            },
+                          }}
+                          onClick={() => handleNotificationClose}
+                        >
+                          <Icon>cancel</Icon>
+                        </Button>
+                      </>
+                    }
                     sx={{
                       "& .MuiSnackbarContent-root": {
                         color: Theme.palette.primary.main,
