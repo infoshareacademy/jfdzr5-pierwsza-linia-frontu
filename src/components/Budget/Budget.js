@@ -147,9 +147,10 @@ export const Budget = props => {
         }}>
         <div
           style={{
-            alignSelf: "center",
+            alignSelf: "flex-start",
             width: "8rem",
             flexGrow: "1.5",
+            marginTop: "17px",
           }}>
           {chosenMoneyOperations === "expenses" ? (
             <h3 style={{ textAlign: "center" }}>Suma wydatków</h3>
@@ -225,9 +226,9 @@ export const Budget = props => {
             style={{
               flexGrow: "1",
               width: "50%",
-              alignSelf: "center",
+              alignSelf: "flex-start",
             }}>
-            <ListContainer>
+            <ListContainer style={{ marginTop: "0" }}>
               <h3>Pokaż wydatki z kategorii: </h3>
               <Select
                 id="Category"
@@ -266,9 +267,9 @@ export const Budget = props => {
             style={{
               flexGrow: "1",
               width: "50%",
-              alignSelf: "center",
+              alignSelf: "flex-start",
             }}>
-            <ListContainer>
+            <ListContainer style={{ marginTop: "0" }}>
               <h3>Pokaż przychody z kategorii: </h3>
 
               <Select
