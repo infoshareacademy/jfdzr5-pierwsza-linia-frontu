@@ -1,9 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
 import styled from "styled-components";
 import { Theme } from "../../../common/theme/theme";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
+import { Button, Icon } from "@mui/material";
+import { OutlinedInput } from "@mui/material";
+import { FormHelperText } from "@mui/material";
+import { Box } from "@mui/material";
+import MenuItem from "@mui/material/MenuItem";
+import Select from "@mui/material/Select";
+import { doc, deleteDoc, updateDoc } from "firebase/firestore";
 
 const NewExpenseContainer = styled.div`
   display: flex;
@@ -16,38 +24,188 @@ const NewExpenseContainer = styled.div`
 
 const ListItemElement = styled.span`
   padding: 10px;
+  width: 7rem;
 `;
 
 function ExpensesList(props) {
-  return (
-    <div className="expenses-container">
-      <List>
-        {props.expenses.map(
-          expense =>
-            // return  jest niepotrzebny więc go usunąłem
-            //tutaj sprawdzam czy uid pobrane i przypisane do danego wydatku jest rowne uid danego uzytkownika
-            expense.uid === props.uid && (
-              <>
-                <NewExpenseContainer>
-                  <ListItem className="expenses" key={expense.id}>
-                    <ListItemElement style={{ width: "9rem" }}>
-                      {expense.amount} zł{" "}
-                    </ListItemElement>
-                    <ListItemElement style={{ width: "9rem" }}>
-                      {expense.category}
-                    </ListItemElement>
-                    <ListItemElement style={{ width: "7rem" }}>
-                      {expense.date}
-                    </ListItemElement>
+  const [editedTaskId, setEditedTaskId] = useState(null);
+  const [amountInput, setAmountInput] = useState("");
+  const [categoryInput, setCategoryInput] = useState("");
+  const [dateInput, setDateInput] = useState("");
 
-                    <DeleteIcon onClick={() => props.onDelete(expense.id)} />
-                  </ListItem>
-                </NewExpenseContainer>
-              </>
-            )
-        )}
-      </List>
-    </div>
+  const handleEditExpense = id => {
+    setEditedTaskId(id);
+    const editedTask = props.expenses.find(expense => expense.id === id);
+    setAmountInput(editedTask.amount);
+    setCategoryInput(editedTask.category);
+    setDateInput(editedTask.date);
+  };
+  const handleAmountChange = event => {
+    setAmountInput(event.target.value.replace(",", "."));
+  };
+  const handleCategoryChange = event => setCategoryInput(event.target.value);
+  const handleDateChange = event => setDateInput(event.target.value);
+
+  const handleClickSave = async id => {
+    setEditedTaskId(false);
+
+    const docRefExpenses = doc(props.firestore, "budget-expenses", id);
+    await updateDoc(docRefExpenses, {
+      amount: parseFloat(amountInput),
+      category: categoryInput,
+      date: dateInput,
+      uid: props.uid,
+    });
+  };
+
+  const handleClickCancel = id => {
+    setEditedTaskId(id);
+  };
+
+  return (
+    <Box>
+      <div className="expenses-container">
+        <List>
+          {props.expenses.map(
+            expense =>
+              // return  jest niepotrzebny więc go usunąłem
+              //tutaj sprawdzam czy uid pobrane i przypisane do danego wydatku jest rowne uid danego uzytkownika
+              expense.uid === props.uid && (
+                <>
+                  <NewExpenseContainer>
+                    <ListItem className="expenses" key={expense.id}>
+                      {expense.id === editedTaskId ? (
+                        <>
+                          <OutlinedInput
+                            required
+                            inputProps={{
+                              pattern: "[0-9]+(.|,)[0-9]{0,2}",
+                              title:
+                                "podaj liczbę z maks. 2 cyframi po przecinku ",
+                            }}
+                            placeholder="Podaj kwotę..."
+                            value={amountInput}
+                            onChange={handleAmountChange}
+                            sx={{
+                              width: "100%",
+                              height: "3rem",
+                              backgroundColor:
+                                Theme.palette.secondary.contrastText,
+                              ":hover": {
+                                backgroundColor:
+                                  Theme.palette.primary.contrastText,
+                              },
+                            }}></OutlinedInput>
+
+
+                          <Select
+                            required
+                            id="Category"
+                            value={categoryInput}
+                            onChange={handleCategoryChange}
+                            sx={{
+                              height: "3rem",
+                              width: "15rem",
+                              backgroundColor:
+                                Theme.palette.secondary.contrastText,
+                              ":hover": {
+                                backgroundColor:
+                                  Theme.palette.primary.contrastText,
+                              },
+                            }}>
+                            <MenuItem value="Jedzenie/Napoje">
+                              Jedzenie/Napoje
+                            </MenuItem>
+                            <MenuItem value="Rachunki">Rachunki</MenuItem>
+                            <MenuItem value="Rozrywka">Rozrywka</MenuItem>
+                            <MenuItem value="Zakupy">Zakupy</MenuItem>
+                            <MenuItem value="Transport">Transport</MenuItem>
+                            <MenuItem value="Rodzina">Rodzina</MenuItem>
+                            <MenuItem value="Zwierzęta">Zwierzęta</MenuItem>
+                            <MenuItem value="Podróże">Podróże</MenuItem>
+                            <MenuItem value="Inne">Inne</MenuItem>
+                          </Select>
+
+
+                          <OutlinedInput
+                            required
+                            type="date"
+                            value={dateInput}
+                            onChange={handleDateChange}
+                            sx={{
+                              width: "100%",
+                              height: "3rem",
+                              backgroundColor:
+                                Theme.palette.secondary.contrastText,
+                              ":hover": {
+                                backgroundColor:
+                                  Theme.palette.primary.contrastText,
+                              },
+                            }}
+                          />
+
+
+                          <Button
+                            sx={{
+                              color: Theme.palette.secondary.contrastText,
+                              ":hover": { color: Theme.palette.primary.contrastText },
+                            }}>
+                            <Icon
+                              onClick={() => handleClickSave(expense.id)}
+                            >
+                              save
+                            </Icon>
+                          </Button>
+                          <Button
+                            sx={{
+                              color: Theme.palette.secondary.contrastText,
+                              ":hover": { color: Theme.palette.primary.contrastText },
+                            }}
+                          >
+                            <Icon
+                              onClick={() => handleClickCancel()}>
+                              cancel
+                            </Icon>
+                          </Button>
+                        </>
+                      ) : (
+                        <>
+                          <ListItemElement>
+                            {expense.amount} zł{" "}
+                          </ListItemElement>
+                          <ListItemElement>{expense.category}</ListItemElement>
+                          <ListItemElement>{expense.date}</ListItemElement>
+
+                          <Button
+                            sx={{
+                              color: Theme.palette.secondary.contrastText,
+                              ":hover": { color: Theme.palette.primary.contrastText },
+                            }}>
+                            <DeleteIcon
+                              style={{ width: "4rem" }}
+                              onClick={() => props.onDelete(expense.id)}
+                            />
+                          </Button>
+                          <Button
+                            sx={{
+                              color: Theme.palette.secondary.contrastText,
+                              ":hover": { color: Theme.palette.primary.contrastText },
+                            }}>
+                            <EditIcon
+                              style={{ width: "4rem" }}
+                              onClick={() => handleEditExpense(expense.id)}
+                            />
+                          </Button>
+                        </>
+                      )}
+                    </ListItem>
+                  </NewExpenseContainer>
+                </>
+              )
+          )}
+        </List>
+      </div>
+    </Box>
   );
 }
 

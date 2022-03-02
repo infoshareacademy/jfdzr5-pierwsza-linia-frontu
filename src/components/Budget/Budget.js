@@ -29,7 +29,7 @@ const ListContainer = styled.div`
   align-items: center;
 `;
 
-export const Budget = () => {
+export const Budget = props => {
   const theme = useTheme();
   const expensesColRef = collection(firestore, "budget-expenses");
   const incomesColRef = collection(firestore, "budget-incomes");
@@ -140,19 +140,30 @@ export const Budget = () => {
         sx={{
           display: "flex",
           flexDirection: "row",
-          justifyContent: "space-around",
           width: "100%",
           maxWidth: "1600px",
+          justifyContent: "space-between",
+          gap: "10px",
         }}>
-        <div style={{ marginTop: "70px" }}>
-          <h3>Suma wydatków</h3>
+        <div
+          style={{
+            alignSelf: "flex-start",
+            width: "8rem",
+            flexGrow: "1.5",
+            marginTop: "17px",
+          }}>
+          {chosenMoneyOperations === "expenses" ? (
+            <h3 style={{ textAlign: "center" }}>Suma wydatków</h3>
+          ) : (
+            <h3 style={{ textAlign: "center" }}>Suma przychodów</h3>
+          )}
           <Box
             sx={{
               fontSize: "30px",
-              marginTop: "100px",
-              marginRight: "10px",
-              padding: "3rem",
+              padding: "1.5rem",
+              alignSelf: "center",
               backgroundColor: theme.palette.secondary.main,
+              textAlign: "center",
             }}>
             {/* tu również mój kod :) dopisałem warunek ktory sprawdza czy sa wlaczone wydatki
                 czy przychody i wyswietla to lub to */}
@@ -211,8 +222,13 @@ export const Budget = () => {
         </div>
 
         {chosenMoneyOperations === "expenses" ? (
-          <div>
-            <ListContainer>
+          <div
+            style={{
+              flexGrow: "1",
+              width: "50%",
+              alignSelf: "flex-start",
+            }}>
+            <ListContainer style={{ marginTop: "0" }}>
               <h3>Pokaż wydatki z kategorii: </h3>
               <Select
                 id="Category"
@@ -227,7 +243,7 @@ export const Budget = () => {
                   },
                 }}>
                 <MenuItem value="Wszystko">Wszystko</MenuItem>
-                <MenuItem value="Jedzenie/Picie">Jedzenie/Napoje</MenuItem>
+                <MenuItem value="Jedzenie/Napoje">Jedzenie/Napoje</MenuItem>
                 <MenuItem value="Rachunki">Rachunki</MenuItem>
                 <MenuItem value="Rozrywka">Rozrywka</MenuItem>
                 <MenuItem value="Zakupy">Zakupy</MenuItem>
@@ -243,11 +259,17 @@ export const Budget = () => {
               uid={uid}
               expenses={filterExpenses}
               onDelete={handleExpensesDelete}
+              firestore={firestore}
             />
           </div>
         ) : (
-          <div>
-            <ListContainer>
+          <div
+            style={{
+              flexGrow: "1",
+              width: "50%",
+              alignSelf: "flex-start",
+            }}>
+            <ListContainer style={{ marginTop: "0" }}>
               <h3>Pokaż przychody z kategorii: </h3>
 
               <Select
@@ -273,6 +295,7 @@ export const Budget = () => {
               uid={uid}
               incomes={filterIncomes}
               onDelete={handleIncomesDelete}
+              firestore={firestore}
             />
           </div>
         )}
