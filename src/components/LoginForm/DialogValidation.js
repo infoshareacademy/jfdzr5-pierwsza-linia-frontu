@@ -2,7 +2,7 @@ import { Dialog, DialogActions, DialogTitle } from "@mui/material";
 import Button from "@mui/material/Button";
 import { Theme } from "../../common/theme/theme";
 
-export const DialogValidation = ({title, open, setOpen, handleClose})=>{
+export const DialogValidation = ({title, open, handleClose})=>{
 
 
     

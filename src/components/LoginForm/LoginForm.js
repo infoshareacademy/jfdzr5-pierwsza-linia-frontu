@@ -10,6 +10,7 @@ import Button from "@mui/material/Button";
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { PageWrapper } from "../../common/page-wrapper/page-wrapper";
+import { DialogValidation } from "./DialogValidation";
 
 import {
   signInWithEmailAndPassword,
