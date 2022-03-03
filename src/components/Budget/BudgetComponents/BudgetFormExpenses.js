@@ -7,22 +7,29 @@ import { Button } from "@mui/material";
 import Select from "@mui/material/Select";
 import { Box } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
+import numeral from 'numeral';
 
 function BudgetFormExpenses(props) {
+  var numeral = require('numeral');
+
   const [amountInput, setAmountInput] = useState("");
   const [categoryInput, setCategoryInput] = useState("");
   const [dateInput, setDateInput] = useState("");
+
   const handleAmountChange = event => {
     setAmountInput(event.target.value.replace(",", "."));
   };
   const handleCategoryChange = event => setCategoryInput(event.target.value);
   const handleDateChange = event => setDateInput(event.target.value);
+  const numeralFormat = (value) => {
+    return numeral(value).format("0.00")
+  }
 
   const handleSubmit = event => {
     event.preventDefault();
 
     props.onSubmit({
-      amount: parseFloat(amountInput),
+      amount: numeralFormat(parseFloat(amountInput)),
       category: categoryInput,
       date: dateInput,
       //tutaj dodalem nowy klucz uid do dokumentu ktory wysyla sie do firebse, pobieram go z propsa ktory jest przekazany w Budget.js

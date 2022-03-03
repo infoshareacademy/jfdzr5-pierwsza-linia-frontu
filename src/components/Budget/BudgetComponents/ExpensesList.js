@@ -12,6 +12,9 @@ import { Box } from "@mui/material";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import { doc, deleteDoc, updateDoc } from "firebase/firestore";
+import dayjs from "dayjs";
+import "dayjs/locale/pl";
+dayjs.locale("pl");
 
 const NewExpenseContainer = styled.div`
   display: flex;
@@ -174,7 +177,7 @@ function ExpensesList(props) {
                             {expense.amount} zł{" "}
                           </ListItemElement>
                           <ListItemElement>{expense.category}</ListItemElement>
-                          <ListItemElement>{expense.date}</ListItemElement>
+                          <ListItemElement>{dayjs(expense.date).format("D MMMM")}</ListItemElement>
 
                           <Button
                             sx={{

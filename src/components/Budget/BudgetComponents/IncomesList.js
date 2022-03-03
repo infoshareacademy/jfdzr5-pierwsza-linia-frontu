@@ -11,6 +11,9 @@ import { FormHelperText } from "@mui/material";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import { doc, deleteDoc, updateDoc } from "firebase/firestore";
+import dayjs from "dayjs";
+import "dayjs/locale/pl";
+dayjs.locale("pl");
 
 
 const NewIncomeContainer = styled.div`
@@ -150,7 +153,7 @@ function IncomesList(props) {
                             {income.category}
                           </ListItemElement>
                           <ListItemElement>
-                            {income.date}
+                            {dayjs(income.date).format("D MMMM")}
                           </ListItemElement>
 
                           <Button
