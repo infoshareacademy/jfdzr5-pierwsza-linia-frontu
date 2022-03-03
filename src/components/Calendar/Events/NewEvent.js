@@ -50,7 +50,7 @@ const NewEvent = ({ items, setItems, firestore }) => {
     if (userUID) {
       setUid(userUID);
     }
-  });
+  }, [userUID]);
 
   const handleClickEdit = (id) => {
     setIsEditing(true);
@@ -101,7 +101,13 @@ const NewEvent = ({ items, setItems, firestore }) => {
     setOpen(false);
   };
 
-  const [notification, setNotification] = useState(true);
+  const [notification, setNotification] = useState(false);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setNotification(true);
+    }, 1000);
+  }, []);
 
   const handleNotificationClose = () => {
     setNotification(false);
@@ -369,7 +375,7 @@ const NewEvent = ({ items, setItems, firestore }) => {
                               color: Theme.palette.secondary.contrastText,
                             },
                           }}
-                          onClick={() => handleNotificationClose}
+                          onClick={() => handleNotificationClose(element.id)}
                         >
                           <Icon>cancel</Icon>
                         </Button>
