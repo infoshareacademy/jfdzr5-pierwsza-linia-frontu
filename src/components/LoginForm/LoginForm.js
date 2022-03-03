@@ -112,6 +112,9 @@ export const Sign = ({ isSignUp }) => {
         console.log(error);
         setErrorMessage("Błąd autoryzacji. Wprowadz poprawny login i hasło");
         break;
+        default :
+        console.log(error);
+        setErrorMessage(error);
     }
   };
   const handleSubmit = e => {
