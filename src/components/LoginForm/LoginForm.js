@@ -10,6 +10,7 @@ import Button from "@mui/material/Button";
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { PageWrapper } from "../../common/page-wrapper/page-wrapper";
+import { DialogValidation } from "./DialogValidation";
 
 import {
   signInWithEmailAndPassword,
@@ -84,23 +85,32 @@ export const Sign = ({ isSignUp }) => {
   const toUpperCaseFirstLetter = string => {
     return string.charAt(0).toUpperCase() + string.slice(1);
   };
+  const [errors, setErrors] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [openValidationDialog, setOpenValidationDialog] = useState(false);
   const emailValidation = error => {
+    setOpenValidationDialog(true);
+    setErrors(true);
     switch (error) {
       case "auth/invalid-email":
-        console.log("Błedy format emaila");
-        alert("Błedy format adresu emaila");
+        console.log(error);
+        setErrorMessage("Błędny format adresu emaila");
         break;
       case "auth/user-not-found":
-        console.log("Nie znaleziono użytkownika z tym adresem e-mail");
-        alert("Nie znaleziono użytkownika z tym adresem e-mail");
+        console.log(error);
+        setErrorMessage("Nie znaleziono użytkownika z tym adresem e-mail");
         break;
       case "auth/email-already-in-use":
-        console.log("Ten adres email został już użyty");
-        alert("Ten adres email został już użyty");
+        console.log(error);
+        setErrorMessage("Ten adres email został już użyty");
         break;
       case "auth/wrong-password":
-        console.log("Niepoprawne hasło");
-        alert("Niepoprawne hasło");
+        console.log(error);
+        setErrorMessage("Niepoprawne hasło");
+        break;
+      case "auth/internal-error":
+        console.log(error);
+        setErrorMessage("Błąd autoryzacji. Wprowadz poprawny login i hasło");
         break;
     }
   };
@@ -117,16 +127,19 @@ export const Sign = ({ isSignUp }) => {
         })
         .catch(err => {
           emailValidation(err.code);
+          console.log(err.code);
         });
     } else {
+      setOpenValidationDialog(true);
+      setErrors(true);
       if (name.length <= 2) {
-        alert("Imię powinno posiadać minimum trzy znaki");
+        setErrorMessage("Imię powinno posiadać minimum trzy znaki");
       } else if (surname.length <= 2) {
-        alert("Nazwisko powinno posiadać minimum trzy znaki");
+        setErrorMessage("Nazwisko powinno posiadać minimum trzy znaki");
       } else if (password.length <= 5) {
-        alert("Hasło musi zawierać minimum sześć znaków");
+        setErrorMessage("Hasło musi zawierać minimum sześć znaków");
       } else if (password !== confirmPassword) {
-        alert("Podane hasła nie są identyczne");
+        setErrorMessage("Podane hasła nie są identyczne");
       } else {
         method(auth, email, password)
           .then(() => {
@@ -135,6 +148,7 @@ export const Sign = ({ isSignUp }) => {
           })
           .catch(err => {
             emailValidation(err.code);
+            console.log(err.code);
           });
       }
     }
@@ -142,6 +156,7 @@ export const Sign = ({ isSignUp }) => {
   const [open, setOpen] = useState(false);
   const handleClose = () => {
     setOpen(false);
+    setOpenValidationDialog(false);
   };
   const handleResetPassoword = () => {
     setResetPassword(true);
@@ -158,11 +173,20 @@ export const Sign = ({ isSignUp }) => {
       })
       .catch(err => {
         emailValidation(err.code);
+        console.log(err.code);
       });
   };
 
   return (
     <PageWrapper>
+      {errors && (
+        <DialogValidation
+          title={errorMessage}
+          openValidationDialog={openValidationDialog}
+          handleClose={handleClose}
+        />
+      )}
+
       <Container component="main" maxWidth="sm">
         <Box
           sx={{

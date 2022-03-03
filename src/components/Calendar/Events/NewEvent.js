@@ -3,15 +3,27 @@ import { useState, useEffect, useContext } from "react";
 import styled from "styled-components";
 import { Theme } from "../../../common/theme/theme";
 
-import { Box, Button, Checkbox, checkboxClasses, Dialog, DialogActions, DialogTitle, Icon, OutlinedInput, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Checkbox,
+  checkboxClasses,
+  Dialog,
+  DialogActions,
+  DialogTitle,
+  Icon,
+  OutlinedInput,
+  Snackbar,
+  Typography,
+} from "@mui/material";
 
 import { UserContext } from "../../../userContext/UserContext";
 
 import { doc, deleteDoc, updateDoc } from "firebase/firestore";
 
-import dayjs from 'dayjs';
-import 'dayjs/locale/pl';
-dayjs.locale('pl');
+import dayjs from "dayjs";
+import "dayjs/locale/pl";
+dayjs.locale("pl");
 
 const NewEventContainer = styled.div`
   box-sizing: border-box;
@@ -87,6 +99,19 @@ const NewEvent = ({ items, setItems, firestore }) => {
 
   const handleClose = () => {
     setOpen(false);
+  };
+
+  const [notification, setNotification] = useState(true);
+
+  const handleNotificationClose = () => {
+    setNotification(false);
+  };
+
+  const handleNotificationCancel = async (id) => {
+    const docRef = doc(firestore, "calendar", id);
+    await updateDoc(docRef, {
+      alert: false,
+    });
   };
 
   return (
@@ -170,8 +195,8 @@ const NewEvent = ({ items, setItems, firestore }) => {
                       alignSelf: "center",
                       padding: ".5rem",
                     }}
-                  > 
-                    {dayjs(element.date).format('D MMMM')}
+                  >
+                    {dayjs(element.date).format("D MMMM")}
                   </Typography>
                   <Checkbox
                     type="disabled"
@@ -309,6 +334,54 @@ const NewEvent = ({ items, setItems, firestore }) => {
                   >
                     <Icon>delete</Icon>
                   </Button>
+                </>
+              )}
+              {element.date === dayjs().format("YYYY-MM-DD") && element.alert && (
+                <>
+                  <Snackbar
+                    anchorOrigin={{
+                      vertical: "bottom",
+                      horizontal: "right",
+                    }}
+                    open={notification}
+                    autoHideDuration={10000}
+                    onClose={handleNotificationClose}
+                    message={`${element.name} - to już dzisiaj! Nie zapomnij!`}
+                    action={
+                      <>
+                        <Button
+                          sx={{
+                            marginLeft: "auto",
+                            color: Theme.palette.primary.main,
+                            ":hover": {
+                              color: Theme.palette.secondary.contrastText,
+                            },
+                          }}
+                          onClick={() => handleNotificationCancel(element.id)}
+                        >
+                          <Icon>alarm_off</Icon>
+                        </Button>
+                        <Button
+                          sx={{
+                            marginLeft: "auto",
+                            color: Theme.palette.primary.main,
+                            ":hover": {
+                              color: Theme.palette.secondary.contrastText,
+                            },
+                          }}
+                          onClick={() => handleNotificationClose}
+                        >
+                          <Icon>cancel</Icon>
+                        </Button>
+                      </>
+                    }
+                    sx={{
+                      "& .MuiSnackbarContent-root": {
+                        color: Theme.palette.primary.main,
+                        background: Theme.palette.primary.contrastText,
+                      },
+                    }}
+                  />
                 </>
               )}
             </NewEventContainer>
