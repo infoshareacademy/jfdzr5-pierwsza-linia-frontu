@@ -5,6 +5,7 @@ import { UserContext } from "../../userContext/UserContext";
 import { firestore } from "../../firebase";
 import { collection, onSnapshot } from "firebase/firestore";
 import { useState } from "react";
+import { useEffect } from "react";
 export const Home = () => {
   const { user } = useContext(UserContext);
 
@@ -15,16 +16,43 @@ export const Home = () => {
   const [usersNumber, setUsersNumber] = useState();
   const [tasksNumber, setTasksNumber] = useState();
   const [eventsNumber, setEventsNumber] = useState();
+  const [userData, setUserData] = useState([]);
+  const [name, setName] = useState("");
+  const [surname, setSurname] = useState("");
 
   let usersCounter = 0;
   let tasksCounter = 0;
   let eventsCounter = 0;
 
+  const getUserNameAndSurname = () => {
+    userData.forEach(item => {
+      if (item.email === user.email) {
+        setName(item.name);
+        setSurname(item.surname);
+      }
+    });
+  };
+  useEffect(() => {
+    fetchUsers();
+    fetchTasks();
+    fetchEvents();
+  }, [user]);
+
+  useEffect(() => {
+    fetchUsers();
+    if (user) {
+      getUserNameAndSurname();
+    }
+  });
+
   const fetchUsers = () => {
     onSnapshot(usersRef, doc => {
+      let data = [];
       doc.docs.forEach(element => {
         usersCounter += 1;
+        data.push({ ...element.data() });
       });
+      setUserData(data);
       setUsersNumber(usersCounter);
     });
   };
@@ -44,13 +72,20 @@ export const Home = () => {
       setEventsNumber(eventsCounter);
     });
   };
-  fetchUsers();
-  fetchTasks();
-  fetchEvents();
 
   return user ? (
-    <HomeLogin usersNumber={usersNumber} tasksNumber={tasksNumber} eventsNumber={eventsNumber} />
+    <HomeLogin
+      name={name}
+      surname={surname}
+      usersNumber={usersNumber}
+      tasksNumber={tasksNumber}
+      eventsNumber={eventsNumber}
+    />
   ) : (
-    <Intro usersNumber={usersNumber} tasksNumber={tasksNumber} eventsNumber={eventsNumber} />
+    <Intro
+      usersNumber={usersNumber}
+      tasksNumber={tasksNumber}
+      eventsNumber={eventsNumber}
+    />
   );
 };
