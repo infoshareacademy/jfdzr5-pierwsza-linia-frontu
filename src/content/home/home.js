@@ -5,6 +5,7 @@ import { UserContext } from "../../userContext/UserContext";
 import { firestore } from "../../firebase";
 import { collection, onSnapshot } from "firebase/firestore";
 import { useState } from "react";
+import { useEffect } from "react";
 export const Home = () => {
   const { user } = useContext(UserContext);
 
@@ -15,15 +16,36 @@ export const Home = () => {
   const [usersNumber, setUsersNumber] = useState();
   const [tasksNumber, setTasksNumber] = useState();
   const [eventsNumber, setEventsNumber] = useState();
+  const [data, setData] = useState([]);
+  const [name, setName] = useState("");
+  const [surName, setSurname] = useState("");
 
   let usersCounter = 0;
   let tasksCounter = 0;
   let eventsCounter = 0;
 
+  const getUserNameAndSurname = () => {
+    if (user.email === data.email) {
+      setName(data.name);
+      setSurname(data.surName);
+      // console.log(name);
+    }
+  };
+
+  useEffect(() => {
+    if (user) {
+      getUserNameAndSurname();
+      console.log(name);
+    }
+  }, []);
+
   const fetchUsers = () => {
     onSnapshot(usersRef, doc => {
       doc.docs.forEach(element => {
         usersCounter += 1;
+        const data = element.data();
+        setData(data);
+        // getUserNameAndSurname(data);
       });
       setUsersNumber(usersCounter);
     });
@@ -49,8 +71,16 @@ export const Home = () => {
   fetchEvents();
 
   return user ? (
-    <HomeLogin usersNumber={usersNumber} tasksNumber={tasksNumber} eventsNumber={eventsNumber} />
+    <HomeLogin
+      usersNumber={usersNumber}
+      tasksNumber={tasksNumber}
+      eventsNumber={eventsNumber}
+    />
   ) : (
-    <Intro usersNumber={usersNumber} tasksNumber={tasksNumber} eventsNumber={eventsNumber} />
+    <Intro
+      usersNumber={usersNumber}
+      tasksNumber={tasksNumber}
+      eventsNumber={eventsNumber}
+    />
   );
 };
