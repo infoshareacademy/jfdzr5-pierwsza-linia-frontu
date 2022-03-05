@@ -93,8 +93,6 @@ function IncomesList(props) {
         <List>
           {props.incomes.map(
             income =>
-              // return  jest niepotrzebny więc go usunąłem
-              //tutaj sprawdzam czy uid pobrane i przypisane do danego wydatku jest rowne uid danego uzytkownika
               income.uid === props.uid && (
                 <>
                   <NewIncomeContainer>
@@ -113,6 +111,7 @@ function IncomesList(props) {
                             sx={{
                               width: "100%",
                               height: "3rem",
+                              margin: "10px",
                               backgroundColor: Theme.palette.secondary.contrastText,
                               ":hover": { backgroundColor: Theme.palette.primary.contrastText },
                             }}></OutlinedInput>
@@ -126,6 +125,7 @@ function IncomesList(props) {
                             sx={{
                               height: "3rem",
                               width: "15rem",
+                              margin: "10px",
                               backgroundColor: Theme.palette.secondary.contrastText,
                               ":hover": { backgroundColor: Theme.palette.primary.contrastText },
                             }}>
@@ -142,6 +142,7 @@ function IncomesList(props) {
                             sx={{
                               width: "100%",
                               height: "3rem",
+                              margin: "10px",
                               backgroundColor: Theme.palette.secondary.contrastText,
                               ":hover": { backgroundColor: Theme.palette.primary.contrastText },
                             }}
@@ -170,7 +171,7 @@ function IncomesList(props) {
                         </>) : (
                           <>
                             <ListItemElement>
-                              {income.amount} zł
+                              {parseFloat(income.amount).toFixed(2)} zł
                             </ListItemElement>
                             <ListItemElement>
                               {income.category}

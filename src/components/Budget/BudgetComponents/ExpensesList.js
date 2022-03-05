@@ -43,7 +43,6 @@ function ExpensesList(props) {
 
   const handleEditExpense = id => {
     setEditedTaskId(id);
-    console.log(id)
     const editedTask = props.expenses.find(expense => expense.id === id);
     setAmountInput(editedTask.amount);
     setCategoryInput(editedTask.category);
@@ -93,8 +92,6 @@ function ExpensesList(props) {
         <List>
           {props.expenses.map(
             expense =>
-              // return  jest niepotrzebny więc go usunąłem
-              //tutaj sprawdzam czy uid pobrane i przypisane do danego wydatku jest rowne uid danego uzytkownika
               expense.uid === props.uid && (
                 <>
                   <NewExpenseContainer>
@@ -115,6 +112,7 @@ function ExpensesList(props) {
                             sx={{
                               width: "100%",
                               height: "3rem",
+                              margin: "10px",
                               backgroundColor:
                                 Theme.palette.secondary.contrastText,
                               ":hover": {
@@ -132,6 +130,7 @@ function ExpensesList(props) {
                             sx={{
                               height: "3rem",
                               width: "15rem",
+                              margin: "10px",
                               backgroundColor:
                                 Theme.palette.secondary.contrastText,
                               ":hover": {
@@ -161,6 +160,7 @@ function ExpensesList(props) {
                             sx={{
                               width: "100%",
                               height: "3rem",
+                              margin: "10px",
                               backgroundColor:
                                 Theme.palette.secondary.contrastText,
                               ":hover": {
@@ -197,7 +197,7 @@ function ExpensesList(props) {
                       ) : (
                         <>
                           <ListItemElement>
-                            {expense.amount} zł{" "}
+                            {parseFloat(expense.amount).toFixed(2)} zł{" "}
                           </ListItemElement>
                           <ListItemElement>{expense.category}</ListItemElement>
                           <ListItemElement>{dayjs(expense.date).format("D MMMM")}</ListItemElement>

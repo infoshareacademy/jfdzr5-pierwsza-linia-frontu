@@ -27,8 +27,6 @@ function BudgetFormExpenses(props) {
       amount: parseFloat(amountInput),
       category: categoryInput,
       date: dateInput,
-      //tutaj dodalem nowy klucz uid do dokumentu ktory wysyla sie do firebse, pobieram go z propsa ktory jest przekazany w Budget.js
-      //przy edycji jak bedziesz dodawac przycisk edycji tez trzeba to uid wstawic tak zeby kazdy wydate/przychod mialo to uid
       uid: props.uid,
     });
     setAmountInput("");
