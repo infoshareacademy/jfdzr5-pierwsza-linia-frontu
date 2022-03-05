@@ -11,6 +11,7 @@ import { FormHelperText } from "@mui/material";
 import { Box } from "@mui/material";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
+import { DeleteDialog } from "./DeleteDialog";
 import { doc, deleteDoc, updateDoc } from "firebase/firestore";
 import dayjs from "dayjs";
 import "dayjs/locale/pl";
@@ -19,7 +20,9 @@ dayjs.locale("pl");
 const NewExpenseContainer = styled.div`
   display: flex;
   min-height: 1rem;
-  margin: 10px;
+  width: 650px;
+  margin-left: 150px;
+  margin-top: 10px;
   padding: 10px;
   background-color: ${Theme.palette.secondary.main};
   color: ${Theme.palette.secondary.contrastText};
@@ -35,9 +38,12 @@ function ExpensesList(props) {
   const [amountInput, setAmountInput] = useState("");
   const [categoryInput, setCategoryInput] = useState("");
   const [dateInput, setDateInput] = useState("");
+  const [isOpen, setIsOpen] = useState(false)
+  const [deletedTaskId, setDeletedTaskId] = useState(null)
 
   const handleEditExpense = id => {
     setEditedTaskId(id);
+    console.log(id)
     const editedTask = props.expenses.find(expense => expense.id === id);
     setAmountInput(editedTask.amount);
     setCategoryInput(editedTask.category);
@@ -64,6 +70,22 @@ function ExpensesList(props) {
   const handleClickCancel = id => {
     setEditedTaskId(id);
   };
+
+  const handleCloseDialog = () => {
+    setIsOpen(false)
+    setDeletedTaskId(null)
+  }
+
+  const handleDeleteExpense = () => {
+    props.onDelete(deletedTaskId)
+    setIsOpen(false)
+    setDeletedTaskId(null)
+  }
+
+  const handleOpenDialog = (id) => {
+    setDeletedTaskId(id)
+    setIsOpen(true)
+  }
 
   return (
     <Box>
@@ -187,7 +209,7 @@ function ExpensesList(props) {
                             }}>
                             <DeleteIcon
                               style={{ width: "4rem" }}
-                              onClick={() => props.onDelete(expense.id)}
+                              onClick={() => handleOpenDialog(expense.id)}
                             />
                           </Button>
                           <Button
@@ -200,6 +222,7 @@ function ExpensesList(props) {
                               onClick={() => handleEditExpense(expense.id)}
                             />
                           </Button>
+
                         </>
                       )}
                     </ListItem>
@@ -209,6 +232,7 @@ function ExpensesList(props) {
           )}
         </List>
       </div>
+      <DeleteDialog open={isOpen} handleClose={handleCloseDialog} handleDeleteTask={handleDeleteExpense} />
     </Box>
   );
 }

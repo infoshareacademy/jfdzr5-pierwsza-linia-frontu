@@ -19,7 +19,9 @@ dayjs.locale("pl");
 const NewIncomeContainer = styled.div`
   display: flex;
   min-height: 1rem;
-  margin: 10px;
+  width: 650px;
+  margin-left: 150px;
+  margin-top: 10px;
   padding: 10px;
   background-color: ${Theme.palette.secondary.main};
   color: ${Theme.palette.secondary.contrastText};
