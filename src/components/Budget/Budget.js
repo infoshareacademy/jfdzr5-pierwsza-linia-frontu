@@ -163,7 +163,7 @@ export const Budget = props => {
               : `${parseFloat(incomesSum).toFixed(2)} zł`}
           </Box>
         </div>
-        <div style={{ marginLeft: "150px" }}>
+        <div style={{ marginLeft: "100px" }}>
           <div>
             <Button
               type="submit"
