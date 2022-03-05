@@ -39,7 +39,7 @@ const HorizontalLine = styled.hr`
 
 export const HomeLogin = ({
   usersNumber,
-  tasksNumber,
+  userTasksNumber,
   eventsNumber,
   name,
   surname,
@@ -47,7 +47,8 @@ export const HomeLogin = ({
   return (
     <PageWrapper title="Home App">
       <Typography variant="h4">
-        <strong> {`${name} ${surname}`}</strong> witaj w aplikacji Home Organizer!
+        <strong> {`${name} ${surname}`}</strong> witaj w aplikacji Home
+        Organizer!
       </Typography>
       <TileContainer>
         <BoxContainer to="/tasks">
@@ -148,7 +149,7 @@ export const HomeLogin = ({
             <Typography
               paragraph="true"
               sx={{ margin: "1rem", fontSize: "2rem" }}>
-              {tasksNumber}
+              {userTasksNumber}
             </Typography>
           </BoxPanel>
           <BoxPanel>

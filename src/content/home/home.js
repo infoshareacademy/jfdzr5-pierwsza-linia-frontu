@@ -62,12 +62,16 @@ export const Home = () => {
     onSnapshot(tasksRef, doc => {
       doc.docs.forEach(element => {
         tasksCounter += 1;
-        if (element.email === user.email) {
+        const data = element.data();
+        if (data.uid === user.uid) {
+          console.log("dziala");
+          // console.log(data.uid);
           tasksUserCounter += 1;
         }
+        setUserTasksNumber(tasksUserCounter);
+        console.log(tasksUserCounter);
       });
       setTasksNumber(tasksCounter);
-      setUserTasksNumber(tasksUserCounter);
     });
   };
   const fetchEvents = () => {
@@ -84,7 +88,7 @@ export const Home = () => {
       name={name}
       surname={surname}
       usersNumber={usersNumber}
-      tasksNumber={tasksNumber}
+      userTasksNumber={userTasksNumber}
       eventsNumber={eventsNumber}
     />
   ) : (
