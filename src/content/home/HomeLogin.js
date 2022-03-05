@@ -47,7 +47,7 @@ export const HomeLogin = ({
   return (
     <PageWrapper title="Home App">
       <Typography variant="h4">
-        <strong> {name + surname}</strong> witaj w aplikacji Home Organizer!
+        <strong> {`${name} ${surname}`}</strong> witaj w aplikacji Home Organizer!
       </Typography>
       <TileContainer>
         <BoxContainer to="/tasks">
