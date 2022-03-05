@@ -119,25 +119,27 @@ const NewEvent = ({ items, setItems, firestore }) => {
   }, []);
 
   const handleNotificationTodayClose = (event, reason) => {
-    if (reason === 'clickaway') {
+    if (reason === "clickaway") {
       return;
     }
     setNotificationToday(false);
   };
 
   const handleNotificationTomorrowClose = (event, reason) => {
-    if (reason === 'clickaway') {
+    if (reason === "clickaway") {
       return;
     }
     setNotificationTomorrow(false);
   };
 
   const handleNotificationAfterTomorrowClose = (event, reason) => {
-    if (reason === 'clickaway') {
+    if (reason === "clickaway") {
       return;
     }
     setNotificationAfterTomorrow(false);
   };
+
+  let notificationCounter = -4;
 
   return (
     <Box
@@ -369,13 +371,14 @@ const NewEvent = ({ items, setItems, firestore }) => {
                       horizontal: "right",
                     }}
                     open={notificationToday}
-                    autoHideDuration={5000}
+                    autoHideDuration={7000}
                     onClose={handleNotificationTodayClose}
                     message={`${element.name} - to już dzisiaj! Nie zapomnij!`}
                     sx={{
                       "& .MuiSnackbarContent-root": {
                         color: Theme.palette.secondary.contrastText,
                         background: "#D32F2F",
+                        marginBottom: `${(notificationCounter += 4)}rem`,
                       },
                     }}
                   />
@@ -390,14 +393,14 @@ const NewEvent = ({ items, setItems, firestore }) => {
                         horizontal: "right",
                       }}
                       open={notificationTomorrow}
-                      autoHideDuration={5000}
+                      autoHideDuration={7000}
                       onClose={handleNotificationTomorrowClose}
                       message={`${element.name} - to już jutro! Nie zapomnij!`}
                       sx={{
                         "& .MuiSnackbarContent-root": {
                           color: Theme.palette.secondary.contrastText,
                           background: "#ED6C02",
-                          marginBottom: "4rem",
+                          marginBottom: `${(notificationCounter += 4)}rem`,
                         },
                       }}
                     />
@@ -412,14 +415,14 @@ const NewEvent = ({ items, setItems, firestore }) => {
                         horizontal: "right",
                       }}
                       open={notificationAfterTomorrow}
-                      autoHideDuration={5000}
+                      autoHideDuration={7000}
                       onClose={handleNotificationAfterTomorrowClose}
                       message={`${element.name} - to za 2 dni! Nie zapomnij!`}
                       sx={{
                         "& .MuiSnackbarContent-root": {
                           color: Theme.palette.secondary.contrastText,
                           background: "#0288D1",
-                          marginBottom: "8rem",
+                          marginBottom: `${(notificationCounter += 4)}rem`,
                         },
                       }}
                     />
