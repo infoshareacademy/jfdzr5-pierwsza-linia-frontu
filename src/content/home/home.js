@@ -40,6 +40,8 @@ export const Home = () => {
     fetchUsers();
     fetchTasks();
     fetchEvents();
+    fetchUserEvents();
+    fetchUserTasks();
   }, [user]);
 
   useEffect(() => {
@@ -64,6 +66,14 @@ export const Home = () => {
     onSnapshot(tasksRef, doc => {
       doc.docs.forEach(element => {
         tasksCounter += 1;
+      });
+      setTasksNumber(tasksCounter);
+    });
+  };
+  const fetchUserTasks = () => {
+    onSnapshot(tasksRef, doc => {
+      doc.docs.forEach(element => {
+        tasksCounter += 1;
         const data = element.data();
         if (data.uid === user.uid) {
           tasksUserCounter += 1;
@@ -77,13 +87,20 @@ export const Home = () => {
     onSnapshot(eventsRef, doc => {
       doc.docs.forEach(element => {
         eventsCounter += 1;
+      });
+      setEventsNumber(eventsCounter);
+    });
+  };
+  const fetchUserEvents = () => {
+    onSnapshot(eventsRef, doc => {
+      doc.docs.forEach(element => {
         const data = element.data();
         if (data.uid === user.uid) {
           eventsUserCounter += 1;
+          console.log(eventsCounter);
         }
         setUserEventsNumber(eventsUserCounter);
       });
-      setEventsNumber(eventsCounter);
     });
   };
 
