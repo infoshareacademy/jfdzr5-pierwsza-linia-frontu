@@ -19,9 +19,11 @@ export const Home = () => {
   const [userData, setUserData] = useState([]);
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
+  const [userTasksNumber, setUserTasksNumber] = useState("");
 
   let usersCounter = 0;
   let tasksCounter = 0;
+  let tasksUserCounter = 0;
   let eventsCounter = 0;
 
   const getUserNameAndSurname = () => {
@@ -60,8 +62,12 @@ export const Home = () => {
     onSnapshot(tasksRef, doc => {
       doc.docs.forEach(element => {
         tasksCounter += 1;
+        if (element.email === user.email) {
+          tasksUserCounter += 1;
+        }
       });
       setTasksNumber(tasksCounter);
+      setUserTasksNumber(tasksUserCounter);
     });
   };
   const fetchEvents = () => {
