@@ -20,10 +20,12 @@ export const Home = () => {
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
   const [userTasksNumber, setUserTasksNumber] = useState("");
+  const [userEventsNumber, setUserEventsNumber] = useState("");
 
   let usersCounter = 0;
   let tasksCounter = 0;
   let tasksUserCounter = 0;
+  let eventsUserCounter = 0;
   let eventsCounter = 0;
 
   const getUserNameAndSurname = () => {
@@ -64,12 +66,9 @@ export const Home = () => {
         tasksCounter += 1;
         const data = element.data();
         if (data.uid === user.uid) {
-          console.log("dziala");
-          // console.log(data.uid);
           tasksUserCounter += 1;
         }
         setUserTasksNumber(tasksUserCounter);
-        console.log(tasksUserCounter);
       });
       setTasksNumber(tasksCounter);
     });
@@ -78,6 +77,11 @@ export const Home = () => {
     onSnapshot(eventsRef, doc => {
       doc.docs.forEach(element => {
         eventsCounter += 1;
+        const data = element.data();
+        if (data.uid === user.uid) {
+          eventsUserCounter += 1;
+        }
+        setUserEventsNumber(eventsUserCounter);
       });
       setEventsNumber(eventsCounter);
     });
@@ -89,7 +93,7 @@ export const Home = () => {
       surname={surname}
       usersNumber={usersNumber}
       userTasksNumber={userTasksNumber}
-      eventsNumber={eventsNumber}
+      userEventsNumber={userEventsNumber}
     />
   ) : (
     <Intro

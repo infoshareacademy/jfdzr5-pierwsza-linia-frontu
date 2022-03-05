@@ -40,7 +40,7 @@ const HorizontalLine = styled.hr`
 export const HomeLogin = ({
   usersNumber,
   userTasksNumber,
-  eventsNumber,
+  userEventsNumber,
   name,
   surname,
 }) => {
@@ -128,7 +128,7 @@ export const HomeLogin = ({
 
             <HorizontalLine style={{ margin: "0 auto", width: "90%" }} />
           </Box>
-          <BoxPanel>
+          {/* <BoxPanel>
             <GroupIcon sx={{ marginLeft: "1rem", fontSize: "2rem" }} />
             <Typography variant="h6" sx={{ margin: "1rem" }}>
               Użytkownicy
@@ -139,7 +139,7 @@ export const HomeLogin = ({
               sx={{ margin: "1rem", fontSize: "2rem" }}>
               {usersNumber}
             </Typography>
-          </BoxPanel>
+          </BoxPanel> */}
           <BoxPanel>
             <ListAltIcon sx={{ marginLeft: "1rem", fontSize: "2rem" }} />
             <Typography variant="h6" sx={{ margin: "1rem" }}>
@@ -163,7 +163,7 @@ export const HomeLogin = ({
             <Typography
               paragraph="true"
               sx={{ margin: "1rem", fontSize: "2rem" }}>
-              {eventsNumber}
+              {userEventsNumber}
             </Typography>
           </BoxPanel>
         </BoxContainerDashboard>
