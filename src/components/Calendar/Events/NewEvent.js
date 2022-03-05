@@ -101,19 +101,49 @@ const NewEvent = ({ items, setItems, firestore }) => {
     setOpen(false);
   };
 
-  const [notification, setNotification] = useState(false);
+  const [notificationToday, setNotificationToday] = useState(false);
+  const [notificationTomorrow, setNotificationTomorrow] = useState(false);
+  const [notificationAfterTomorrow, setNotificationAfterTomorrow] = useState(false);
 
   useEffect(() => {
     setTimeout(() => {
-      setNotification(true);
+      setNotificationToday(true);
     }, 1000);
+    setTimeout(() => {
+      setNotificationTomorrow(true);
+    }, 5500);
+    setTimeout(() => {
+      setNotificationAfterTomorrow(true);
+    }, 10000);
   }, []);
 
-  const handleNotificationClose = () => {
-    setNotification(false);
+  const handleNotificationTodayClose = () => {
+    setNotificationToday(false);
   };
 
-  const handleNotificationCancel = async (id) => {
+  const handleNotificationTomorrowClose = () => {
+    setNotificationTomorrow(false);
+  };
+
+  const handleNotificationAfterTomorrowClose = () => {
+    setNotificationAfterTomorrow(false);
+  };
+
+  const handleNotificationTodayCancel = async (id) => {
+    const docRef = doc(firestore, "calendar", id);
+    await updateDoc(docRef, {
+      alert: false,
+    });
+  };
+
+  const handleNotificationTomorrowCancel = async (id) => {
+    const docRef = doc(firestore, "calendar", id);
+    await updateDoc(docRef, {
+      alert: false,
+    });
+  };
+
+  const handleNotificationAfterTomorrowCancel = async (id) => {
     const docRef = doc(firestore, "calendar", id);
     await updateDoc(docRef, {
       alert: false,
@@ -349,33 +379,33 @@ const NewEvent = ({ items, setItems, firestore }) => {
                       vertical: "bottom",
                       horizontal: "right",
                     }}
-                    open={notification}
-                    autoHideDuration={10000}
-                    onClose={handleNotificationClose}
+                    open={notificationToday}
+                    autoHideDuration={4000}
+                    onClose={handleNotificationTodayClose}
                     message={`${element.name} - to już dzisiaj! Nie zapomnij!`}
                     action={
                       <>
                         <Button
                           sx={{
                             marginLeft: "auto",
-                            color: Theme.palette.primary.main,
+                            color: Theme.palette.secondary.contrastText,
                             ":hover": {
-                              color: Theme.palette.secondary.contrastText,
+                              color: Theme.palette.primary.main,
                             },
                           }}
-                          onClick={() => handleNotificationCancel(element.id)}
+                          onClick={() => handleNotificationTodayCancel(element.id)}
                         >
                           <Icon>alarm_off</Icon>
                         </Button>
                         <Button
                           sx={{
                             marginLeft: "auto",
-                            color: Theme.palette.primary.main,
+                            color: Theme.palette.secondary.contrastText,
                             ":hover": {
-                              color: Theme.palette.secondary.contrastText,
+                              color: Theme.palette.primary.main,
                             },
                           }}
-                          onClick={() => handleNotificationClose(element.id)}
+                          onClick={() => handleNotificationTodayClose(element.id)}
                         >
                           <Icon>cancel</Icon>
                         </Button>
@@ -383,8 +413,106 @@ const NewEvent = ({ items, setItems, firestore }) => {
                     }
                     sx={{
                       "& .MuiSnackbarContent-root": {
-                        color: Theme.palette.primary.main,
-                        background: Theme.palette.primary.contrastText,
+                        color: Theme.palette.secondary.contrastText,
+                        background: "#D32F2F",
+                      },
+                    }}
+                  />
+                </>
+              )}
+              {element.date === dayjs().add(1, 'day').format("YYYY-MM-DD") && element.alert && (
+                <>
+                  <Snackbar
+                    anchorOrigin={{
+                      vertical: "bottom",
+                      horizontal: "right",
+                    }}
+                    open={notificationTomorrow}
+                    autoHideDuration={4000}
+                    onClose={handleNotificationTomorrowClose}
+                    message={`${element.name} - to już jutro! Nie zapomnij!`}
+                    action={
+                      <>
+                        <Button
+                          sx={{
+                            marginLeft: "auto",
+                            color: Theme.palette.secondary.contrastText,
+                            ":hover": {
+                              color: Theme.palette.primary.main,
+                            },
+                          }}
+                          onClick={() => handleNotificationTomorrowCancel(element.id)}
+                        >
+                          <Icon>alarm_off</Icon>
+                        </Button>
+                        <Button
+                          sx={{
+                            marginLeft: "auto",
+                            color: Theme.palette.secondary.contrastText,
+                            ":hover": {
+                              color: Theme.palette.primary.main,
+                            },
+                          }}
+                          onClick={() => handleNotificationTomorrowClose(element.id)}
+                        >
+                          <Icon>cancel</Icon>
+                        </Button>
+                      </>
+                    }
+                    sx={{
+                      "& .MuiSnackbarContent-root": {
+                        color: Theme.palette.secondary.contrastText,
+                        background: "#ED6C02",
+                        marginBottom: "4rem",
+                      },
+                    }}
+                  />
+                </>
+              )}
+              {element.date === dayjs().add(2, 'day').format("YYYY-MM-DD") && element.alert && (
+                <>
+                  <Snackbar
+                    anchorOrigin={{
+                      vertical: "bottom",
+                      horizontal: "right",
+                    }}
+                    open={notificationAfterTomorrow}
+                    autoHideDuration={4000}
+                    onClose={handleNotificationAfterTomorrowClose}
+                    message={`${element.name} - to za 2 dni! Nie zapomnij!`}
+                    action={
+                      <>
+                        <Button
+                          sx={{
+                            marginLeft: "auto",
+                            color: Theme.palette.secondary.contrastText,
+                            ":hover": {
+                              color: Theme.palette.primary.main,
+                            },
+                          }}
+                          onClick={() => handleNotificationAfterTomorrowCancel(element.id)}
+                        >
+                          <Icon>alarm_off</Icon>
+                        </Button>
+                        <Button
+                          sx={{
+                            marginLeft: "auto",
+                            color: Theme.palette.secondary.contrastText,
+                            ":hover": {
+                              color: Theme.palette.primary.main,
+                            },
+                          }}
+                          onClick={() => handleNotificationAfterTomorrowClose(element.id)}
+                        >
+                          <Icon>cancel</Icon>
+                        </Button>
+                      </>
+                    }
+                    sx={{
+                      "& .MuiSnackbarContent-root": {
+                        color: Theme.palette.secondary.contrastText,
+                        background: "#0288D1",
+                        marginBottom: "8rem",
                       },
                     }}
                   />
