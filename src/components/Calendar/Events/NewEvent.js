@@ -103,7 +103,8 @@ const NewEvent = ({ items, setItems, firestore }) => {
 
   const [notificationToday, setNotificationToday] = useState(false);
   const [notificationTomorrow, setNotificationTomorrow] = useState(false);
-  const [notificationAfterTomorrow, setNotificationAfterTomorrow] = useState(false);
+  const [notificationAfterTomorrow, setNotificationAfterTomorrow] =
+    useState(false);
 
   useEffect(() => {
     setTimeout(() => {
@@ -111,43 +112,31 @@ const NewEvent = ({ items, setItems, firestore }) => {
     }, 1000);
     setTimeout(() => {
       setNotificationTomorrow(true);
-    }, 5500);
+    }, 1250);
     setTimeout(() => {
       setNotificationAfterTomorrow(true);
-    }, 10000);
+    }, 1500);
   }, []);
 
-  const handleNotificationTodayClose = () => {
+  const handleNotificationTodayClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
     setNotificationToday(false);
   };
 
-  const handleNotificationTomorrowClose = () => {
+  const handleNotificationTomorrowClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
     setNotificationTomorrow(false);
   };
 
-  const handleNotificationAfterTomorrowClose = () => {
+  const handleNotificationAfterTomorrowClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
     setNotificationAfterTomorrow(false);
-  };
-
-  const handleNotificationTodayCancel = async (id) => {
-    const docRef = doc(firestore, "calendar", id);
-    await updateDoc(docRef, {
-      alert: false,
-    });
-  };
-
-  const handleNotificationTomorrowCancel = async (id) => {
-    const docRef = doc(firestore, "calendar", id);
-    await updateDoc(docRef, {
-      alert: false,
-    });
-  };
-
-  const handleNotificationAfterTomorrowCancel = async (id) => {
-    const docRef = doc(firestore, "calendar", id);
-    await updateDoc(docRef, {
-      alert: false,
-    });
   };
 
   return (
@@ -380,37 +369,9 @@ const NewEvent = ({ items, setItems, firestore }) => {
                       horizontal: "right",
                     }}
                     open={notificationToday}
-                    autoHideDuration={4000}
+                    autoHideDuration={5000}
                     onClose={handleNotificationTodayClose}
                     message={`${element.name} - to już dzisiaj! Nie zapomnij!`}
-                    action={
-                      <>
-                        <Button
-                          sx={{
-                            marginLeft: "auto",
-                            color: Theme.palette.secondary.contrastText,
-                            ":hover": {
-                              color: Theme.palette.primary.main,
-                            },
-                          }}
-                          onClick={() => handleNotificationTodayCancel(element.id)}
-                        >
-                          <Icon>alarm_off</Icon>
-                        </Button>
-                        <Button
-                          sx={{
-                            marginLeft: "auto",
-                            color: Theme.palette.secondary.contrastText,
-                            ":hover": {
-                              color: Theme.palette.primary.main,
-                            },
-                          }}
-                          onClick={() => handleNotificationTodayClose(element.id)}
-                        >
-                          <Icon>cancel</Icon>
-                        </Button>
-                      </>
-                    }
                     sx={{
                       "& .MuiSnackbarContent-root": {
                         color: Theme.palette.secondary.contrastText,
@@ -420,104 +381,50 @@ const NewEvent = ({ items, setItems, firestore }) => {
                   />
                 </>
               )}
-              {element.date === dayjs().add(1, 'day').format("YYYY-MM-DD") && element.alert && (
-                <>
-                  <Snackbar
-                    anchorOrigin={{
-                      vertical: "bottom",
-                      horizontal: "right",
-                    }}
-                    open={notificationTomorrow}
-                    autoHideDuration={4000}
-                    onClose={handleNotificationTomorrowClose}
-                    message={`${element.name} - to już jutro! Nie zapomnij!`}
-                    action={
-                      <>
-                        <Button
-                          sx={{
-                            marginLeft: "auto",
-                            color: Theme.palette.secondary.contrastText,
-                            ":hover": {
-                              color: Theme.palette.primary.main,
-                            },
-                          }}
-                          onClick={() => handleNotificationTomorrowCancel(element.id)}
-                        >
-                          <Icon>alarm_off</Icon>
-                        </Button>
-                        <Button
-                          sx={{
-                            marginLeft: "auto",
-                            color: Theme.palette.secondary.contrastText,
-                            ":hover": {
-                              color: Theme.palette.primary.main,
-                            },
-                          }}
-                          onClick={() => handleNotificationTomorrowClose(element.id)}
-                        >
-                          <Icon>cancel</Icon>
-                        </Button>
-                      </>
-                    }
-                    sx={{
-                      "& .MuiSnackbarContent-root": {
-                        color: Theme.palette.secondary.contrastText,
-                        background: "#ED6C02",
-                        marginBottom: "4rem",
-                      },
-                    }}
-                  />
-                </>
-              )}
-              {element.date === dayjs().add(2, 'day').format("YYYY-MM-DD") && element.alert && (
-                <>
-                  <Snackbar
-                    anchorOrigin={{
-                      vertical: "bottom",
-                      horizontal: "right",
-                    }}
-                    open={notificationAfterTomorrow}
-                    autoHideDuration={4000}
-                    onClose={handleNotificationAfterTomorrowClose}
-                    message={`${element.name} - to za 2 dni! Nie zapomnij!`}
-                    action={
-                      <>
-                        <Button
-                          sx={{
-                            marginLeft: "auto",
-                            color: Theme.palette.secondary.contrastText,
-                            ":hover": {
-                              color: Theme.palette.primary.main,
-                            },
-                          }}
-                          onClick={() => handleNotificationAfterTomorrowCancel(element.id)}
-                        >
-                          <Icon>alarm_off</Icon>
-                        </Button>
-                        <Button
-                          sx={{
-                            marginLeft: "auto",
-                            color: Theme.palette.secondary.contrastText,
-                            ":hover": {
-                              color: Theme.palette.primary.main,
-                            },
-                          }}
-                          onClick={() => handleNotificationAfterTomorrowClose(element.id)}
-                        >
-                          <Icon>cancel</Icon>
-                        </Button>
-                      </>
-                    }
-                    sx={{
-                      "& .MuiSnackbarContent-root": {
-                        color: Theme.palette.secondary.contrastText,
-                        background: "#0288D1",
-                        marginBottom: "8rem",
-                      },
-                    }}
-                  />
-                </>
-              )}
+              {element.date === dayjs().add(1, "day").format("YYYY-MM-DD") &&
+                element.alert && (
+                  <>
+                    <Snackbar
+                      anchorOrigin={{
+                        vertical: "bottom",
+                        horizontal: "right",
+                      }}
+                      open={notificationTomorrow}
+                      autoHideDuration={5000}
+                      onClose={handleNotificationTomorrowClose}
+                      message={`${element.name} - to już jutro! Nie zapomnij!`}
+                      sx={{
+                        "& .MuiSnackbarContent-root": {
+                          color: Theme.palette.secondary.contrastText,
+                          background: "#ED6C02",
+                          marginBottom: "4rem",
+                        },
+                      }}
+                    />
+                  </>
+                )}
+              {element.date === dayjs().add(2, "day").format("YYYY-MM-DD") &&
+                element.alert && (
+                  <>
+                    <Snackbar
+                      anchorOrigin={{
+                        vertical: "bottom",
+                        horizontal: "right",
+                      }}
+                      open={notificationAfterTomorrow}
+                      autoHideDuration={5000}
+                      onClose={handleNotificationAfterTomorrowClose}
+                      message={`${element.name} - to za 2 dni! Nie zapomnij!`}
+                      sx={{
+                        "& .MuiSnackbarContent-root": {
+                          color: Theme.palette.secondary.contrastText,
+                          background: "#0288D1",
+                          marginBottom: "8rem",
+                        },
+                      }}
+                    />
+                  </>
+                )}
             </NewEventContainer>
           )
       )}
