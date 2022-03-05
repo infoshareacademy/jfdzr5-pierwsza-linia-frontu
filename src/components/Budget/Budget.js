@@ -22,6 +22,7 @@ import Box from "@mui/material/Box";
 import { useContext } from "react";
 import { UserContext } from "../../userContext/UserContext";
 
+
 const ListContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -167,8 +168,8 @@ export const Budget = props => {
             {/* tu również mój kod :) dopisałem warunek ktory sprawdza czy sa wlaczone wydatki
                 czy przychody i wyswietla to lub to */}
             {chosenMoneyOperations === "expenses"
-              ? `${expensesSum} zł`
-              : `${incomesSum} zł`}
+              ? `${parseFloat(expensesSum).toFixed(2)} zł`
+              : `${parseFloat(incomesSum).toFixed(2)} zł`}
           </Box>
         </div>
         <div>
@@ -235,7 +236,7 @@ export const Budget = props => {
                 onChange={handleExpensesFilter}
                 sx={{
                   height: "3rem",
-                  width: "15rem",
+                  width: "10rem",
                   backgroundColor: theme.palette.secondary.contrastText,
                   ":hover": {
                     backgroundColor: theme.palette.primary.contrastText,

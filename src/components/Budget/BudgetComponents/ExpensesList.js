@@ -76,7 +76,8 @@ function ExpensesList(props) {
               expense.uid === props.uid && (
                 <>
                   <NewExpenseContainer>
-                    <ListItem className="expenses" key={expense.id}>
+                    <ListItem
+                      className="expenses" key={expense.id}>
                       {expense.id === editedTaskId ? (
                         <>
                           <OutlinedInput

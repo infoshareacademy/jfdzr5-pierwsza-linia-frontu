@@ -7,10 +7,8 @@ import { Button } from "@mui/material";
 import Select from "@mui/material/Select";
 import { Box } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
-import numeral from 'numeral';
 
 function BudgetFormExpenses(props) {
-  var numeral = require('numeral');
 
   const [amountInput, setAmountInput] = useState("");
   const [categoryInput, setCategoryInput] = useState("");
@@ -21,15 +19,12 @@ function BudgetFormExpenses(props) {
   };
   const handleCategoryChange = event => setCategoryInput(event.target.value);
   const handleDateChange = event => setDateInput(event.target.value);
-  const numeralFormat = (value) => {
-    return numeral(value).format("0.00")
-  }
 
   const handleSubmit = event => {
     event.preventDefault();
 
     props.onSubmit({
-      amount: numeralFormat(parseFloat(amountInput)),
+      amount: parseFloat(amountInput),
       category: categoryInput,
       date: dateInput,
       //tutaj dodalem nowy klucz uid do dokumentu ktory wysyla sie do firebse, pobieram go z propsa ktory jest przekazany w Budget.js
@@ -80,7 +75,7 @@ function BudgetFormExpenses(props) {
               backgroundColor: Theme.palette.secondary.contrastText,
               ":hover": { backgroundColor: Theme.palette.primary.contrastText },
             }}>
-            <MenuItem value="Jedzenie/Picie">Jedzenie/Napoje</MenuItem>
+            <MenuItem value="Jedzenie/Napoje">Jedzenie/Napoje</MenuItem>
             <MenuItem value="Rachunki">Rachunki</MenuItem>
             <MenuItem value="Rozrywka">Rozrywka</MenuItem>
             <MenuItem value="Zakupy">Zakupy</MenuItem>
