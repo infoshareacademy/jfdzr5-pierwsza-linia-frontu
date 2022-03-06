@@ -48,8 +48,9 @@ export const Home = () => {
     fetchUsers();
     if (user) {
       getUserNameAndSurname();
+      console.log("działa");
     }
-  });
+  }, [usersNumber]);
 
   const fetchUsers = () => {
     onSnapshot(usersRef, doc => {
