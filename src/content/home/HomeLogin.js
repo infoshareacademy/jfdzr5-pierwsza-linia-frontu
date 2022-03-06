@@ -49,6 +49,7 @@ export const HomeLogin = ({
       <Typography variant="h4">
         <strong> {`${name} ${surname}`}</strong> witaj w aplikacji Home
         Organizer!
+
       </Typography>
       <TileContainer>
         <BoxContainer to="/tasks">

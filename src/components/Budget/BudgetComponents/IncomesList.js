@@ -22,7 +22,7 @@ const NewIncomeContainer = styled.div`
   display: flex;
   min-height: 1rem;
   width: 650px;
-  margin-left: 150px;
+  margin-left: 100px;
   margin-top: 10px;
   padding: 10px;
   background-color: ${Theme.palette.secondary.main};
