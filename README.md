@@ -1,6 +1,6 @@
 # Home Organizer App
 
-## Home Organizer App is resposive [React](https://reactjs.org/) app with [Firebase](https://firebase.google.com/) backend.
+## Home Organizer App is a responsive [React](https://reactjs.org/) app with [Firebase](https://firebase.google.com/) backend.
 
 In the app you can save tasks, set reminders for events and manage your budget.
 All your activities are saved in a private account where you can set your own avatar, change your password if necessary and, if need be, delete the account and clear your data.
