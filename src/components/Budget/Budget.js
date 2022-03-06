@@ -244,7 +244,6 @@ export const Budget = props => {
               </Select>
             </ListContainer>
             <ExpensesList
-              // tu przekazuje uid w propsach
               uid={uid}
               expenses={filterExpenses}
               onDelete={handleExpensesDelete}
@@ -265,10 +264,9 @@ export const Budget = props => {
                 id="Category"
                 value={incomesFilterValue}
                 onChange={handleIncomesFilter}
-                label="Category"
                 sx={{
                   height: "3rem",
-                  width: "15rem",
+                  width: "10rem",
                   backgroundColor: theme.palette.secondary.contrastText,
                   ":hover": {
                     backgroundColor: theme.palette.primary.contrastText,
@@ -280,7 +278,6 @@ export const Budget = props => {
               </Select>
             </ListContainer>
             <IncomesList
-              // tu przekazuje uid w propsach
               uid={uid}
               incomes={filterIncomes}
               onDelete={handleIncomesDelete}
