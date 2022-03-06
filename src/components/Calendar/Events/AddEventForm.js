@@ -2,7 +2,7 @@ import { useState, useEffect, useContext } from "react";
 
 import { Theme } from "../../../common/theme/theme";
 
-import { Box, Button, Checkbox, checkboxClasses, FormGroup, FormHelperText, OutlinedInput } from "@mui/material";
+import { Box, Button, Checkbox, checkboxClasses, FormGroup, FormHelperText, Icon, OutlinedInput } from "@mui/material";
 
 import { UserContext } from "../../../userContext/UserContext";
 
@@ -35,7 +35,7 @@ const AddEventForm = ({
     if (userUID) {
       setUid(userUID);
     }
-  });
+  }, [userUID]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -148,7 +148,7 @@ const AddEventForm = ({
               ":hover": { backgroundColor: Theme.palette.primary.contrastText },
             }}
           >
-            Dodaj
+            <Icon>add</Icon>
           </Button>
         </FormGroup>
       </form>

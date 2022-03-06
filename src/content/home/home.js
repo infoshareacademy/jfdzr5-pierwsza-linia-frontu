@@ -19,9 +19,13 @@ export const Home = () => {
   const [userData, setUserData] = useState([]);
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
+  const [userTasksNumber, setUserTasksNumber] = useState("");
+  const [userEventsNumber, setUserEventsNumber] = useState("");
 
   let usersCounter = 0;
   let tasksCounter = 0;
+  let tasksUserCounter = 0;
+  let eventsUserCounter = 0;
   let eventsCounter = 0;
 
   const getUserNameAndSurname = () => {
@@ -36,6 +40,8 @@ export const Home = () => {
     fetchUsers();
     fetchTasks();
     fetchEvents();
+    fetchUserEvents();
+    fetchUserTasks();
   }, [user]);
 
   useEffect(() => {
@@ -64,6 +70,19 @@ export const Home = () => {
       setTasksNumber(tasksCounter);
     });
   };
+  const fetchUserTasks = () => {
+    onSnapshot(tasksRef, doc => {
+      doc.docs.forEach(element => {
+        tasksCounter += 1;
+        const data = element.data();
+        if (data.uid === user.uid) {
+          tasksUserCounter += 1;
+        }
+        setUserTasksNumber(tasksUserCounter);
+      });
+      setTasksNumber(tasksCounter);
+    });
+  };
   const fetchEvents = () => {
     onSnapshot(eventsRef, doc => {
       doc.docs.forEach(element => {
@@ -72,14 +91,26 @@ export const Home = () => {
       setEventsNumber(eventsCounter);
     });
   };
+  const fetchUserEvents = () => {
+    onSnapshot(eventsRef, doc => {
+      doc.docs.forEach(element => {
+        const data = element.data();
+        if (data.uid === user.uid) {
+          eventsUserCounter += 1;
+          console.log(eventsCounter);
+        }
+        setUserEventsNumber(eventsUserCounter);
+      });
+    });
+  };
 
   return user ? (
     <HomeLogin
       name={name}
       surname={surname}
       usersNumber={usersNumber}
-      tasksNumber={tasksNumber}
-      eventsNumber={eventsNumber}
+      userTasksNumber={userTasksNumber}
+      userEventsNumber={userEventsNumber}
     />
   ) : (
     <Intro
