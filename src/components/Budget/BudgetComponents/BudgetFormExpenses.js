@@ -9,9 +9,11 @@ import { Box } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 
 function BudgetFormExpenses(props) {
+
   const [amountInput, setAmountInput] = useState("");
   const [categoryInput, setCategoryInput] = useState("");
   const [dateInput, setDateInput] = useState("");
+
   const handleAmountChange = event => {
     setAmountInput(event.target.value.replace(",", "."));
   };
@@ -25,8 +27,6 @@ function BudgetFormExpenses(props) {
       amount: parseFloat(amountInput),
       category: categoryInput,
       date: dateInput,
-      //tutaj dodalem nowy klucz uid do dokumentu ktory wysyla sie do firebse, pobieram go z propsa ktory jest przekazany w Budget.js
-      //przy edycji jak bedziesz dodawac przycisk edycji tez trzeba to uid wstawic tak zeby kazdy wydate/przychod mialo to uid
       uid: props.uid,
     });
     setAmountInput("");
@@ -41,7 +41,7 @@ function BudgetFormExpenses(props) {
           <OutlinedInput
             required
             inputProps={{
-              pattern: "[0-9]+(.|,)[0-9]{0,2}",
+              pattern: "[0-9]+(.|,)?[0-9]{0,2}",
               title: "podaj liczbę z maks. 2 cyframi po przecinku ",
             }}
             placeholder="Podaj kwotę..."
@@ -73,7 +73,7 @@ function BudgetFormExpenses(props) {
               backgroundColor: Theme.palette.secondary.contrastText,
               ":hover": { backgroundColor: Theme.palette.primary.contrastText },
             }}>
-            <MenuItem value="Jedzenie/Picie">Jedzenie/Napoje</MenuItem>
+            <MenuItem value="Jedzenie/Napoje">Jedzenie/Napoje</MenuItem>
             <MenuItem value="Rachunki">Rachunki</MenuItem>
             <MenuItem value="Rozrywka">Rozrywka</MenuItem>
             <MenuItem value="Zakupy">Zakupy</MenuItem>

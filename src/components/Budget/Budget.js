@@ -22,8 +22,8 @@ import Box from "@mui/material/Box";
 import { useContext } from "react";
 import { UserContext } from "../../userContext/UserContext";
 
+
 const ListContainer = styled.div`
-  margin-top: 60px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -40,14 +40,9 @@ export const Budget = props => {
     useState("expenses");
   const [expensesFilterValue, setExpensesFilterValue] = useState("Wszystko");
   const [incomesFilterValue, setIncomesFilterValue] = useState("Wszystko");
-  //tu sa zmienne do ktorych przypisuje uid
-  //oraz jest tu userUID to jest tez zmienna a konkretnie to jest obiekt uzytkownika w który jest własnie uid
-  // uid to jest indywidualny id kazdego uzytkownika, towrzy sie przy zalozeniu konta
-  // dlatego wykorzystuje to uid we wszystkich naszych komponentach
-  //bo dzieki temu mozna wszystko powiazac z danym uzytkownikiem
   const [uid, setUid] = useState("");
   const { userUID } = useContext(UserContext);
-  //tu jest pobieray z useContext wlasnie ten obiekt uzytkownika
+
   useEffect(() => {
     if (userUID) {
       setUid(userUID);
@@ -86,8 +81,7 @@ export const Budget = props => {
   const handleExpensesFilter = event =>
     setExpensesFilterValue(event.target.value);
 
-  //zmodyfikowalem ta funkcje zeby filtrowala wszystkie przychody/wydatki
-  //po uid uzytkownika
+
   const filterExpenses = expenses.filter(element => {
     if (element.uid === uid) {
       return (
@@ -100,8 +94,7 @@ export const Budget = props => {
   const handleIncomesFilter = event =>
     setIncomesFilterValue(event.target.value);
 
-  //zmodyfikowalem ta funkcje zeby filtrowala wszystkie przychody/wydatki
-  //po uid uzytkownika
+
   const filterIncomes = incomes.filter(element => {
     if (element.uid === uid) {
       return (
@@ -123,8 +116,7 @@ export const Budget = props => {
     return prev + curr.amount;
   }, 0);
 
-  //tu dopisalem Ci funkcje ktora liczy rownie przychody
-  //bo chcialem sprwdzic czy to zadziala :)
+
   const incomesSum = filterIncomes.reduce(function (prev, curr) {
     return prev + curr.amount;
   }, 0);
@@ -165,14 +157,13 @@ export const Budget = props => {
               backgroundColor: theme.palette.secondary.main,
               textAlign: "center",
             }}>
-            {/* tu również mój kod :) dopisałem warunek ktory sprawdza czy sa wlaczone wydatki
-                czy przychody i wyswietla to lub to */}
+
             {chosenMoneyOperations === "expenses"
-              ? `${expensesSum} zł`
-              : `${incomesSum} zł`}
+              ? `${parseFloat(expensesSum).toFixed(2)} zł`
+              : `${parseFloat(incomesSum).toFixed(2)} zł`}
           </Box>
         </div>
-        <div>
+        <div style={{ marginLeft: "100px" }}>
           <div>
             <Button
               type="submit"
@@ -213,10 +204,8 @@ export const Budget = props => {
             </Button>
           </div>
           {chosenMoneyOperations === "expenses" ? (
-            // tu przekazuje uid w propsach
             <BudgetFormExpenses uid={uid} onSubmit={handleExpenseSubmit} />
           ) : (
-            // tu przekazuje uid w propsach
             <BudgetFormIncomes uid={uid} onSubmit={handleIncomesSubmit} />
           )}
         </div>
@@ -236,7 +225,7 @@ export const Budget = props => {
                 onChange={handleExpensesFilter}
                 sx={{
                   height: "3rem",
-                  width: "15rem",
+                  width: "10rem",
                   backgroundColor: theme.palette.secondary.contrastText,
                   ":hover": {
                     backgroundColor: theme.palette.primary.contrastText,
