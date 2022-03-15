@@ -263,6 +263,7 @@ const NewEvent = ({ items, setItems, firestore }) => {
                   <Box sx={{ padding: "0 1rem 0 .5rem" }}>
                     <OutlinedInput
                       type="date"
+                      required
                       value={takenDate}
                       sx={{
                         maxHeight: "2.5rem",
