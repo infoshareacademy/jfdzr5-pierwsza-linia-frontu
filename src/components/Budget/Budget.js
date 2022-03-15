@@ -215,7 +215,6 @@ export const Budget = props => {
             style={{
               flexGrow: "1",
               width: "50%",
-              alignSelf: "flex-start",
             }}>
             <ListContainer style={{ marginTop: "0" }}>
               <h3>Pokaż wydatki z kategorii: </h3>
@@ -255,7 +254,6 @@ export const Budget = props => {
             style={{
               flexGrow: "1",
               width: "50%",
-              alignSelf: "flex-start",
             }}>
             <ListContainer style={{ marginTop: "0" }}>
               <h3>Pokaż przychody z kategorii: </h3>

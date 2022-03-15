@@ -48,7 +48,6 @@ export const Home = () => {
     fetchUsers();
     if (user) {
       getUserNameAndSurname();
-      console.log("działa");
     }
   }, [usersNumber]);
 
@@ -98,7 +97,6 @@ export const Home = () => {
         const data = element.data();
         if (data.uid === user.uid) {
           eventsUserCounter += 1;
-          console.log(eventsCounter);
         }
         setUserEventsNumber(eventsUserCounter);
       });

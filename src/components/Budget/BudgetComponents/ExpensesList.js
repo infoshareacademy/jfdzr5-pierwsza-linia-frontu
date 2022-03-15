@@ -20,10 +20,10 @@ dayjs.locale("pl");
 const NewExpenseContainer = styled.div`
   display: flex;
   min-height: 1rem;
-  width: 650px;
   margin-left: 100px;
   margin-top: 10px;
   padding: 10px;
+  flex-wrap: wrap;
   background-color: ${Theme.palette.secondary.main};
   color: ${Theme.palette.secondary.contrastText};
 `;
@@ -32,14 +32,19 @@ const ListItemElement = styled.span`
   padding: 10px;
   width: 7rem;
 `;
+const ListItemContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+`;
 
 function ExpensesList(props) {
   const [editedTaskId, setEditedTaskId] = useState(null);
   const [amountInput, setAmountInput] = useState("");
   const [categoryInput, setCategoryInput] = useState("");
   const [dateInput, setDateInput] = useState("");
-  const [isOpen, setIsOpen] = useState(false)
-  const [deletedTaskId, setDeletedTaskId] = useState(null)
+  const [isOpen, setIsOpen] = useState(false);
+  const [deletedTaskId, setDeletedTaskId] = useState(null);
 
   const handleEditExpense = id => {
     setEditedTaskId(id);
@@ -71,20 +76,20 @@ function ExpensesList(props) {
   };
 
   const handleCloseDialog = () => {
-    setIsOpen(false)
-    setDeletedTaskId(null)
-  }
+    setIsOpen(false);
+    setDeletedTaskId(null);
+  };
 
   const handleDeleteExpense = () => {
-    props.onDelete(deletedTaskId)
-    setIsOpen(false)
-    setDeletedTaskId(null)
-  }
+    props.onDelete(deletedTaskId);
+    setIsOpen(false);
+    setDeletedTaskId(null);
+  };
 
-  const handleOpenDialog = (id) => {
-    setDeletedTaskId(id)
-    setIsOpen(true)
-  }
+  const handleOpenDialog = id => {
+    setDeletedTaskId(id);
+    setIsOpen(true);
+  };
 
   return (
     <Box>
@@ -95,8 +100,7 @@ function ExpensesList(props) {
               expense.uid === props.uid && (
                 <>
                   <NewExpenseContainer>
-                    <ListItem
-                      className="expenses" key={expense.id}>
+                    <ListItem className="expenses" key={expense.id}>
                       {expense.id === editedTaskId ? (
                         <>
                           <OutlinedInput
@@ -120,7 +124,6 @@ function ExpensesList(props) {
                                   Theme.palette.primary.contrastText,
                               },
                             }}></OutlinedInput>
-
 
                           <Select
                             required
@@ -151,7 +154,6 @@ function ExpensesList(props) {
                             <MenuItem value="Inne">Inne</MenuItem>
                           </Select>
 
-
                           <OutlinedInput
                             required
                             type="date"
@@ -170,42 +172,45 @@ function ExpensesList(props) {
                             }}
                           />
 
-
                           <Button
                             sx={{
                               color: Theme.palette.secondary.contrastText,
-                              ":hover": { color: Theme.palette.primary.contrastText },
+                              ":hover": {
+                                color: Theme.palette.primary.contrastText,
+                              },
                             }}>
-                            <Icon
-                              onClick={() => handleClickSave(expense.id)}
-                            >
+                            <Icon onClick={() => handleClickSave(expense.id)}>
                               save
                             </Icon>
                           </Button>
                           <Button
                             sx={{
                               color: Theme.palette.secondary.contrastText,
-                              ":hover": { color: Theme.palette.primary.contrastText },
-                            }}
-                          >
-                            <Icon
-                              onClick={() => handleClickCancel()}>
+                              ":hover": {
+                                color: Theme.palette.primary.contrastText,
+                              },
+                            }}>
+                            <Icon onClick={() => handleClickCancel()}>
                               cancel
                             </Icon>
                           </Button>
                         </>
                       ) : (
-                        <>
+                        <ListItemContainer>
                           <ListItemElement>
                             {parseFloat(expense.amount).toFixed(2)} zł{" "}
                           </ListItemElement>
                           <ListItemElement>{expense.category}</ListItemElement>
-                          <ListItemElement>{dayjs(expense.date).format("D MMMM")}</ListItemElement>
+                          <ListItemElement>
+                            {dayjs(expense.date).format("D MMMM")}
+                          </ListItemElement>
 
                           <Button
                             sx={{
                               color: Theme.palette.secondary.contrastText,
-                              ":hover": { color: Theme.palette.primary.contrastText },
+                              ":hover": {
+                                color: Theme.palette.primary.contrastText,
+                              },
                             }}>
                             <DeleteIcon
                               style={{ width: "4rem" }}
@@ -215,15 +220,16 @@ function ExpensesList(props) {
                           <Button
                             sx={{
                               color: Theme.palette.secondary.contrastText,
-                              ":hover": { color: Theme.palette.primary.contrastText },
+                              ":hover": {
+                                color: Theme.palette.primary.contrastText,
+                              },
                             }}>
                             <EditIcon
-                              style={{ width: "4rem" }}
+                              style={{ width: "4rem", justifySelf: "flex-end" }}
                               onClick={() => handleEditExpense(expense.id)}
                             />
                           </Button>
-
-                        </>
+                        </ListItemContainer>
                       )}
                     </ListItem>
                   </NewExpenseContainer>
@@ -232,7 +238,11 @@ function ExpensesList(props) {
           )}
         </List>
       </div>
-      <DeleteDialog open={isOpen} handleClose={handleCloseDialog} handleDeleteTask={handleDeleteExpense} />
+      <DeleteDialog
+        open={isOpen}
+        handleClose={handleCloseDialog}
+        handleDeleteTask={handleDeleteExpense}
+      />
     </Box>
   );
 }
