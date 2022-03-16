@@ -5,8 +5,8 @@ import styled from "styled-components";
 import { doc, updateDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
 
-import { SaveButton } from "../../ToDoList/buttons/SaveButton";
-import { CancelButton } from "../../ToDoList/buttons/CancelButton";
+import { SaveButton } from "../../../common/buttons/SaveButton";
+import { CancelButton } from "../../../common/buttons/CancelButton";
 import { TextFieldReadOnly } from "../text-field/TextFieldReadOnly";
 import { TextFieldView } from "../text-field/TextFieldView";
 import { EditTextField } from "../text-field/EditTextField";
@@ -27,7 +27,6 @@ const DetailsContainer = styled.div`
   margin: 10px;
   padding: 20px;
   background-color: grey;
-  // justify-content: space-between;
 `;
 const AvatarContainer = styled.div`
   display: flex;

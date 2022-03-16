@@ -8,7 +8,7 @@ import Select from "@mui/material/Select";
 import { Box } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 
-function BudgetFormIncomes(props) {
+function BudgetFormIncomes(uid, onSubmit) {
   const [amountInput, setAmountInput] = useState("");
   const [categoryInput, setCategoryInput] = useState("");
   const [dateInput, setDateInput] = useState("");
@@ -21,18 +21,16 @@ function BudgetFormIncomes(props) {
   const handleSubmit = event => {
     event.preventDefault();
 
-    props.onSubmit({
+    onSubmit({
       amount: parseFloat(amountInput),
       category: categoryInput,
       date: dateInput,
-      //tutaj dodalem nowy klucz uid do dokumentu ktory wysyla sie do firebse, pobieram go z propsa ktory jest przekazany w Budget.js
-      //przy edycji jak bedziesz dodawac przycisk edycji tez trzeba to uid wstawic tak zeby kazdy wydate/przychod mialo to uid
-      uid: props.uid,
+      uid: uid,
     });
     setAmountInput("");
     setCategoryInput("");
     setDateInput("");
-    console.log("uid", props.uid);
+    console.log("uid", uid);
   };
   return (
     <>

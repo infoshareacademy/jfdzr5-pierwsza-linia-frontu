@@ -37,7 +37,7 @@ const ListItemContainer = styled.div`
   justify-content: center;
 `;
 
-function ExpensesList(props) {
+function ExpensesList({ uid, expenses, onDelete, firestore }) {
   const [editedTaskId, setEditedTaskId] = useState(null);
   const [amountInput, setAmountInput] = useState("");
   const [categoryInput, setCategoryInput] = useState("");
@@ -47,7 +47,7 @@ function ExpensesList(props) {
 
   const handleEditExpense = id => {
     setEditedTaskId(id);
-    const editedTask = props.expenses.find(expense => expense.id === id);
+    const editedTask = expenses.find(expense => expense.id === id);
     setAmountInput(editedTask.amount);
     setCategoryInput(editedTask.category);
     setDateInput(editedTask.date);
@@ -61,12 +61,12 @@ function ExpensesList(props) {
   const handleClickSave = async id => {
     setEditedTaskId(false);
 
-    const docRefExpenses = doc(props.firestore, "budget-expenses", id);
+    const docRefExpenses = doc(firestore, "budget-expenses", id);
     await updateDoc(docRefExpenses, {
       amount: parseFloat(amountInput),
       category: categoryInput,
       date: dateInput,
-      uid: props.uid,
+      uid: uid,
     });
   };
 
@@ -80,7 +80,7 @@ function ExpensesList(props) {
   };
 
   const handleDeleteExpense = () => {
-    props.onDelete(deletedTaskId);
+    onDelete(deletedTaskId);
     setIsOpen(false);
     setDeletedTaskId(null);
   };
@@ -94,9 +94,9 @@ function ExpensesList(props) {
     <Box>
       <div className="expenses-container">
         <List>
-          {props.expenses.map(
+          {expenses.map(
             expense =>
-              expense.uid === props.uid && (
+              expense.uid === uid && (
                 <>
                   <NewExpenseContainer>
                     <ListItem className="expenses" key={expense.id}>

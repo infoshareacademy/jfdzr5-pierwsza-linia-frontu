@@ -37,7 +37,7 @@ const ListItemContainer = styled.div`
   justify-content: center;
 `;
 
-function IncomesList(props) {
+function IncomesList({ uid, incomes, onDelete, firestore }) {
   const [editedTaskId, setEditedTaskId] = useState(null);
   const [amountInput, setAmountInput] = useState("");
   const [categoryInput, setCategoryInput] = useState("");
@@ -47,7 +47,7 @@ function IncomesList(props) {
 
   const handleEditIncome = id => {
     setEditedTaskId(id);
-    const editedTask = props.incomes.find(income => income.id === id);
+    const editedTask = incomes.find(income => income.id === id);
     setAmountInput(editedTask.amount);
     setCategoryInput(editedTask.category);
     setDateInput(editedTask.date);
@@ -61,12 +61,12 @@ function IncomesList(props) {
   const handleClickSave = async id => {
     setEditedTaskId(false);
 
-    const docRefIncomes = doc(props.firestore, "budget-incomes", id);
+    const docRefIncomes = doc(firestore, "budget-incomes", id);
     await updateDoc(docRefIncomes, {
       amount: parseFloat(amountInput),
       category: categoryInput,
       date: dateInput,
-      uid: props.uid,
+      uid: uid,
     });
   };
 
@@ -80,7 +80,7 @@ function IncomesList(props) {
   };
 
   const handleDeleteIncome = () => {
-    props.onDelete(deletedTaskId);
+    onDelete(deletedTaskId);
     setIsOpen(false);
     setDeletedTaskId(null);
   };
@@ -94,9 +94,9 @@ function IncomesList(props) {
     <Box>
       <div className="income-container">
         <List>
-          {props.incomes.map(
+          {incomes.map(
             income =>
-              income.uid === props.uid && (
+              income.uid === uid && (
                 <>
                   <NewIncomeContainer>
                     <ListItem className="incomes" key={income.id}>

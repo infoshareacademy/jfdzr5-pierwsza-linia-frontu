@@ -8,8 +8,7 @@ import Select from "@mui/material/Select";
 import { Box } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 
-function BudgetFormExpenses(props) {
-
+function BudgetFormExpenses({ uid, onSubmit }) {
   const [amountInput, setAmountInput] = useState("");
   const [categoryInput, setCategoryInput] = useState("");
   const [dateInput, setDateInput] = useState("");
@@ -23,11 +22,11 @@ function BudgetFormExpenses(props) {
   const handleSubmit = event => {
     event.preventDefault();
 
-    props.onSubmit({
+    onSubmit({
       amount: parseFloat(amountInput),
       category: categoryInput,
       date: dateInput,
-      uid: props.uid,
+      uid: uid,
     });
     setAmountInput("");
     setCategoryInput("");

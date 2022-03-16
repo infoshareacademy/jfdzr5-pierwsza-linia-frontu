@@ -23,6 +23,9 @@ import { doc, deleteDoc, updateDoc } from "firebase/firestore";
 
 import dayjs from "dayjs";
 import "dayjs/locale/pl";
+import { SaveButton } from "../../../common/buttons/SaveButton";
+import { EditButton } from "../../../common/buttons/EditButton";
+import { DeleteButton } from "../../../common/buttons/DeleteButton";
 dayjs.locale("pl");
 
 const NewEventContainer = styled.div`
@@ -52,10 +55,10 @@ const NewEvent = ({ items, setItems, firestore }) => {
     }
   }, [userUID]);
 
-  const handleClickEdit = (id) => {
+  const handleClickEdit = id => {
     setIsEditing(true);
     setEventId(id);
-    items.forEach((element) => {
+    items.forEach(element => {
       if (id === element.id) {
         setTakenName(element.name);
         setTakenDate(element.date);
@@ -64,7 +67,7 @@ const NewEvent = ({ items, setItems, firestore }) => {
     });
   };
 
-  const handleClickSave = async (id) => {
+  const handleClickSave = async id => {
     setIsEditing(false);
     setEventId("");
 
@@ -77,14 +80,14 @@ const NewEvent = ({ items, setItems, firestore }) => {
     });
   };
 
-  const handleClickCancel = (id) => {
+  const handleClickCancel = id => {
     setIsEditing(false);
     setEventId("");
   };
 
   const [open, setOpen] = useState(false);
 
-  const handleClickOpen = (id) => {
+  const handleClickOpen = id => {
     setOpen(true);
     setEventIDDelete(id);
   };
@@ -146,14 +149,12 @@ const NewEvent = ({ items, setItems, firestore }) => {
       sx={{
         backgroundColor: Theme.palette.primary.main,
         minWidth: "35vw",
-      }}
-    >
+      }}>
       <div>
         <Dialog
           open={open}
           aria-labelledby="alert-dialog-title"
-          aria-describedby="alert-dialog-description"
-        >
+          aria-describedby="alert-dialog-description">
           <DialogTitle id="alert-dialog-title">
             Czy usunąć wydarzenie?
           </DialogTitle>
@@ -174,8 +175,7 @@ const NewEvent = ({ items, setItems, firestore }) => {
                   borderRadius: "0",
                 },
               }}
-              onClick={handleClose}
-            >
+              onClick={handleClose}>
               Nie
             </Button>
             <Button
@@ -194,15 +194,14 @@ const NewEvent = ({ items, setItems, firestore }) => {
                   borderRadius: "0",
                 },
               }}
-              onClick={handleDeleteEvent}
-            >
+              onClick={handleDeleteEvent}>
               Tak
             </Button>
           </DialogActions>
         </Dialog>
       </div>
       {items.map(
-        (element) =>
+        element =>
           element.uid === uid && (
             <NewEventContainer key={element.id}>
               {element.id !== eventID && (
@@ -212,8 +211,7 @@ const NewEvent = ({ items, setItems, firestore }) => {
                       minWidth: "10vw",
                       alignSelf: "center",
                       padding: ".5rem",
-                    }}
-                  >
+                    }}>
                     {element.name}
                   </Typography>
                   <Typography
@@ -221,8 +219,7 @@ const NewEvent = ({ items, setItems, firestore }) => {
                       marginLeft: "auto",
                       alignSelf: "center",
                       padding: ".5rem",
-                    }}
-                  >
+                    }}>
                     {dayjs(element.date).format("D MMMM")}
                   </Typography>
                   <Checkbox
@@ -255,7 +252,7 @@ const NewEvent = ({ items, setItems, firestore }) => {
                           backgroundColor: Theme.palette.primary.contrastText,
                         },
                       }}
-                      onChange={(e) => {
+                      onChange={e => {
                         setTakenName(e.target.value);
                       }}
                     />
@@ -273,7 +270,7 @@ const NewEvent = ({ items, setItems, firestore }) => {
                           backgroundColor: Theme.palette.primary.contrastText,
                         },
                       }}
-                      onChange={(e) => {
+                      onChange={e => {
                         setTakenDate(e.target.value);
                       }}
                     />
@@ -292,7 +289,7 @@ const NewEvent = ({ items, setItems, firestore }) => {
                           color: Theme.palette.primary.contrastText,
                         },
                       }}
-                      onChange={(e) => {
+                      onChange={e => {
                         setIsAlerted(e.target.checked ? true : false);
                       }}
                     />
@@ -303,65 +300,36 @@ const NewEvent = ({ items, setItems, firestore }) => {
                       color: Theme.palette.secondary.contrastText,
                       ":hover": { color: Theme.palette.primary.contrastText },
                     }}
-                    onClick={() => handleClickCancel(element.id)}
-                  >
+                    onClick={() => handleClickCancel(element.id)}>
                     <Icon>cancel</Icon>
                   </Button>
-                  <Button
-                    sx={{
-                      color: Theme.palette.secondary.contrastText,
-                      ":hover": { color: Theme.palette.primary.contrastText },
-                    }}
-                    onClick={() => handleClickSave(element.id)}
-                  >
+                  <SaveButton handleClickSave={handleClickSave} id={element.id}>
                     <Icon>save</Icon>
-                  </Button>
+                  </SaveButton>
                 </>
               )}
               {isEditing && element.id !== eventID && (
                 <>
-                  <Button
-                    sx={{
-                      marginLeft: "6vw",
-                      color: Theme.palette.secondary.contrastText,
-                      ":hover": { color: Theme.palette.primary.contrastText },
-                    }}
-                    onClick={() => handleClickEdit(element.id)}
-                  >
+                  <EditButton handleClickEdit={handleClickEdit} id={element.id}>
                     <Icon>edit</Icon>
-                  </Button>
-                  <Button
-                    sx={{
-                      color: Theme.palette.secondary.contrastText,
-                      ":hover": { color: Theme.palette.primary.contrastText },
-                    }}
-                    onClick={() => handleClickOpen(element.id)}
-                  >
+                  </EditButton>
+                  <DeleteButton
+                    handleClickOpen={handleClickOpen}
+                    id={element.id}>
                     <Icon>delete</Icon>
-                  </Button>
+                  </DeleteButton>
                 </>
               )}
               {!isEditing && (
                 <>
-                  <Button
-                    sx={{
-                      marginLeft: "6vw",
-                      color: Theme.palette.secondary.contrastText,
-                      ":hover": { color: Theme.palette.primary.contrastText },
-                    }}
-                    onClick={() => handleClickEdit(element.id)}
-                  >
+                  <EditButton handleClickEdit={handleClickEdit} id={element.id}>
                     <Icon>edit</Icon>
-                  </Button>
-                  <Button
-                    sx={{
-                      color: Theme.palette.secondary.contrastText,
-                      ":hover": { color: Theme.palette.primary.contrastText },
-                    }}
-                    onClick={() => handleClickOpen(element.id)}
-                  >
+                  </EditButton>
+                  <DeleteButton
+                    handleClickOpen={handleClickOpen}
+                    id={element.id}>
                     <Icon>delete</Icon>
-                  </Button>
+                  </DeleteButton>
                 </>
               )}
               {element.date === dayjs().format("YYYY-MM-DD") && element.alert && (

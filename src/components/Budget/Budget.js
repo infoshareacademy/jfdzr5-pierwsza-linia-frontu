@@ -28,7 +28,7 @@ const ListContainer = styled.div`
   align-items: center;
 `;
 
-export const Budget = props => {
+export const Budget = () => {
   const theme = useTheme();
   const expensesColRef = collection(firestore, "budget-expenses");
   const incomesColRef = collection(firestore, "budget-incomes");
@@ -141,9 +141,13 @@ export const Budget = props => {
             marginTop: "17px",
           }}>
           {chosenMoneyOperations === "expenses" ? (
-            <h3 style={{ textAlign: "center" }}>Suma wydatków</h3>
+            <Typography variant="h6" style={{ textAlign: "center" }}>
+              Suma wydatków
+            </Typography>
           ) : (
-            <h3 style={{ textAlign: "center" }}>Suma przychodów</h3>
+            <Typography variant="h6" style={{ textAlign: "center" }}>
+              Suma przychodów
+            </Typography>
           )}
           <Box
             sx={{
