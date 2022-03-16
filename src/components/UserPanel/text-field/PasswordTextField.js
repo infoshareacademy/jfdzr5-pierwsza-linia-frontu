@@ -10,7 +10,7 @@ const CssTextField = styled(TextField)({
   input: {
     color: "#000",
     backgroundColor: "#fff",
-    borderRadius: "5px",
+    // borderRadius: "5px",
   },
   "& label.Mui-focused": {},
   "& .MuiInput-underline:after": {
@@ -35,6 +35,7 @@ const CssTextField = styled(TextField)({
 export const PassowrdTextField = ({ value, onChange, label }) => {
   return (
     <CssTextField
+      variant="filled"
       type="password"
       label={label}
       fullWidth

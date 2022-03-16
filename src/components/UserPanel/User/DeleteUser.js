@@ -1,7 +1,7 @@
 import { Button, Dialog, DialogActions, DialogTitle } from "@mui/material";
 import { Theme } from "../../../common/theme/theme";
 import { useState } from "react";
-import { PassowrdTextField } from "../text-field/PasswordTextField";
+import { PassowrdTextFieldConfirm } from "../text-field/PasswordTextFieldConfirm";
 import styled from "@emotion/styled";
 import {
   EmailAuthProvider,
@@ -138,12 +138,13 @@ export const DeleteUser = ({ setDeleteUser, open, setOpen, userEmail }) => {
         ) : (
           <>
             <DeleteButtonContainer>
-              <PassowrdTextField
+              <PassowrdTextFieldConfirm
                 autoFocus
                 type="password"
                 value={currentPassword}
                 onChange={e => setCurrentPassword(e.target.value)}
                 label="Aktualne hasło"
+                style={{ backgroundColor: "red" }}
               />
             </DeleteButtonContainer>
             <DeleteButtonContainer>

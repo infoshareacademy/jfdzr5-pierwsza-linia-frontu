@@ -10,7 +10,7 @@ const CssTextField = styled(TextField)({
   input: {
     color: "#000",
     backgroundColor: "#fff",
-    borderRadius: "5px",
+    // borderRadius: "5px",
   },
   "& label.Mui-focused": {},
   "& .MuiInput-underline:after": {
@@ -35,11 +35,20 @@ const CssTextField = styled(TextField)({
 export const EditTextField = ({ value, onChange, label }) => {
   return (
     <CssTextField
+      variant="filled"
       label={label}
       autoFocus
       fullWidth
       value={value}
       onChange={onChange}
+      sx={{
+        // backgroundColor: Theme.palette.secondary.contrastText,
+        // borderRadius: "0px",
+        ":hover": {
+          backgroundColor: Theme.palette.primary.contrastText,
+          border: "none",
+        },
+      }}
     />
   );
 };
