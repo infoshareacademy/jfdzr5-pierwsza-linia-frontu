@@ -316,7 +316,7 @@ export const UserDetails = ({ userData, db }) => {
                       <EditTextField
                         value={takenValue}
                         onChange={e => setTakenValue(e.target.value)}
-                        label="Nr dom/mieszkania"
+                        label="Nr domu/mieszkania"
                       />
 
                       <SaveButton
