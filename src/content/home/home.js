@@ -64,7 +64,7 @@ export const Home = () => {
   };
   const fetchTasks = () => {
     onSnapshot(tasksRef, doc => {
-      doc.docs.forEach(element => {
+      doc.docs.forEach(() => {
         tasksCounter += 1;
       });
       setTasksNumber(tasksCounter);
@@ -85,7 +85,7 @@ export const Home = () => {
   };
   const fetchEvents = () => {
     onSnapshot(eventsRef, doc => {
-      doc.docs.forEach(element => {
+      doc.docs.forEach(() => {
         eventsCounter += 1;
       });
       setEventsNumber(eventsCounter);

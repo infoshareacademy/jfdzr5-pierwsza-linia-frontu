@@ -4,7 +4,9 @@ import { styled } from "@mui/material/styles";
 
 const CssTextField = styled(TextField)({
   input: {
-    color: "#fff",
+    color: "#000",
+    backgroundColor: "#fff",
+    border: "1px solid grey",
   },
   "& label.Mui-focused": {},
   "& .MuiInput-underline:after": {
@@ -17,28 +19,24 @@ const CssTextField = styled(TextField)({
       color: "white",
     },
     "&:hover fieldset": {
-      borderColor: "#000",
+      borderColor: Theme.palette.primary.contrastText,
+      input: {
+        color: "#fff",
+      },
     },
     "&.Mui-focused fieldset": {},
   },
 });
 
-export const TextFieldView = ({ label, value, handleClick }) => {
+export const PassowrdTextFieldConfirm = ({ value, onChange, label }) => {
   return (
     <CssTextField
       variant="filled"
-      fullWidth
+      type="password"
       label={label}
+      fullWidth
       value={value}
-      onClick={handleClick}
-      sx={{
-        // backgroundColor: Theme.palette.secondary.contrastText,
-        // borderRadius: "5px",
-        ":hover": {
-          backgroundColor: Theme.palette.primary.contrastText,
-          border: "none",
-        },
-      }}
+      onChange={onChange}
     />
   );
 };

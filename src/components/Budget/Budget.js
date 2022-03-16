@@ -22,14 +22,13 @@ import Box from "@mui/material/Box";
 import { useContext } from "react";
 import { UserContext } from "../../userContext/UserContext";
 
-
 const ListContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
 `;
 
-export const Budget = props => {
+export const Budget = () => {
   const theme = useTheme();
   const expensesColRef = collection(firestore, "budget-expenses");
   const incomesColRef = collection(firestore, "budget-incomes");
@@ -47,7 +46,7 @@ export const Budget = props => {
     if (userUID) {
       setUid(userUID);
     }
-  });
+  }, [userUID]);
 
   useEffect(() => {
     fetchData();
@@ -81,7 +80,6 @@ export const Budget = props => {
   const handleExpensesFilter = event =>
     setExpensesFilterValue(event.target.value);
 
-
   const filterExpenses = expenses.filter(element => {
     if (element.uid === uid) {
       return (
@@ -93,7 +91,6 @@ export const Budget = props => {
 
   const handleIncomesFilter = event =>
     setIncomesFilterValue(event.target.value);
-
 
   const filterIncomes = incomes.filter(element => {
     if (element.uid === uid) {
@@ -115,7 +112,6 @@ export const Budget = props => {
   const expensesSum = filterExpenses.reduce(function (prev, curr) {
     return prev + curr.amount;
   }, 0);
-
 
   const incomesSum = filterIncomes.reduce(function (prev, curr) {
     return prev + curr.amount;
@@ -145,9 +141,13 @@ export const Budget = props => {
             marginTop: "17px",
           }}>
           {chosenMoneyOperations === "expenses" ? (
-            <h3 style={{ textAlign: "center" }}>Suma wydatków</h3>
+            <Typography variant="h6" style={{ textAlign: "center" }}>
+              Suma wydatków
+            </Typography>
           ) : (
-            <h3 style={{ textAlign: "center" }}>Suma przychodów</h3>
+            <Typography variant="h6" style={{ textAlign: "center" }}>
+              Suma przychodów
+            </Typography>
           )}
           <Box
             sx={{
@@ -157,7 +157,6 @@ export const Budget = props => {
               backgroundColor: theme.palette.secondary.main,
               textAlign: "center",
             }}>
-
             {chosenMoneyOperations === "expenses"
               ? `${parseFloat(expensesSum).toFixed(2)} zł`
               : `${parseFloat(incomesSum).toFixed(2)} zł`}
