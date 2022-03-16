@@ -1,17 +1,19 @@
 import React, { useState } from "react";
-import { OutlinedInput } from "@mui/material";
 import { Theme } from "../../../common/theme/theme";
 import { FormHelperText } from "@mui/material";
 import MenuItem from "@mui/material/MenuItem";
 import { Button } from "@mui/material";
-import Select from "@mui/material/Select";
 import { Box } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
+import { AddInput } from "./AddInput";
+import { SelectComponent } from "./SelectComponent";
+import { EditInput } from "./EditInput";
 
-function BudgetFormIncomes(uid, onSubmit) {
+function BudgetFormIncomes({ uid, onSubmit }) {
   const [amountInput, setAmountInput] = useState("");
   const [categoryInput, setCategoryInput] = useState("");
   const [dateInput, setDateInput] = useState("");
+
   const handleAmountChange = event => {
     setAmountInput(event.target.value.replace(",", "."));
   };
@@ -30,28 +32,13 @@ function BudgetFormIncomes(uid, onSubmit) {
     setAmountInput("");
     setCategoryInput("");
     setDateInput("");
-    console.log("uid", uid);
   };
   return (
     <>
       <Box
         sx={{ padding: "3rem", backgroundColor: Theme.palette.secondary.main }}>
         <form className="budget-form" onSubmit={handleSubmit}>
-          <OutlinedInput
-            inputProps={{
-              pattern: "[0-9]+(.|,)?[0-9]{0,2}",
-              title: "podaj liczbę z maks. 2 cyframi po przecinku ",
-            }}
-            required
-            placeholder="Podaj kwotę..."
-            value={amountInput}
-            onChange={handleAmountChange}
-            sx={{
-              width: "100%",
-              height: "3rem",
-              backgroundColor: Theme.palette.secondary.contrastText,
-              ":hover": { backgroundColor: Theme.palette.primary.contrastText },
-            }}></OutlinedInput>
+          <AddInput value={amountInput} onChange={handleAmountChange} />
           <FormHelperText
             sx={{
               margin: ".25rem",
@@ -60,21 +47,13 @@ function BudgetFormIncomes(uid, onSubmit) {
             }}>
             Kwota{" "}
           </FormHelperText>
-
-          <Select
-            required
-            id="Category"
-            value={categoryInput}
-            onChange={handleCategoryChange}
-            sx={{
-              height: "3rem",
-              width: "15rem",
-              backgroundColor: Theme.palette.secondary.contrastText,
-              ":hover": { backgroundColor: Theme.palette.primary.contrastText },
-            }}>
+          <SelectComponent
+            handleCategoryChange={handleCategoryChange}
+            categoryInput={categoryInput}
+            width="100%">
             <MenuItem value="Wynagrodzenie">Wynagrodzenie</MenuItem>
             <MenuItem value="Inne">Inne</MenuItem>
-          </Select>
+          </SelectComponent>
           <FormHelperText
             sx={{
               margin: ".25rem",
@@ -84,17 +63,11 @@ function BudgetFormIncomes(uid, onSubmit) {
             Kategoria{" "}
           </FormHelperText>
 
-          <OutlinedInput
-            required
-            type="date"
+          <EditInput
             value={dateInput}
             onChange={handleDateChange}
-            sx={{
-              width: "100%",
-              height: "3rem",
-              backgroundColor: Theme.palette.secondary.contrastText,
-              ":hover": { backgroundColor: Theme.palette.primary.contrastText },
-            }}
+            type="date"
+            width="100%"
           />
           <FormHelperText
             sx={{
