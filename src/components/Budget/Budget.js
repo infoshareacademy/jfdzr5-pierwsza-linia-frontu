@@ -22,7 +22,6 @@ import Box from "@mui/material/Box";
 import { useContext } from "react";
 import { UserContext } from "../../userContext/UserContext";
 
-
 const ListContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -47,7 +46,7 @@ export const Budget = props => {
     if (userUID) {
       setUid(userUID);
     }
-  });
+  }, [userUID]);
 
   useEffect(() => {
     fetchData();
@@ -81,7 +80,6 @@ export const Budget = props => {
   const handleExpensesFilter = event =>
     setExpensesFilterValue(event.target.value);
 
-
   const filterExpenses = expenses.filter(element => {
     if (element.uid === uid) {
       return (
@@ -93,7 +91,6 @@ export const Budget = props => {
 
   const handleIncomesFilter = event =>
     setIncomesFilterValue(event.target.value);
-
 
   const filterIncomes = incomes.filter(element => {
     if (element.uid === uid) {
@@ -115,7 +112,6 @@ export const Budget = props => {
   const expensesSum = filterExpenses.reduce(function (prev, curr) {
     return prev + curr.amount;
   }, 0);
-
 
   const incomesSum = filterIncomes.reduce(function (prev, curr) {
     return prev + curr.amount;
@@ -157,7 +153,6 @@ export const Budget = props => {
               backgroundColor: theme.palette.secondary.main,
               textAlign: "center",
             }}>
-
             {chosenMoneyOperations === "expenses"
               ? `${parseFloat(expensesSum).toFixed(2)} zł`
               : `${parseFloat(incomesSum).toFixed(2)} zł`}

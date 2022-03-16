@@ -21,9 +21,6 @@ import { useEffect } from "react";
 
 const DeleteButtonContainer = styled.div`
   display: flex;
-  // flex-direction: column;
-  //   justify-content: center;
-  //   align-items: center;
 `;
 export const DeleteUser = ({ setDeleteUser, open, setOpen, userEmail }) => {
   const [permanentDeleteUser, setPermanentDeleteUser] = useState(false);

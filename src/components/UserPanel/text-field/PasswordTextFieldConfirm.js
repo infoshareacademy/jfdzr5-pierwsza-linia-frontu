@@ -1,10 +1,6 @@
 import { TextField } from "@mui/material";
 import { Theme } from "../../../common/theme/theme";
-import { alpha, styled } from "@mui/material/styles";
-import InputBase from "@mui/material/InputBase";
-import Box from "@mui/material/Box";
-import InputLabel from "@mui/material/InputLabel";
-import FormControl from "@mui/material/FormControl";
+import { styled } from "@mui/material/styles";
 
 const CssTextField = styled(TextField)({
   input: {

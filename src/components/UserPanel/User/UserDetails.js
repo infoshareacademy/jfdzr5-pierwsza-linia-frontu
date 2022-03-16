@@ -14,9 +14,7 @@ import { useContext } from "react";
 import { UserContext } from "../../../userContext/UserContext";
 import { UserAvatar } from "./UserAvatar";
 import { Theme } from "../../../common/theme/theme";
-import { getAuth, updatePassword } from "firebase/auth";
-import { PassowrdTextField } from "../text-field/PasswordTextField";
-import { EmailAuthProvider, reauthenticateWithCredential } from "firebase/auth";
+
 import { ChangePassword } from "./ChangePasword";
 import { DeleteUser } from "./DeleteUser";
 
@@ -41,14 +39,10 @@ const AvatarContainer = styled.div`
 export const UserDetails = ({ userData, db }) => {
   const { userUID, userEmail } = useContext(UserContext);
   //get user uid and email from use context
-  const [uid, setUid] = useState("");
   const [email, setEmail] = useState("");
-  // const [currentUser, setCurrentUser] = useState("");
   useEffect(() => {
     if (userUID) {
-      setUid(userUID);
       setEmail(userEmail);
-      // setCurrentUser(user);
     }
   }, [userEmail, userUID]);
 
