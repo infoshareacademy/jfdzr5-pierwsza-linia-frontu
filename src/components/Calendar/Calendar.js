@@ -49,10 +49,10 @@ const CalendarList = () => {
         maxWidth={maxWidth1000 ? "xl" : "md"}
         sx={{
           backgroundColor: Theme.palette.secondary.main,
+          padding: "20px",
           // margin: "0 auto",
           // marginTop: "10px",
-        }}
-      >
+        }}>
         <AddEventForm
           item={item}
           setItem={setItem}

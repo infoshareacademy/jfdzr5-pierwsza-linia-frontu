@@ -26,7 +26,7 @@ const DetailsContainer = styled.div`
   gap: 10px;
   margin: 10px;
   padding: 20px;
-  background-color: grey;
+  background-color: ${Theme.palette.backgroundColor.main};
 `;
 const AvatarContainer = styled.div`
   display: flex;
