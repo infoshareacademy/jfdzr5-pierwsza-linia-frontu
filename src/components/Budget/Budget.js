@@ -21,6 +21,7 @@ import { Typography } from "@mui/material";
 import Box from "@mui/material/Box";
 import { useContext } from "react";
 import { UserContext } from "../../userContext/UserContext";
+import { Theme } from "../../common/theme/theme";
 
 const ListContainer = styled.div`
   display: flex;
@@ -132,6 +133,8 @@ export const Budget = () => {
           maxWidth: "1600px",
           justifyContent: "space-between",
           gap: "10px",
+          backgroundColor: Theme.palette.secondary.main,
+          padding: "0.5%"
         }}>
         <div
           style={{
@@ -155,6 +158,7 @@ export const Budget = () => {
               padding: "1.5rem",
               alignSelf: "center",
               backgroundColor: theme.palette.secondary.main,
+              backgroundColor: Theme.palette.backgroundColor.main,
               textAlign: "center",
             }}>
             {chosenMoneyOperations === "expenses"

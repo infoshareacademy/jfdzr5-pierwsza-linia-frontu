@@ -29,8 +29,7 @@ const NewTaskContainer = styled.div`
   display: flex;
   margin: 10px;
   padding: 10px;
-  background-color: grey;
-  // justify-content: space-between;
+  background-color: ${Theme.palette.backgroundColor.main};
 `;
 
 const NewTask = ({ tasks, db }) => {

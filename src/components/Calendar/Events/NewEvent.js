@@ -34,7 +34,7 @@ const NewEventContainer = styled.div`
   min-height: 2.5rem;
   margin: 0.5rem 0;
   padding: 0.5rem 1rem;
-  background-color: ${Theme.palette.secondary.main};
+  background-color: ${Theme.palette.backgroundColor.main};
   color: ${Theme.palette.secondary.contrastText};
 `;
 
@@ -147,7 +147,7 @@ const NewEvent = ({ items, setItems, firestore }) => {
   return (
     <Box
       sx={{
-        backgroundColor: Theme.palette.primary.main,
+        backgroundColor: Theme.palette.secondary.main,
         minWidth: "35vw",
       }}>
       <div>

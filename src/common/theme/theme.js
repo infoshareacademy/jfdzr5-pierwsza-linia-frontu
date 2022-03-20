@@ -10,6 +10,9 @@ export const Theme = createTheme({
       main: "#424242",
       contrastText: "#fff",
     },
+    backgroundColor: {
+      main: "#808080",
+    },
   },
   breakpoints: {
     maxWidth1000: "1000px",
