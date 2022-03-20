@@ -1,7 +1,7 @@
 import { Button, Icon } from "@mui/material";
-import { Theme } from "../theme/theme";;
+import { Theme } from "../../../common/theme/theme";
 
-export const CancelButton = ({ handleClickCancel, id }) => {
+export const DeleteButton = ({ handleClickOpen, id }) => {
   return (
     <Button
       sx={{
@@ -9,8 +9,8 @@ export const CancelButton = ({ handleClickCancel, id }) => {
         ":hover": { color: Theme.palette.primary.contrastText },
       }}
       color="secondary"
-      onClick={() => handleClickCancel(id)}>
-      <Icon>cancel</Icon>
+      onClick={() => handleClickOpen(id)}>
+      <Icon>delete</Icon>
     </Button>
   );
 };

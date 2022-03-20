@@ -1,5 +1,5 @@
-import { CancelButton } from "../../../common/buttons/CancelButton";
-import { SaveButton } from "../../../common/buttons/SaveButton";
+import { CancelButton } from "../../ToDoList/buttons/CancelButton";
+import { SaveButton } from "../../ToDoList/buttons/SaveButton";
 import { PassowrdTextField } from "../text-field/PasswordTextField";
 import {
   EmailAuthProvider,

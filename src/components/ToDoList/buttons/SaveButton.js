@@ -1,5 +1,5 @@
 import { Button, Icon } from "@mui/material";
-import { Theme } from "../theme/theme";
+import { Theme } from "../../../common/theme/theme";
 
 export const SaveButton = ({ handleClickSave, id }) => {
   return (

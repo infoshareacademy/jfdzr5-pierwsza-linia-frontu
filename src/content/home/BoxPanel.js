@@ -1,11 +1,10 @@
 import { Box } from "@mui/material";
-import { Theme } from "../../common/theme/theme";
 
 export const BoxPanel = ({ children }) => {
   return (
     <Box
       sx={{
-        backgroundColor: Theme.palette.backgroundColor.main,
+        backgroundColor: "#808080",
         margin: "1rem",
         height: "10rem",
         width: "10rem",

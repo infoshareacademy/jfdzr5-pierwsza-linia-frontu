@@ -5,8 +5,8 @@ import styled from "styled-components";
 import { doc, updateDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
 
-import { SaveButton } from "../../../common/buttons/SaveButton";
-import { CancelButton } from "../../../common/buttons/CancelButton";
+import { SaveButton } from "../../ToDoList/buttons/SaveButton";
+import { CancelButton } from "../../ToDoList/buttons/CancelButton";
 import { TextFieldReadOnly } from "../text-field/TextFieldReadOnly";
 import { TextFieldView } from "../text-field/TextFieldView";
 import { EditTextField } from "../text-field/EditTextField";
@@ -14,7 +14,9 @@ import { useContext } from "react";
 import { UserContext } from "../../../userContext/UserContext";
 import { UserAvatar } from "./UserAvatar";
 import { Theme } from "../../../common/theme/theme";
-
+import { getAuth, updatePassword } from "firebase/auth";
+import { PassowrdTextField } from "../text-field/PasswordTextField";
+import { EmailAuthProvider, reauthenticateWithCredential } from "firebase/auth";
 import { ChangePassword } from "./ChangePasword";
 import { DeleteUser } from "./DeleteUser";
 
@@ -26,7 +28,8 @@ const DetailsContainer = styled.div`
   gap: 10px;
   margin: 10px;
   padding: 20px;
-  background-color: ${Theme.palette.backgroundColor.main};
+  background-color: grey;
+  // justify-content: space-between;
 `;
 const AvatarContainer = styled.div`
   display: flex;
@@ -38,10 +41,14 @@ const AvatarContainer = styled.div`
 export const UserDetails = ({ userData, db }) => {
   const { userUID, userEmail } = useContext(UserContext);
   //get user uid and email from use context
+  const [uid, setUid] = useState("");
   const [email, setEmail] = useState("");
+  // const [currentUser, setCurrentUser] = useState("");
   useEffect(() => {
     if (userUID) {
+      setUid(userUID);
       setEmail(userEmail);
+      // setCurrentUser(user);
     }
   }, [userEmail, userUID]);
 
@@ -309,7 +316,7 @@ export const UserDetails = ({ userData, db }) => {
                       <EditTextField
                         value={takenValue}
                         onChange={e => setTakenValue(e.target.value)}
-                        label="Nr domu/mieszkania"
+                        label="Nr dom/mieszkania"
                       />
 
                       <SaveButton

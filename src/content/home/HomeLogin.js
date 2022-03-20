@@ -12,6 +12,7 @@ import BarChartIcon from "@mui/icons-material/BarChart";
 import { BoxContainer } from "./BoxContainer";
 import { BoxContainerDashboard } from "./BoxContainerDashboard";
 
+import GroupIcon from "@mui/icons-material/Group";
 import ListAltIcon from "@mui/icons-material/ListAlt";
 import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
 import { Box } from "@mui/system";
@@ -48,6 +49,7 @@ export const HomeLogin = ({
       <Typography variant="h4">
         <strong> {`${name} ${surname}`}</strong> witaj w aplikacji Home
         Organizer!
+
       </Typography>
       <TileContainer>
         <BoxContainer to="/tasks">
@@ -59,6 +61,7 @@ export const HomeLogin = ({
           </Typography>
           <HorizontalLine />
           <Typography
+            paragraph="true"
             sx={{ margin: "1rem", fontSize: "1rem" }}>
             Przeglądaj zadania do wykonania, dodaj nowe lub edytuj już
             istniejące.
@@ -73,6 +76,7 @@ export const HomeLogin = ({
           </Typography>
           <HorizontalLine />
           <Typography
+            paragraph="true"
             sx={{ margin: "1rem", fontSize: "1rem" }}>
             Zarządzaj domowym budżetem, wprowadź wpływy i wydatki, analizuj
             strukturę wydatków.
@@ -85,6 +89,7 @@ export const HomeLogin = ({
           </Typography>
           <HorizontalLine />
           <Typography
+            paragraph="true"
             sx={{ margin: "1rem", fontSize: "1rem" }}>
             Dodaj daty, rocznice i terminy, o których już nigdy nie zapomnisz.
           </Typography>
@@ -106,14 +111,17 @@ export const HomeLogin = ({
                   margin: ".5rem",
                 }}>
                 <BarChartIcon
+                  paragraph="true"
                   sx={{ marginLeft: "1rem", fontSize: "3rem" }}
                 />
                 <Typography
+                  paragraph="true"
                   sx={{ margin: "0 0 0 .5rem", fontSize: "2rem" }}>
                   Panel
                 </Typography>
               </Typography>
               <Typography
+                paragraph="true"
                 sx={{ align: "center", margin: ".5rem", fontSize: "1rem" }}>
                 Sprawdź dane i zasoby aplikacji.
               </Typography>
@@ -121,7 +129,18 @@ export const HomeLogin = ({
 
             <HorizontalLine style={{ margin: "0 auto", width: "90%" }} />
           </Box>
-    
+          {/* <BoxPanel>
+            <GroupIcon sx={{ marginLeft: "1rem", fontSize: "2rem" }} />
+            <Typography variant="h6" sx={{ margin: "1rem" }}>
+              Użytkownicy
+            </Typography>
+            <HorizontalLine />
+            <Typography
+              paragraph="true"
+              sx={{ margin: "1rem", fontSize: "2rem" }}>
+              {usersNumber}
+            </Typography>
+          </BoxPanel> */}
           <BoxPanel>
             <ListAltIcon sx={{ marginLeft: "1rem", fontSize: "2rem" }} />
             <Typography variant="h6" sx={{ margin: "1rem" }}>
@@ -129,6 +148,7 @@ export const HomeLogin = ({
             </Typography>
             <HorizontalLine />
             <Typography
+              paragraph="true"
               sx={{ margin: "1rem", fontSize: "2rem" }}>
               {userTasksNumber}
             </Typography>
@@ -142,6 +162,7 @@ export const HomeLogin = ({
             </Typography>
             <HorizontalLine />
             <Typography
+              paragraph="true"
               sx={{ margin: "1rem", fontSize: "2rem" }}>
               {userEventsNumber}
             </Typography>

@@ -5,7 +5,7 @@ import { OutlinedInput } from "@mui/material";
 
 import styled from "styled-components";
 import { addDoc } from "firebase/firestore";
-import { AddButton } from "../../../common/buttons/AddButton";
+import { AddButton } from "../buttons/AddButton";
 import { useContext } from "react";
 import { UserContext } from "../../../userContext/UserContext";
 import { useState, useEffect } from "react";

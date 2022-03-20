@@ -49,7 +49,7 @@ export const Home = () => {
     if (user) {
       getUserNameAndSurname();
     }
-  }, [usersNumber]);
+  });
 
   const fetchUsers = () => {
     onSnapshot(usersRef, doc => {
@@ -64,7 +64,7 @@ export const Home = () => {
   };
   const fetchTasks = () => {
     onSnapshot(tasksRef, doc => {
-      doc.docs.forEach(() => {
+      doc.docs.forEach(element => {
         tasksCounter += 1;
       });
       setTasksNumber(tasksCounter);
@@ -85,7 +85,7 @@ export const Home = () => {
   };
   const fetchEvents = () => {
     onSnapshot(eventsRef, doc => {
-      doc.docs.forEach(() => {
+      doc.docs.forEach(element => {
         eventsCounter += 1;
       });
       setEventsNumber(eventsCounter);
@@ -97,6 +97,7 @@ export const Home = () => {
         const data = element.data();
         if (data.uid === user.uid) {
           eventsUserCounter += 1;
+          console.log(eventsCounter);
         }
         setUserEventsNumber(eventsUserCounter);
       });

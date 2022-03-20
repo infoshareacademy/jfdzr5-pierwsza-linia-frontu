@@ -21,8 +21,7 @@ import { Typography } from "@mui/material";
 import Box from "@mui/material/Box";
 import { useContext } from "react";
 import { UserContext } from "../../userContext/UserContext";
-import { Theme } from "../../common/theme/theme";
-import { useMediaQuery } from "@mui/material";
+
 
 const ListContainer = styled.div`
   display: flex;
@@ -30,7 +29,7 @@ const ListContainer = styled.div`
   align-items: center;
 `;
 
-export const Budget = () => {
+export const Budget = props => {
   const theme = useTheme();
   const expensesColRef = collection(firestore, "budget-expenses");
   const incomesColRef = collection(firestore, "budget-incomes");
@@ -44,16 +43,11 @@ export const Budget = () => {
   const [uid, setUid] = useState("");
   const { userUID } = useContext(UserContext);
 
-  const maxWidth1000 = useMediaQuery(
-    `(max-width: ${Theme.breakpoints.maxWidth1000})`
-  );
-
-  const widthEditInput = "90px";
   useEffect(() => {
     if (userUID) {
       setUid(userUID);
     }
-  }, [userUID]);
+  });
 
   useEffect(() => {
     fetchData();
@@ -87,6 +81,7 @@ export const Budget = () => {
   const handleExpensesFilter = event =>
     setExpensesFilterValue(event.target.value);
 
+
   const filterExpenses = expenses.filter(element => {
     if (element.uid === uid) {
       return (
@@ -98,6 +93,7 @@ export const Budget = () => {
 
   const handleIncomesFilter = event =>
     setIncomesFilterValue(event.target.value);
+
 
   const filterIncomes = incomes.filter(element => {
     if (element.uid === uid) {
@@ -120,6 +116,7 @@ export const Budget = () => {
     return prev + curr.amount;
   }, 0);
 
+
   const incomesSum = filterIncomes.reduce(function (prev, curr) {
     return prev + curr.amount;
   }, 0);
@@ -134,52 +131,40 @@ export const Budget = () => {
       <Box
         sx={{
           display: "flex",
-          flexDirection: maxWidth1000 ? "column" : "row",
-          width: maxWidth1000 || "100%",
+          flexDirection: "row",
+          width: "100%",
           maxWidth: "1600px",
-          justifyContent: "center",
-          gap: "20px",
-          backgroundColor: Theme.palette.secondary.main,
-          padding: "30px",
-          margin: "20px",
-          boxSizing: "border-box",
+          justifyContent: "space-between",
+          gap: "10px",
         }}>
         <div
           style={{
-            alignSelf: maxWidth1000 ? "center" : "flex-start",
-            width: maxWidth1000 ? "inherit" : "15%",
+            alignSelf: "flex-start",
+            width: "8rem",
             flexGrow: "1.5",
             marginTop: "17px",
-            margin: "0px",
           }}>
           {chosenMoneyOperations === "expenses" ? (
-            <Typography variant="h6" style={{ textAlign: "center" }}>
-              Suma wydatków
-            </Typography>
+            <h3 style={{ textAlign: "center" }}>Suma wydatków</h3>
           ) : (
-            <Typography variant="h6" style={{ textAlign: "center" }}>
-              Suma przychodów
-            </Typography>
+            <h3 style={{ textAlign: "center" }}>Suma przychodów</h3>
           )}
           <Box
             sx={{
               fontSize: "30px",
               padding: "1.5rem",
               alignSelf: "center",
-              backgroundColor: Theme.palette.backgroundColor.main,
+              backgroundColor: theme.palette.secondary.main,
               textAlign: "center",
             }}>
+
             {chosenMoneyOperations === "expenses"
               ? `${parseFloat(expensesSum).toFixed(2)} zł`
               : `${parseFloat(incomesSum).toFixed(2)} zł`}
           </Box>
         </div>
-        <div style={{ flexGrow: "2" }}>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-            }}>
+        <div style={{ marginLeft: "100px" }}>
+          <div>
             <Button
               type="submit"
               variant="outlined"
@@ -228,8 +213,9 @@ export const Budget = () => {
         {chosenMoneyOperations === "expenses" ? (
           <div
             style={{
-              flexGrow: "3",
-              width: maxWidth1000 ? "inherit" : "700px",
+              flexGrow: "1",
+              width: "50%",
+              alignSelf: "flex-start",
             }}>
             <ListContainer style={{ marginTop: "0" }}>
               <h3>Pokaż wydatki z kategorii: </h3>
@@ -258,18 +244,19 @@ export const Budget = () => {
               </Select>
             </ListContainer>
             <ExpensesList
+              // tu przekazuje uid w propsach
               uid={uid}
               expenses={filterExpenses}
               onDelete={handleExpensesDelete}
               firestore={firestore}
-              widthEditInput={widthEditInput}
             />
           </div>
         ) : (
           <div
             style={{
-              flexGrow: "3",
-              width: maxWidth1000 ? "inherit" : "700px",
+              flexGrow: "1",
+              width: "50%",
+              alignSelf: "flex-start",
             }}>
             <ListContainer style={{ marginTop: "0" }}>
               <h3>Pokaż przychody z kategorii: </h3>
@@ -278,9 +265,10 @@ export const Budget = () => {
                 id="Category"
                 value={incomesFilterValue}
                 onChange={handleIncomesFilter}
+                label="Category"
                 sx={{
                   height: "3rem",
-                  width: "10rem",
+                  width: "15rem",
                   backgroundColor: theme.palette.secondary.contrastText,
                   ":hover": {
                     backgroundColor: theme.palette.primary.contrastText,
@@ -292,6 +280,7 @@ export const Budget = () => {
               </Select>
             </ListContainer>
             <IncomesList
+              // tu przekazuje uid w propsach
               uid={uid}
               incomes={filterIncomes}
               onDelete={handleIncomesDelete}

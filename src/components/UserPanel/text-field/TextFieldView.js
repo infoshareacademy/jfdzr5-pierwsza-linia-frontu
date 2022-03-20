@@ -26,14 +26,13 @@ const CssTextField = styled(TextField)({
 export const TextFieldView = ({ label, value, handleClick }) => {
   return (
     <CssTextField
-      variant="filled"
       fullWidth
       label={label}
       value={value}
       onClick={handleClick}
       sx={{
         // backgroundColor: Theme.palette.secondary.contrastText,
-        // borderRadius: "5px",
+        borderRadius: "5px",
         ":hover": {
           backgroundColor: Theme.palette.primary.contrastText,
           border: "none",

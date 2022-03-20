@@ -6,16 +6,11 @@ import { useState, useEffect } from "react";
 import { collection, onSnapshot } from "firebase/firestore";
 import { getFirestore } from "firebase/firestore";
 import { UserDetails } from "./User/UserDetails";
-import { useMediaQuery } from "@mui/material";
 
 export const UserPanel = () => {
   //firestore
   const db = getFirestore();
   const colRef = collection(db, "user-data");
-
-  const maxWidth1000 = useMediaQuery(
-    `(max-width: ${Theme.breakpoints.maxWidth1000})`
-  );
 
   const [userData, setUserData] = useState([]);
   useEffect(() => {
@@ -39,7 +34,7 @@ export const UserPanel = () => {
         Panel użytkownika
       </Typography>
       <Container
-        maxWidth={maxWidth1000 ? "xl" : "md"}
+        maxWidth="sm"
         sx={{
           backgroundColor: Theme.palette.secondary.main,
           margin: "0 auto",
