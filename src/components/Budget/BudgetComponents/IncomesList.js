@@ -22,12 +22,10 @@ dayjs.locale("pl");
 const NewIncomeContainer = styled.div`
   display: flex;
   min-height: 1rem;
-  // margin-left: 100px;
   margin-top: 10px;
   padding: 10px;
   background-color: ${Theme.palette.secondary.main};
   color: ${Theme.palette.secondary.contrastText};
-  // width: 70%;
 `;
 
 const ListItemElement = styled.span`
@@ -39,7 +37,6 @@ const ListItemContainer = styled.div`
   gap: 5px;
   display: flex;
   flex-wrap: wrap;
-  // justify-content: center;
 `;
 
 function IncomesList({ uid, incomes, onDelete, firestore, widthEditInput }) {

@@ -23,13 +23,11 @@ dayjs.locale("pl");
 const NewExpenseContainer = styled.div`
   display: flex;
   min-height: 1rem;
-  // margin-left: 100px;
   margin-top: 10px;
   padding: 10px;
   flex-wrap: wrap;
   background-color: ${Theme.palette.secondary.main};
   color: ${Theme.palette.secondary.contrastText};
-  // width: 70%;
 `;
 
 const ListItemElement = styled.span`
@@ -40,7 +38,6 @@ const ListItemContainer = styled.div`
   gap: 5px;
   display: flex;
   flex-wrap: wrap;
-  // justify-content: center;
 `;
 
 function ExpensesList({ uid, expenses, onDelete, firestore, widthEditInput }) {

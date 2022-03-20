@@ -135,17 +135,15 @@ export const Budget = () => {
         sx={{
           display: "flex",
           flexDirection: maxWidth1000 ? "column" : "row",
-          // alignItems: maxWidth1000 ? "center" : "",
           width: maxWidth1000 || "100%",
           maxWidth: "1600px",
-          // justifyContent: "space-between",
           justifyContent: "center",
-          gap: "10px",
+          gap: "20px",
         }}>
         <div
           style={{
             alignSelf: maxWidth1000 ? "center" : "flex-start",
-            width: "8rem",
+            width: maxWidth1000 ? "inherit" : "15%",
             flexGrow: "1.5",
             marginTop: "17px",
             margin: "0px",
@@ -172,7 +170,7 @@ export const Budget = () => {
               : `${parseFloat(incomesSum).toFixed(2)} zł`}
           </Box>
         </div>
-        <div style={{ marginLeft: "0" }}>
+        <div style={{ flexGrow: "2" }}>
           <div
             style={{
               display: "flex",
@@ -227,7 +225,7 @@ export const Budget = () => {
           <div
             style={{
               flexGrow: "3",
-              // width: "50%",
+              width: maxWidth1000 ? "inherit" : "700px",
             }}>
             <ListContainer style={{ marginTop: "0" }}>
               <h3>Pokaż wydatki z kategorii: </h3>
@@ -267,7 +265,7 @@ export const Budget = () => {
           <div
             style={{
               flexGrow: "3",
-              // width: "50%",
+              width: maxWidth1000 ? "inherit" : "700px",
             }}>
             <ListContainer style={{ marginTop: "0" }}>
               <h3>Pokaż przychody z kategorii: </h3>
