@@ -8,7 +8,7 @@ import { Typography } from "@mui/material";
 import { PageWrapper } from "../../common/page-wrapper/page-wrapper";
 import { collection, query, onSnapshot, orderBy } from "firebase/firestore";
 import { getFirestore } from "firebase/firestore";
-
+import { useMediaQuery } from "@mui/material";
 const ToDoList = () => {
   //firestore configuration
   //add referneces to collection to-do-list and oredered by timestamp
@@ -16,6 +16,9 @@ const ToDoList = () => {
   const colRef = collection(db, "to-do-list");
   const colRefOrdered = query(colRef, orderBy("timeStamp"));
 
+  const maxWidth1000 = useMediaQuery(
+    `(max-width: ${Theme.breakpoints.maxWidth1000})`
+  );
   const [tasks, setTasks] = useState([]);
   useEffect(() => {
     fetchData();
@@ -41,7 +44,7 @@ const ToDoList = () => {
         Lista zadań
       </Typography>
       <Container
-        maxWidth="sm"
+        maxWidth={maxWidth1000 ? "xl" : "md"}
         sx={{
           backgroundColor: Theme.palette.secondary.main,
           margin: "0 auto",

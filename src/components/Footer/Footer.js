@@ -17,7 +17,7 @@ export const Footer = () => {
             }}>
             <Icon>
               <a
-                href="https://github.com/infoshareacademy/jfdzr5-pierwsza-linia-frontu"
+                href="https://github.com/d-reczek/home-organizer-app.git"
                 target="blank">
                 <img src={logo} alt="github-logo" />
               </a>

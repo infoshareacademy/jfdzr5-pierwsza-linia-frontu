@@ -12,7 +12,6 @@ import BarChartIcon from "@mui/icons-material/BarChart";
 import { BoxContainer } from "./BoxContainer";
 import { BoxContainerDashboard } from "./BoxContainerDashboard";
 
-import GroupIcon from "@mui/icons-material/Group";
 import ListAltIcon from "@mui/icons-material/ListAlt";
 import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
 import { Box } from "@mui/system";

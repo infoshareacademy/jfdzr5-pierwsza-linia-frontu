@@ -1,16 +1,12 @@
 import { TextField } from "@mui/material";
 import { Theme } from "../../../common/theme/theme";
-import { alpha, styled } from "@mui/material/styles";
-import InputBase from "@mui/material/InputBase";
-import Box from "@mui/material/Box";
-import InputLabel from "@mui/material/InputLabel";
-import FormControl from "@mui/material/FormControl";
+import { styled } from "@mui/material/styles";
 
 const CssTextField = styled(TextField)({
   input: {
     color: "#000",
     backgroundColor: "#fff",
-    borderRadius: "5px",
+    border: "1px solid grey",
   },
   "& label.Mui-focused": {},
   "& .MuiInput-underline:after": {
@@ -35,11 +31,20 @@ const CssTextField = styled(TextField)({
 export const EditTextField = ({ value, onChange, label }) => {
   return (
     <CssTextField
+      variant="filled"
       label={label}
       autoFocus
       fullWidth
       value={value}
       onChange={onChange}
+      sx={{
+        // backgroundColor: Theme.palette.secondary.contrastText,
+        // borderRadius: "0px",
+        ":hover": {
+          backgroundColor: Theme.palette.primary.contrastText,
+          border: "none",
+        },
+      }}
     />
   );
 };

@@ -1,16 +1,13 @@
 import { TextField } from "@mui/material";
 import { Theme } from "../../../common/theme/theme";
-import { alpha, styled } from "@mui/material/styles";
-import InputBase from "@mui/material/InputBase";
-import Box from "@mui/material/Box";
-import InputLabel from "@mui/material/InputLabel";
-import FormControl from "@mui/material/FormControl";
+import {  styled } from "@mui/material/styles";
+
 
 const CssTextField = styled(TextField)({
   input: {
     color: "#000",
     backgroundColor: "#fff",
-    borderRadius: "5px",
+    // borderRadius: "5px",
   },
   "& label.Mui-focused": {},
   "& .MuiInput-underline:after": {
@@ -35,6 +32,7 @@ const CssTextField = styled(TextField)({
 export const PassowrdTextField = ({ value, onChange, label }) => {
   return (
     <CssTextField
+      variant="filled"
       type="password"
       label={label}
       fullWidth

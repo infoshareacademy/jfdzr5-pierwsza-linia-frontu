@@ -8,10 +8,10 @@ import { checkboxClasses } from "@mui/material";
 
 import { doc, deleteDoc, updateDoc } from "firebase/firestore";
 
-import { DeleteButton } from "../buttons/DeleteButton";
-import { SaveButton } from "../buttons/SaveButton";
-import { EditButton } from "../buttons/EditButton";
-import { CancelButton } from "../buttons/CancelButton";
+import { DeleteButton } from "../../../common/buttons/DeleteButton";
+import { SaveButton } from "../../../common/buttons/SaveButton";
+import { EditButton } from "../../../common/buttons/EditButton";
+import { CancelButton } from "../../../common/buttons/CancelButton";
 
 import { useContext } from "react";
 import { UserContext } from "../../../userContext/UserContext";
@@ -29,8 +29,7 @@ const NewTaskContainer = styled.div`
   display: flex;
   margin: 10px;
   padding: 10px;
-  background-color: grey;
-  // justify-content: space-between;
+  background-color: ${Theme.palette.backgroundColor.main};
 `;
 
 const NewTask = ({ tasks, db }) => {
