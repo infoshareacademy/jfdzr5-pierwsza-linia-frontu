@@ -29,6 +29,7 @@ const NewExpenseContainer = styled.div`
   flex-wrap: wrap;
   background-color: ${Theme.palette.secondary.main};
   color: ${Theme.palette.secondary.contrastText};
+  width: 70%;
 `;
 
 const ListItemElement = styled.span`
@@ -42,7 +43,7 @@ const ListItemContainer = styled.div`
   // justify-content: center;
 `;
 
-function ExpensesList({ uid, expenses, onDelete, firestore }) {
+function ExpensesList({ uid, expenses, onDelete, firestore, widthEditInput }) {
   const [editedTaskId, setEditedTaskId] = useState(null);
   const [amountInput, setAmountInput] = useState("");
   const [categoryInput, setCategoryInput] = useState("");
@@ -111,7 +112,7 @@ function ExpensesList({ uid, expenses, onDelete, firestore }) {
                             onChange={handleAmountChange}
                             value={amountInput}
                             type="number"
-                            width="65px"
+                            width={widthEditInput}
                           />
                           <SelectComponent
                             handleCategoryChange={handleCategoryChange}

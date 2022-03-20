@@ -27,6 +27,7 @@ const NewIncomeContainer = styled.div`
   padding: 10px;
   background-color: ${Theme.palette.secondary.main};
   color: ${Theme.palette.secondary.contrastText};
+  width: 70%;
 `;
 
 const ListItemElement = styled.span`
@@ -41,7 +42,7 @@ const ListItemContainer = styled.div`
   // justify-content: center;
 `;
 
-function IncomesList({ uid, incomes, onDelete, firestore }) {
+function IncomesList({ uid, incomes, onDelete, firestore, widthEditInput }) {
   const [editedTaskId, setEditedTaskId] = useState(null);
   const [amountInput, setAmountInput] = useState("");
   const [categoryInput, setCategoryInput] = useState("");
@@ -110,7 +111,7 @@ function IncomesList({ uid, incomes, onDelete, firestore }) {
                             onChange={handleAmountChange}
                             value={amountInput}
                             type="number"
-                            width="65px"
+                            width={widthEditInput}
                           />
                           <SelectComponent
                             handleCategoryChange={handleCategoryChange}

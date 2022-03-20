@@ -42,6 +42,7 @@ export const Budget = () => {
   const [uid, setUid] = useState("");
   const { userUID } = useContext(UserContext);
 
+  const widthEditInput = "90px";
   useEffect(() => {
     if (userUID) {
       setUid(userUID);
@@ -246,6 +247,7 @@ export const Budget = () => {
               expenses={filterExpenses}
               onDelete={handleExpensesDelete}
               firestore={firestore}
+              widthEditInput={widthEditInput}
             />
           </div>
         ) : (
