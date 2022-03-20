@@ -41,9 +41,4 @@ The application has also been deployed thanks to the Firebase service, more prec
 ![HomePage](/budget.png)
 ![HomePage](/calendar.png)
 
-# Authors
 
-- [Dariusz Reczek](https://github.com/d-reczek)
-- [Piotr Machnicki](https://github.com/Piotr-Machnicki)
-- [Liwia Dolińska](https://github.com/LiwiaDolinska)
-- [Agnieszka Olbryś](https://github.com/AgnieszkaOlbrys)
