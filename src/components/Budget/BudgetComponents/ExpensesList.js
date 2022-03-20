@@ -23,11 +23,10 @@ dayjs.locale("pl");
 const NewExpenseContainer = styled.div`
   display: flex;
   min-height: 1rem;
-  margin-left: 100px;
   margin-top: 10px;
   padding: 10px;
   flex-wrap: wrap;
-  background-color: ${Theme.palette.secondary.main};
+  background-color: ${Theme.palette.backgroundColor.main};
   color: ${Theme.palette.secondary.contrastText};
 `;
 
@@ -39,10 +38,9 @@ const ListItemContainer = styled.div`
   gap: 5px;
   display: flex;
   flex-wrap: wrap;
-  // justify-content: center;
 `;
 
-function ExpensesList({ uid, expenses, onDelete, firestore }) {
+function ExpensesList({ uid, expenses, onDelete, firestore, widthEditInput }) {
   const [editedTaskId, setEditedTaskId] = useState(null);
   const [amountInput, setAmountInput] = useState("");
   const [categoryInput, setCategoryInput] = useState("");
@@ -111,7 +109,7 @@ function ExpensesList({ uid, expenses, onDelete, firestore }) {
                             onChange={handleAmountChange}
                             value={amountInput}
                             type="number"
-                            width="65px"
+                            width={widthEditInput}
                           />
                           <SelectComponent
                             handleCategoryChange={handleCategoryChange}
@@ -129,7 +127,6 @@ function ExpensesList({ uid, expenses, onDelete, firestore }) {
                             <MenuItem value="Podróże">Podróże</MenuItem>
                             <MenuItem value="Inne">Inne</MenuItem>
                           </SelectComponent>
-
                           <EditInput
                             onChange={handleDateChange}
                             value={dateInput}

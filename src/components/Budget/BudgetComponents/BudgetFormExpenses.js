@@ -36,7 +36,10 @@ function BudgetFormExpenses({ uid, onSubmit }) {
   return (
     <>
       <Box
-        sx={{ padding: "3rem", backgroundColor: Theme.palette.secondary.main }}>
+        sx={{
+          padding: "3rem",
+          backgroundColor: Theme.palette.backgroundColor.main,
+        }}>
         <form className="budget-form" onSubmit={handleSubmit}>
           <AddInput value={amountInput} onChange={handleAmountChange} />
           <FormHelperText

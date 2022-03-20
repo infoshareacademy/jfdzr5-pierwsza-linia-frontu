@@ -22,7 +22,6 @@ dayjs.locale("pl");
 const NewIncomeContainer = styled.div`
   display: flex;
   min-height: 1rem;
-  margin-left: 100px;
   margin-top: 10px;
   padding: 10px;
   background-color: ${Theme.palette.secondary.main};
@@ -38,10 +37,9 @@ const ListItemContainer = styled.div`
   gap: 5px;
   display: flex;
   flex-wrap: wrap;
-  // justify-content: center;
 `;
 
-function IncomesList({ uid, incomes, onDelete, firestore }) {
+function IncomesList({ uid, incomes, onDelete, firestore, widthEditInput }) {
   const [editedTaskId, setEditedTaskId] = useState(null);
   const [amountInput, setAmountInput] = useState("");
   const [categoryInput, setCategoryInput] = useState("");
@@ -110,7 +108,7 @@ function IncomesList({ uid, incomes, onDelete, firestore }) {
                             onChange={handleAmountChange}
                             value={amountInput}
                             type="number"
-                            width="65px"
+                            width={widthEditInput}
                           />
                           <SelectComponent
                             handleCategoryChange={handleCategoryChange}

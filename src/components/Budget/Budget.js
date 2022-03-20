@@ -22,6 +22,7 @@ import Box from "@mui/material/Box";
 import { useContext } from "react";
 import { UserContext } from "../../userContext/UserContext";
 import { Theme } from "../../common/theme/theme";
+import { useMediaQuery } from "@mui/material";
 
 const ListContainer = styled.div`
   display: flex;
@@ -43,6 +44,11 @@ export const Budget = () => {
   const [uid, setUid] = useState("");
   const { userUID } = useContext(UserContext);
 
+  const maxWidth1000 = useMediaQuery(
+    `(max-width: ${Theme.breakpoints.maxWidth1000})`
+  );
+
+  const widthEditInput = "90px";
   useEffect(() => {
     if (userUID) {
       setUid(userUID);
@@ -128,20 +134,23 @@ export const Budget = () => {
       <Box
         sx={{
           display: "flex",
-          flexDirection: "row",
-          width: "100%",
+          flexDirection: maxWidth1000 ? "column" : "row",
+          width: maxWidth1000 || "100%",
           maxWidth: "1600px",
-          justifyContent: "space-between",
-          gap: "10px",
+          justifyContent: "center",
+          gap: "20px",
           backgroundColor: Theme.palette.secondary.main,
-          padding: "0.5%"
+          padding: "30px",
+          margin: "20px",
+          boxSizing: "border-box",
         }}>
         <div
           style={{
-            alignSelf: "flex-start",
-            width: "8rem",
+            alignSelf: maxWidth1000 ? "center" : "flex-start",
+            width: maxWidth1000 ? "inherit" : "15%",
             flexGrow: "1.5",
             marginTop: "17px",
+            margin: "0px",
           }}>
           {chosenMoneyOperations === "expenses" ? (
             <Typography variant="h6" style={{ textAlign: "center" }}>
@@ -157,7 +166,6 @@ export const Budget = () => {
               fontSize: "30px",
               padding: "1.5rem",
               alignSelf: "center",
-              backgroundColor: theme.palette.secondary.main,
               backgroundColor: Theme.palette.backgroundColor.main,
               textAlign: "center",
             }}>
@@ -166,8 +174,12 @@ export const Budget = () => {
               : `${parseFloat(incomesSum).toFixed(2)} zł`}
           </Box>
         </div>
-        <div style={{ marginLeft: "100px" }}>
-          <div>
+        <div style={{ flexGrow: "2" }}>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+            }}>
             <Button
               type="submit"
               variant="outlined"
@@ -216,8 +228,8 @@ export const Budget = () => {
         {chosenMoneyOperations === "expenses" ? (
           <div
             style={{
-              flexGrow: "1",
-              width: "50%",
+              flexGrow: "3",
+              width: maxWidth1000 ? "inherit" : "700px",
             }}>
             <ListContainer style={{ marginTop: "0" }}>
               <h3>Pokaż wydatki z kategorii: </h3>
@@ -250,13 +262,14 @@ export const Budget = () => {
               expenses={filterExpenses}
               onDelete={handleExpensesDelete}
               firestore={firestore}
+              widthEditInput={widthEditInput}
             />
           </div>
         ) : (
           <div
             style={{
-              flexGrow: "1",
-              width: "50%",
+              flexGrow: "3",
+              width: maxWidth1000 ? "inherit" : "700px",
             }}>
             <ListContainer style={{ marginTop: "0" }}>
               <h3>Pokaż przychody z kategorii: </h3>
