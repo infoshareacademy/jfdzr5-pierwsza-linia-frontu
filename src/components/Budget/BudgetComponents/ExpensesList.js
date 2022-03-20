@@ -23,13 +23,13 @@ dayjs.locale("pl");
 const NewExpenseContainer = styled.div`
   display: flex;
   min-height: 1rem;
-  margin-left: 100px;
+  // margin-left: 100px;
   margin-top: 10px;
   padding: 10px;
   flex-wrap: wrap;
   background-color: ${Theme.palette.secondary.main};
   color: ${Theme.palette.secondary.contrastText};
-  width: 70%;
+  // width: 70%;
 `;
 
 const ListItemElement = styled.span`
@@ -130,7 +130,6 @@ function ExpensesList({ uid, expenses, onDelete, firestore, widthEditInput }) {
                             <MenuItem value="Podróże">Podróże</MenuItem>
                             <MenuItem value="Inne">Inne</MenuItem>
                           </SelectComponent>
-
                           <EditInput
                             onChange={handleDateChange}
                             value={dateInput}

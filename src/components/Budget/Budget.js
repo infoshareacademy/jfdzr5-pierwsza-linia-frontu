@@ -21,6 +21,8 @@ import { Typography } from "@mui/material";
 import Box from "@mui/material/Box";
 import { useContext } from "react";
 import { UserContext } from "../../userContext/UserContext";
+import { Theme } from "../../common/theme/theme";
+import { useMediaQuery } from "@mui/material";
 
 const ListContainer = styled.div`
   display: flex;
@@ -41,6 +43,10 @@ export const Budget = () => {
   const [incomesFilterValue, setIncomesFilterValue] = useState("Wszystko");
   const [uid, setUid] = useState("");
   const { userUID } = useContext(UserContext);
+
+  const maxWidth1000 = useMediaQuery(
+    `(max-width: ${Theme.breakpoints.maxWidth1000})`
+  );
 
   const widthEditInput = "90px";
   useEffect(() => {
@@ -128,18 +134,21 @@ export const Budget = () => {
       <Box
         sx={{
           display: "flex",
-          flexDirection: "row",
-          width: "100%",
+          flexDirection: maxWidth1000 ? "column" : "row",
+          // alignItems: maxWidth1000 ? "center" : "",
+          width: maxWidth1000 || "100%",
           maxWidth: "1600px",
-          justifyContent: "space-between",
+          // justifyContent: "space-between",
+          justifyContent: "center",
           gap: "10px",
         }}>
         <div
           style={{
-            alignSelf: "flex-start",
+            alignSelf: maxWidth1000 ? "center" : "flex-start",
             width: "8rem",
             flexGrow: "1.5",
             marginTop: "17px",
+            margin: "0px",
           }}>
           {chosenMoneyOperations === "expenses" ? (
             <Typography variant="h6" style={{ textAlign: "center" }}>
@@ -163,8 +172,12 @@ export const Budget = () => {
               : `${parseFloat(incomesSum).toFixed(2)} zł`}
           </Box>
         </div>
-        <div style={{ marginLeft: "100px" }}>
-          <div>
+        <div style={{ marginLeft: "0" }}>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+            }}>
             <Button
               type="submit"
               variant="outlined"
@@ -213,8 +226,8 @@ export const Budget = () => {
         {chosenMoneyOperations === "expenses" ? (
           <div
             style={{
-              flexGrow: "1",
-              width: "50%",
+              flexGrow: "3",
+              // width: "50%",
             }}>
             <ListContainer style={{ marginTop: "0" }}>
               <h3>Pokaż wydatki z kategorii: </h3>
@@ -253,8 +266,8 @@ export const Budget = () => {
         ) : (
           <div
             style={{
-              flexGrow: "1",
-              width: "50%",
+              flexGrow: "3",
+              // width: "50%",
             }}>
             <ListContainer style={{ marginTop: "0" }}>
               <h3>Pokaż przychody z kategorii: </h3>
