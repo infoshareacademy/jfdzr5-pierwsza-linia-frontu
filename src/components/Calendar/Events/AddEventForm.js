@@ -85,6 +85,7 @@ const AddEventForm = ({
               }}
               onChange={handleChangeName}
             />
+
             <FormHelperText
               sx={{
                 margin: ".25rem",
